@@ -262,14 +262,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('reportes/compresor/crear')}}"
+                            <a href="{{url('reportes/compresor/create')}}"
                                 class="{{ Request::path() === 'reportes/compresor/crear' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Compresor</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('reportes/agua/crear')}}"
+                            <a href="{{url('reportes/agua/create')}}"
                                 class="{{ Request::path() === 'reportes/agua/crear' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Agua</p>
@@ -292,14 +292,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('reportes/compresor/ver')}}"
-                                class="{{ Request::path() === 'reportes/compresor/ver' ? 'nav-link active' : 'nav-link' }}">
+                            <a href="{{url('reportes/compresor')}}"
+                                class="{{ Request::path() === 'reportes/compresor' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Compresor</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('reportes/agua/ver')}}"
+                            <a href="{{url('reportes/agua')}}"
                                 class="{{ Request::path() === 'reportes/agua/ver' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Agua</p>
