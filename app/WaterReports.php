@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Water_Report extends Model
+class WaterReports extends Model
 {
     //
 }
