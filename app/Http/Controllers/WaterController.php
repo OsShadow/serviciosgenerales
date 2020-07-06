@@ -13,9 +13,16 @@ class WaterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('reportes.agua.index');
+
+
+
+
+        $wreports = WaterReports::all();
+        return view('reportes.agua.index', ['wreports' => $wreports]);
+
+
     }
 
     /**
@@ -39,7 +46,7 @@ class WaterController extends Controller
         $water = new WaterReports();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
-        
+
         $water->date = $date;
         $water->start_hour = $request->start_hour;
         $water->final_hour = $request->final_hour;
