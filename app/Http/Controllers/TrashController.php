@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\TrashReports;
 
 class TrashController extends Controller
 {
@@ -13,7 +15,8 @@ class TrashController extends Controller
      */
     public function index()
     {
-        //
+        return view('reportes.desechos.index');
+    
     }
 
     /**
@@ -23,7 +26,8 @@ class TrashController extends Controller
      */
     public function create()
     {
-        //
+        return view('reportes.desechos.create');
+    
     }
 
     /**
@@ -34,7 +38,17 @@ class TrashController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $trash = new TrashReports();
+
+        $date = Carbon::parse($request->date)->format('Y-m-d');
+        
+        $trash->area_report = $request->area;
+        $trash->quantity = intval($request->quantity);
+        $trash->user_report = auth()->id();
+
+        $trash->save();
+
+        return redirect('reportes/compresor');
     }
 
     /**

@@ -39,7 +39,6 @@ class CompresorController extends Controller
 
         $compresor = new CompresorReports();
 
-
         $date = Carbon::parse($request->date)->format('Y-m-d');
         
         $compresor->date = $date;

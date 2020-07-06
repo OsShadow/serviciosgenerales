@@ -185,8 +185,6 @@
                                 document.getElementById('logout-form').submit();">
                         Cerrar Sesión
                     </a>
-
-
                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                         style="display: none;">
                         @csrf
@@ -196,7 +194,6 @@
                 </a>
             </div>
         </div>
-
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -276,7 +273,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('reportes/deshechos/crear')}}"
+                            <a href="{{url('reportes/desechos/create')}}"
                                 class="{{ Request::path() === 'reportes/deshechos/crear' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Deshechos</p>
@@ -306,7 +303,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('reportes/deshechos/ver')}}"
+                            <a href="{{url('reportes/desechos')}}"
                                 class="{{ Request::path() === 'reportes/desechos/ver' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Deshechos</p>
