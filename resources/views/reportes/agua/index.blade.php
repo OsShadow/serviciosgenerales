@@ -13,28 +13,38 @@
           <th scope="col">Fecha</th>
           <th scope="col">Hora de inicio</th>
           <th scope="col">Hora de conclusión</th>
+
           <th scope="col">Lectura inicial</th>
+
           <th scope="col">Cloración</th>
           <th scope="col">Lectura Final</th>
           <th scope="col">Consumo</th>
           <th scope="col">Consumo Total</th>
           <th scope="col">Observaciones</th>
+          <th scope="col">Usuario</th>
 
           <th scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
+        @foreach($wreports as $wreport)
+
             <tr>
-                <th scope="row"></th>
+            <th scope="row">{{$wreport->id}}</th>
+
+                <td>{{$wreport->date}}</td>
+                <td>{{$wreport->start_hour}}</td>
+                <td>{{$wreport->final_hour}}</td>
                 <td></td>
+
+
+                <td>{{$wreport->cloration}}</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{$wreport->consumption}}</td>
+                <td>{{$wreport->consumption_total}}</td>
+                <td>{{$wreport->Observations}}</td>
+                <td>{{$wreport->user_report}}</td>
+
 
                 <td>
                   <form action="" method="POST">
@@ -47,12 +57,12 @@
                 </form>
                 </td>
             </tr>
-
+            @endforeach
       </tbody>
     </table>
 
     </div>
 
 
-    
+
 @endsection

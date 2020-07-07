@@ -13,9 +13,11 @@ class CompresorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('reportes.compresor.index');
+        $creports = CompresorReports::all();
+        return view('reportes.compresor.index', ['creports' => $creports]);
+
     }
 
     /**
@@ -40,7 +42,7 @@ class CompresorController extends Controller
         $compresor = new CompresorReports();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
-        
+
         $compresor->date = $date;
         $compresor->oil_level = $request->level;
         $compresor->temperature = $request->temperature;

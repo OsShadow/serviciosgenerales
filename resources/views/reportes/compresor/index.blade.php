@@ -14,17 +14,23 @@
               <th scope="col">Nivel de aceite</th>
               <th scope="col">Temperatura</th>
               <th scope="col">Observaciones</th>
+              <th scope="col">Usuario</th>
               <th scope="col">Opciones</th>
+
             </tr>
           </thead>
           <tbody>
+
+            @foreach($creports as $creport)
+
                 <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
+                <th scope="row">{{$creport->id}}</th>
+                    <td>{{$creport->date}}</td>
+                    <td>{{$creport->oil_level}}</td>
+                    <td>{{$creport->temperature}}</td>
+                    <td>{{$creport->observations}}</td>
+                    <td>{{$creport->user_report}}</td>
+
 
 
                     <td>
@@ -38,7 +44,7 @@
                     </form>
                     </td>
                 </tr>
-
+                @endforeach
           </tbody>
         </table>
 

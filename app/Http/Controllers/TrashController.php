@@ -15,8 +15,12 @@ class TrashController extends Controller
      */
     public function index()
     {
-        return view('reportes.desechos.index');
-    
+
+
+        $treports = TrashReports::all();
+        return view('reportes.desechos.index', ['treports' => $treports]);
+
+
     }
 
     /**
@@ -27,7 +31,7 @@ class TrashController extends Controller
     public function create()
     {
         return view('reportes.desechos.create');
-    
+
     }
 
     /**
@@ -41,7 +45,7 @@ class TrashController extends Controller
         $trash = new TrashReports();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
-        
+
         $trash->area_report = $request->area;
         $trash->quantity = intval($request->quantity);
         $trash->user_report = auth()->id();
