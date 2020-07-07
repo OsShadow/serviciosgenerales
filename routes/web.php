@@ -20,22 +20,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('usuarios', 'userController');
 
-Route::resource('reportes','ReportesController');
+Route::resource('reportes/compresor','compresorController');
 
-Route::get('reportes/agua/crear','ReportesController@crearReporteAgua');
+Route::resource('reportes/agua','waterController');
 
-Route::get('reportes/compresor/crear','ReportesController@crearReporteCompresor');
-
-Route::get('reportes/deshechos/crear','ReportesController@crearReporteDeshechos');
-
-Route::get('reportes/agua/ver','ReportesController@verReporteAgua');
-
-Route::get('reportes/compresor/ver','ReportesController@verReporteCompresor');
-
-Route::get('reportes/deshechos/ver','ReportesController@verReporteDeshechos');
-
-Route::resource('/notas/todas','NotasController');
-
-Route::get('/notas/favoritas','NotasController@favoritas');
-
-Route::get('/notas/archivadas','NotasController@archivadas');
+Route::resource('reportes/desechos','trashController');

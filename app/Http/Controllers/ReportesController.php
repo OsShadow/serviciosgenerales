@@ -18,11 +18,6 @@ class ReportesController extends Controller
         return view('reportes.agua.crear');
     }
 
-    public function crearReporteCompresor()
-    {
-        return view('reportes.compresor.crear');
-    }
-
     public function crearReporteDeshechos()
     {
         return view('reportes.deshechos.crear');
