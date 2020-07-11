@@ -50,6 +50,8 @@ class WaterController extends Controller
         $water->date = $date;
         $water->start_hour = $request->start_hour;
         $water->final_hour = $request->final_hour;
+        $water->initial_read = $request->initial_read;
+        $water->final_read = $request->final_read;
         $water->cloration = $request->cloration;
         $water->consumption = $request->consumption;
         $water->consumption_total = $request->consumption_t;

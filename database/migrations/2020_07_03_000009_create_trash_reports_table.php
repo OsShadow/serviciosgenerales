@@ -19,6 +19,7 @@ class CreateTrashreportsTable extends Migration
         Schema::create('trash_reports', function (Blueprint $table) {
             
             $table->bigIncrements('id');
+            $table->date('date');
             $table->decimal('quantity');
             $table->unsignedBigInteger('area_report');
             $table->unsignedBigInteger('user_report');

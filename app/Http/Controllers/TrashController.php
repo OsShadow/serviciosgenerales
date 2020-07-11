@@ -47,12 +47,13 @@ class TrashController extends Controller
         $date = Carbon::parse($request->date)->format('Y-m-d');
 
         $trash->area_report = $request->area;
+        $trash->date = $date;
         $trash->quantity = intval($request->quantity);
         $trash->user_report = auth()->id();
 
         $trash->save();
 
-        return redirect('reportes/compresor');
+        return redirect('reportes/desechos');
     }
 
     /**
