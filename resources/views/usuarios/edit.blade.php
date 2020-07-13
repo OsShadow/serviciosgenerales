@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-4">
             @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 <h3>Editar Usuario: {{$user->name}}</h3>
         <form action="{{route('usuarios.update',$user->id)}}" method="POST">
             @method('PATCH')
@@ -24,7 +24,7 @@
     <div class="form-group">
         <label for="email">Email </label>
     <input type="email" class="form-control" name="email" value="{{$user->email}}" placeholder="Escribe tu email">
-       
+
       </div>
     <button type="submit" class="btn btn-primary">Guardar</button>
     <button type="reset" class="btn btn-danger float-right">Cancelar</button>
