@@ -31,11 +31,9 @@
                     <td>{{$creport->observations}}</td>
                     <td>{{$creport->user_report}}</td>
 
-
-
                     <td>
                       <form action="{{route('compresor.destroy', $creport->id )}}" method="POST">
-                      <a href="{{route('compresor.show', $creport->id)}}"><button type="button" class="btn btn-info"><i class="far fa-eye" alt="Submit"></i></button></a>
+                      <a href="{{route('compresor.show', $creport->id)}}"><button type="button"class="btn btn-info"><i style="color: white" class="far fa-eye" alt="Submit"></i></button></a>
                       <a href="{{route('compresor.edit', $creport->id)}}"><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
                       @csrf
                       @method('DELETE')
