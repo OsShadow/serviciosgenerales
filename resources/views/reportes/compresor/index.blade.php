@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="" >
-    <a href=""> <button type="button" class="btn btn-success float-right" >Crear nuevo </button> </a>
+<a href="{{url('reportes/compresor/create')}}"> <button type="button" class="btn btn-success float-right" >Crear nuevo </button> </a>
         <h2> Reportes de Compresor </h2>
 
         <table class="table table-striped table-hover ">
