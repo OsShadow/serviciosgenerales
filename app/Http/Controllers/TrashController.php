@@ -64,7 +64,7 @@ class TrashController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('reportes.desechos.show',[   'treports'=> TrashReports::findOrFail($id)]);
     }
 
     /**
@@ -75,7 +75,8 @@ class TrashController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('reportes.desechos.edit',[   'treports'=> TrashReports::findOrFail($id)]);
+
     }
 
     /**
@@ -87,7 +88,15 @@ class TrashController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $trash = TrashReports::findOrFail($id);
+
+        $trash->area_report = $request->area;
+        $trash->quantity = intval($request->quantity);
+
+
+        $trash->save();
+
+        return redirect('reportes/desechos');
     }
 
     /**
@@ -98,6 +107,10 @@ class TrashController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $trash = TrashReports::findOrFail($id);
+
+        $trash->delete();
+
+        return redirect('/reportes/desechos');
     }
 }

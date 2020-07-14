@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Reporte de Compresor') }}</div>
+                <div class="card-header">{{ __('Reporte de desechos') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ url('reportes/desechos') }}">
