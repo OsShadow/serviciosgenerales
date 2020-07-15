@@ -89,8 +89,6 @@ class TrashController extends Controller
 
         $trash->area_report = $request->area;
         $trash->quantity = intval($request->quantity);
-
-
         $trash->save();
 
         return redirect('reportes/desechos');

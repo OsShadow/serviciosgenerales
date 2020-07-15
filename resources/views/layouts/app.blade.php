@@ -263,7 +263,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{url('reportes/desechos/create')}}"
-                            class="{{ Request::path() === 'reportes/deshechos/create' ? 'nav-link active' : 'nav-link' }}">
+                            class="{{ Request::path() === 'reportes/desechos/create' ? 'nav-link active' : 'nav-link' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Deshechos</p>
                         </a>

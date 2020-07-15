@@ -26,6 +26,7 @@ class EmergenciesController extends Controller
      */
     public function create()
     {
+        
         return view('emergencias.create');    
     
     }
@@ -60,7 +61,7 @@ class EmergenciesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('emergencias.show',['ereport'=> Emergencies::findOrFail($id)]);    
     }
 
     /**
@@ -71,7 +72,7 @@ class EmergenciesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('emergencias.edit',['ereport'=> Emergencies::findOrFail($id)]);   
     }
 
     /**
@@ -83,7 +84,14 @@ class EmergenciesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $emergencie = Emergencies::findOrFail($id);
+
+        $emergencie->date = $request->date;
+        $emergencie->observations = $request->observations;
+        $emergencie->description = $request->description;
+        $emergencie->save();
+
+        return redirect('emergencias');
     }
 
     /**
@@ -94,6 +102,10 @@ class EmergenciesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $emergencie = Emergencies::findOrFail($id);
+
+        $emergencie->delete();
+
+        return redirect('emergencias');
     }
 }
