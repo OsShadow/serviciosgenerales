@@ -16,11 +16,8 @@ class TrashController extends Controller
     public function index()
     {
 
-
         $treports = TrashReports::all();
         return view('reportes.desechos.index', ['treports' => $treports]);
-
-
     }
 
     /**

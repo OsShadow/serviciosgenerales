@@ -14,8 +14,9 @@ class EmergenciesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {       
+        $ereports = Emergencies::all();
+        return view('emergencias.index', ['ereports' => $ereports]);    
     }
 
     /**
