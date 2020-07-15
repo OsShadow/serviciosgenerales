@@ -32,7 +32,7 @@ class CreateTrashreportsTable extends Migration
 
             $table->foreign('area_report')
             ->references('id')
-            ->on('users')
+            ->on('areas')
             ->onDelete('cascade');
           
         });

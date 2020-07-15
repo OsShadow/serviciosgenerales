@@ -14,6 +14,7 @@ class CreateEmergenciesTable extends Migration
     public function up()
     {
         Schema::create('emergencies', function (Blueprint $table) {
+            
             $table->bigIncrements('id');
             $table->date('date');
             $table->longText('description');

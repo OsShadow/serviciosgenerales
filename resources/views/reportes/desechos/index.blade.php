@@ -4,7 +4,7 @@
 
 <div class="" >
 <a href="{{route('desechos.create')}}"> <button type="button" class="btn btn-success float-right" >Crear nuevo </button> </a>
-        <h2> Reportes de agua </h2>
+        <h2> Reportes de desechos </h2>
 
         <table class="table table-striped table-hover ">
           <thead class="thead-dark">
