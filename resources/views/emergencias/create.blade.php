@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -6,7 +8,7 @@
     @csrf
     <div class="form-group ">
         <label for="date" >Fecha</label>
-            <input class="form-control" type="date" value="2011-08-19" name="date" id="date">
+    <input class="form-control" type="date" value="{{$date}}" name="date" id="date">
         </div>
 
     <div class="form-group">

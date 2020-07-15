@@ -26,8 +26,8 @@ class EmergenciesController extends Controller
      */
     public function create()
     {
-        
-        return view('emergencias.create');    
+        $date = Carbon::parse(Carbon::now())->format('Y-m-d');
+        return view('emergencias.create',['date'=>$date]);    
     
     }
 

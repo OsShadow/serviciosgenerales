@@ -27,7 +27,9 @@ class CompresorController extends Controller
      */
     public function create()
     {
-        return view('reportes.compresor.create');
+        $date = Carbon::parse(Carbon::now())->format('Y-m-d');
+        return view('reportes.compresor.create',['date'=>$date]);  
+
     }
 
     /**

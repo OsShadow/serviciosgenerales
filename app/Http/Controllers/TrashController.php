@@ -27,7 +27,8 @@ class TrashController extends Controller
      */
     public function create()
     {
-        return view('reportes.desechos.create');
+        $date = Carbon::parse(Carbon::now())->format('Y-m-d');
+        return view('reportes.desechos.create',['date'=>$date]);  
 
     }
 

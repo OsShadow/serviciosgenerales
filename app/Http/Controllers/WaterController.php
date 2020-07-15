@@ -16,8 +16,8 @@ class WaterController extends Controller
 public function index(Request $request)
 {
 
-    $wreports = WaterReports::all();
-    return view('reportes.agua.index', ['wreports' => $wreports]);
+$wreports = WaterReports::all();
+return view('reportes.agua.index', ['wreports' => $wreports]);
 
 }
 
@@ -28,7 +28,10 @@ public function index(Request $request)
  */
 public function create()
 {
-    return view('reportes.agua.create');
+
+$date = Carbon::parse(Carbon::now())->format('Y-m-d');
+return view('reportes.agua.create',['date'=>$date]);  
+
 }
 
 /**
@@ -39,24 +42,24 @@ public function create()
  */
 public function store(Request $request)
 {
-    $water = new WaterReports();
+$water = new WaterReports();
 
-    $date = Carbon::parse($request->date)->format('Y-m-d');
+$date = Carbon::parse($request->date)->format('Y-m-d');
 
-    $water->date = $date;
-    $water->start_hour = $request->start_hour;
-    $water->final_hour = $request->final_hour;
-    $water->initial_read = $request->initial_read;
-    $water->final_read = $request->final_read;
-    $water->cloration = $request->cloration;
-    $water->consumption = $request->consumption;
-    $water->consumption_total = $request->consumption_t;
-    $water->observations = $request->observations;
-    $water->user_report = auth()->id();
+$water->date = $date;
+$water->start_hour = $request->start_hour;
+$water->final_hour = $request->final_hour;
+$water->initial_read = $request->initial_read;
+$water->final_read = $request->final_read;
+$water->cloration = $request->cloration;
+$water->consumption = $request->consumption;
+$water->consumption_total = $request->consumption_t;
+$water->observations = $request->observations;
+$water->user_report = auth()->id();
 
-    $water->save();
+$water->save();
 
-    return redirect('reportes/agua');
+return redirect('reportes/agua');
 }
 
 /**
@@ -67,7 +70,7 @@ public function store(Request $request)
  */
 public function show($id)
 {
-    return view('reportes.agua.show',['wreport'=> WaterReports::findOrFail($id)]);
+return view('reportes.agua.show',['wreport'=> WaterReports::findOrFail($id)]);
 }
 
 /**
@@ -78,7 +81,8 @@ public function show($id)
  */
 public function edit($id)
 {
-    return view('reportes.agua.edit',['wreport'=> WaterReports::findOrFail($id)]);
+
+return view('reportes.agua.edit',['wreport'=> WaterReports::findOrFail($id)]);
 }
 
 /**
@@ -90,18 +94,18 @@ public function edit($id)
  */
 public function update(Request $request, $id)
 {
-    $water = WaterReports::findOrFail($id);
+$water = WaterReports::findOrFail($id);
 
-    $water->initial_read = $request->initial_read;
-    $water->final_read = $request->final_read;
-    $water->cloration = $request->cloration;
-    $water->consumption = $request->consumption;
-    $water->consumption_total = $request->consumption_t;
-    $water->observations = $request->observations;
+$water->initial_read = $request->initial_read;
+$water->final_read = $request->final_read;
+$water->cloration = $request->cloration;
+$water->consumption = $request->consumption;
+$water->consumption_total = $request->consumption_t;
+$water->observations = $request->observations;
 
-    $water->update();   
+$water->update();   
 
-    return redirect('/reportes/agua');
+return redirect('/reportes/agua');
 }
 
 /**
@@ -112,10 +116,10 @@ public function update(Request $request, $id)
  */
 public function destroy($id)
 {
-    $wreport = WaterReports::findOrFail($id);
+$wreport = WaterReports::findOrFail($id);
 
-    $wreport->delete();
+$wreport->delete();
 
-    return redirect('/reportes/agua');
+return redirect('/reportes/agua');
 }
 }
