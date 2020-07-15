@@ -311,7 +311,22 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item">
+                <a href="{{url('emergencias/create')}}"
+                        class="{{ Request::path() === 'emergencias/create' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fas fa-exclamation-triangle"></i>
+                        <p>
+                            Reportar emergencia
+                            <span class="right badge badge-danger"></span>
+                        </p>
+                    </a>
+                </li>
+        
         </ul>
+
+       
+
     </nav>
     <!-- /.sidebar-menu -->
 </div>

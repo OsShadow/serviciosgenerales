@@ -25,3 +25,6 @@ Route::resource('reportes/compresor','compresorController');
 Route::resource('reportes/agua','waterController');
 
 Route::resource('reportes/desechos','trashController');
+
+Route::resource('emergencias','emergenciesController');
+

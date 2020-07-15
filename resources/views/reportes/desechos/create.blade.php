@@ -40,12 +40,6 @@
 
                         </div>
 
-
-
-
-
-
-
                         <div class="form-group col-md-6">
 
                                 <button type="submit" class="btn btn-primary btn-lg">
