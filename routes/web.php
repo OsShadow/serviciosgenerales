@@ -72,3 +72,5 @@ Route::middleware('auth')->group(function(){
     // Route::delete('reportes/desechos/{id}','TrashController@destroy')->name('desechos.destroy')->middleware('permission:desechos.destroy');
     // Route::get('reportes/desechos/edit/{id}','TrashController@edit')->name('desechos.edit')->middleware('permission:desechos.edit');
 });
+
+Route::resource('emergencias','emergenciesController');
