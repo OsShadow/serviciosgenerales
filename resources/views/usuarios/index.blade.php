@@ -3,6 +3,7 @@
 @section('content')
 <div class="container" >
 <a href="usuarios/create"> <button type="button" class="btn btn-success float-right" > Agregar usuario </button> </a>
+<a href="roles"> <button type="button" class="btn btn-success float-right" > Listado de Roles </button> </a>
 <h2> Lista de usuarios </h2>
 <h6>
   @if($search)
@@ -28,7 +29,9 @@
             <td>{{$user->email}}</td>
             <td>
               <form action="{{route('usuarios.destroy', $user->id )}}" method="POST">
+              {{--  @can('usuarios.show')  --}}
               <a href="{{route('usuarios.show', $user->id)}}"><button type="button" class="btn btn-secondary">Ver</button></a>
+              {{--  @endcan  --}}
               <a href="{{route('usuarios.edit', $user->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>
               @csrf
               @method('DELETE')
