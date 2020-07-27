@@ -13,9 +13,11 @@ class CompresorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('reportes.compresor.index');
+        $creports = CompresorReports::all();
+        return view('reportes.compresor.index', ['creports' => $creports]);
+
     }
 
     /**
@@ -25,7 +27,9 @@ class CompresorController extends Controller
      */
     public function create()
     {
-        return view('reportes.compresor.create');
+        $date = Carbon::parse(Carbon::now())->format('Y-m-d');
+        return view('reportes.compresor.create',['date'=>$date]);  
+
     }
 
     /**
@@ -40,7 +44,7 @@ class CompresorController extends Controller
         $compresor = new CompresorReports();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
-        
+
         $compresor->date = $date;
         $compresor->oil_level = $request->level;
         $compresor->temperature = $request->temperature;
@@ -60,7 +64,7 @@ class CompresorController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('reportes.compresor.show',[   'creport'=> CompresorReports::findOrFail($id)]);
     }
 
     /**
@@ -71,7 +75,7 @@ class CompresorController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('reportes.compresor.edit',[   'creport'=> CompresorReports::findOrFail($id)]);
     }
 
     /**
@@ -83,7 +87,16 @@ class CompresorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $compresor = CompresorReports::findOrFail($id);
+
+        $compresor->oil_level = $request->level;
+        $compresor->temperature = $request->temperature;
+        $compresor->observations = $request->observations;
+
+        $compresor->update();
+
+        return redirect('/reportes/compresor');
     }
 
     /**
@@ -94,6 +107,10 @@ class CompresorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $creport = CompresorReports::findOrFail($id);
+
+        $creport->delete();
+
+        return redirect('/reportes/compresor');
     }
 }

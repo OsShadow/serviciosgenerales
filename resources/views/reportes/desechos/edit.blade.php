@@ -6,26 +6,31 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="card">
-                <div class="card-header">{{ __('Reporte de desechos') }}</div>
+                <div class="card-header">{{ __('Editar reporte Reporte') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('reportes/desechos') }}">
+                    <form method="POST" action="{{route('desechos.update', $treports->id) }}">
+                        @method('PATCH')
                         @csrf
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <div class="form-group ">
-                                    <label for="date" >Fecha de generación</label>
-                                <input class="form-control" type="date" value="{{$date}}" id="date" name="date">
-                                  </div>
-                            </div>
+
 
                             <div class="form-group col-md-4">
                                 <label for="area">Area</label>
                                 <select class="custom-select" id="area" name="area" required>
-                                  <option selected disabled value="">Elige area...</option>
-                                  <option>1</option>
+                                <option selected >{{$treports->area_report}}</option>
+                                  <option >1</option>
                                 </select>
 
                             </div>
@@ -33,12 +38,18 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="quantity">Cantidad</label>
-                                    <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Cantidad por litro">
+                                <input type="text" class="form-control" value="{{$treports->quantity}}" id="quantity" name="quantity" placeholder="Cantidad por litro">
                                   </div>
 
                             </div>
 
                         </div>
+
+
+
+
+
+
 
                         <div class="form-group col-md-6">
 
@@ -53,4 +64,5 @@
         </div>
     </div>
 </div>
+
 @endsection

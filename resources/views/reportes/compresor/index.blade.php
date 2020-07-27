@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="" >
-    <a href=""> <button type="button" class="btn btn-success float-right" >Crear nuevo </button> </a>
+<a href="{{url('reportes/compresor/create')}}"> <button type="button" class="btn btn-success float-right" >Crear nuevo </button> </a>
         <h2> Reportes de Compresor </h2>
 
         <table class="table table-striped table-hover ">
@@ -14,23 +14,27 @@
               <th scope="col">Nivel de aceite</th>
               <th scope="col">Temperatura</th>
               <th scope="col">Observaciones</th>
+              <th scope="col">Usuario</th>
               <th scope="col">Opciones</th>
+
             </tr>
           </thead>
           <tbody>
-                <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
 
+            @foreach($creports as $creport)
+
+                <tr>
+                <th scope="row">{{$creport->id}}</th>
+                    <td>{{$creport->date}}</td>
+                    <td>{{$creport->oil_level}}</td>
+                    <td>{{$creport->temperature}}</td>
+                    <td>{{$creport->observations}}</td>
+                    <td>{{$creport->user_report}}</td>
 
                     <td>
-                      <form action="" method="POST">
-                      <a href=""><button type="button" class="btn btn-info"><i class="far fa-eye" alt="Submit"></i></button></a>
-                      <a href=""><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
+                      <form action="{{route('compresor.destroy', $creport->id )}}" method="POST">
+                      <a href="{{route('compresor.show', $creport->id)}}"><button type="button"class="btn btn-info"><i style="color: white" class="far fa-eye" alt="Submit"></i></button></a>
+                      <a href="{{route('compresor.edit', $creport->id)}}"><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="btn btn-danger" onclick= "return confirm('¿Seguro que desea Eliminar el reporte?')"><i class="far fa-trash-alt"></i></button></button>
@@ -38,7 +42,7 @@
                     </form>
                     </td>
                 </tr>
-
+                @endforeach
           </tbody>
         </table>
 

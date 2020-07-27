@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Emergencies;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\TrashReports;
 
-class TrashController extends Controller
+class EmergenciesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,9 @@ class TrashController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-
-        $treports = TrashReports::all();
-        return view('reportes.desechos.index', ['treports' => $treports]);
+    {       
+        $ereports = Emergencies::all();
+        return view('emergencias.index', ['ereports' => $ereports]);    
     }
 
     /**
@@ -28,8 +27,8 @@ class TrashController extends Controller
     public function create()
     {
         $date = Carbon::parse(Carbon::now())->format('Y-m-d');
-        return view('reportes.desechos.create',['date'=>$date]);  
-
+        return view('emergencias.create',['date'=>$date]);    
+    
     }
 
     /**
@@ -40,18 +39,18 @@ class TrashController extends Controller
      */
     public function store(Request $request)
     {
-        $trash = new TrashReports();
+        $emergencie = new Emergencies();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
+        $emergencie->date = $request->date;
+        $emergencie->description = $request->description;
+        $emergencie->observations = $request->observations;
+        $emergencie->user_report = auth()->id();
+        $emergencie->user_area = auth()->id();
 
-        $trash->area_report = $request->area;
-        $trash->date = $date;
-        $trash->quantity = intval($request->quantity);
-        $trash->user_report = auth()->id();
+        $emergencie->save();
 
-        $trash->save();
-
-        return redirect('reportes/desechos');
+        return redirect('emergencias/create');
     }
 
     /**
@@ -62,7 +61,7 @@ class TrashController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.desechos.show',[   'treports'=> TrashReports::findOrFail($id)]);
+        return view('emergencias.show',['ereport'=> Emergencies::findOrFail($id)]);    
     }
 
     /**
@@ -73,8 +72,7 @@ class TrashController extends Controller
      */
     public function edit($id)
     {
-        return view('reportes.desechos.edit',[   'treports'=> TrashReports::findOrFail($id)]);
-
+        return view('emergencias.edit',['ereport'=> Emergencies::findOrFail($id)]);   
     }
 
     /**
@@ -86,13 +84,14 @@ class TrashController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $trash = TrashReports::findOrFail($id);
+        $emergencie = Emergencies::findOrFail($id);
 
-        $trash->area_report = $request->area;
-        $trash->quantity = intval($request->quantity);
-        $trash->save();
+        $emergencie->date = $request->date;
+        $emergencie->observations = $request->observations;
+        $emergencie->description = $request->description;
+        $emergencie->save();
 
-        return redirect('reportes/desechos');
+        return redirect('emergencias');
     }
 
     /**
@@ -103,10 +102,10 @@ class TrashController extends Controller
      */
     public function destroy($id)
     {
-        $trash = TrashReports::findOrFail($id);
+        $emergencie = Emergencies::findOrFail($id);
 
-        $trash->delete();
+        $emergencie->delete();
 
-        return redirect('/reportes/desechos');
+        return redirect('emergencias');
     }
 }
