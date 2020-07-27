@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-xs-6 col-md-4">
 <form action="/usuarios" method="POST">
     @csrf
     <div class="form-group">
@@ -26,7 +26,6 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" name="password" placeholder="Introduzca la contraseña">
     </div>
-    
     <button type="submit" class="btn btn-primary">Registrar</button>
     <button type="reset" class="btn btn-danger float-right">Cancelar</button>
   </form>

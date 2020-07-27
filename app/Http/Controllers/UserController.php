@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserFormRequest;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -19,18 +20,13 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        
         if($request){
-           
             $query = trim($request->get('search'));
             $users = User::where('name','LIKE','%'.$query.'%')->orderBy('id','asc')->paginate(5);
-
             return view('usuarios.index',['users'=> $users, 'search' => $query]);
-
         }else{
-        
-        $users = User::all();
-        return view('usuarios/index', ['users' => $users]);
+            $users = User::all();
+            return view('usuarios/index', ['users' => $users]);
         }
     }
 
@@ -41,7 +37,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+        $roles = Role::orderBy('name','asc')->get();
+        return view('usuarios.create',compact('roles'));
     }
 
     /**
@@ -52,6 +49,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // $usuario = User::create($request->all());
         $usuario = new User();
         $usuario->code =  request('code');
         $usuario->name =  request('name');
@@ -59,6 +57,7 @@ class UserController extends Controller
         $usuario->email = request('email');
         $usuario->password =  Hash::make(request('password'));
         $usuario->save();
+        $usuario->assignRole('Admin');
 
         return redirect('/usuarios');
     }
@@ -71,7 +70,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('usuarios.show',[   'user'=> User::findOrFail($id)]);
+        // ->with('roles')->get()
+        $user = User::findOrFail($id);
+        return view('usuarios.show',compact('user'));
     }
 
     /**
@@ -82,7 +83,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('usuarios.edit',[   'user'=> User::findOrFail($id)]);
+        $user = User::findOrFail($id);
+        $roles = Role::orderBy('name','asc')->get();
+        return view('usuarios.edit',compact('user','roles'));
     }
 
     /**
@@ -97,9 +100,8 @@ class UserController extends Controller
         $usuario = User::findOrFail($id);
         $usuario->name =  $request->get('name');
         $usuario->email = $request->get('email');
-        
         $usuario->update();
-
+        $usuario->SyncRoles(request('roles'));
         return redirect('/usuarios'); 
     }
 
@@ -112,10 +114,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $usuario = user::findOrFail($id);
-
         $usuario->delete();
-
         return redirect('/usuarios');
-
     }
 }
