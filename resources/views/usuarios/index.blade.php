@@ -11,25 +11,28 @@
 </div>
   @endif
 </h6>
-<table class="table">
+
+<table class="table table-striped table-bordered" id="myTable">
   <thead>
-    <tr>
+    <tr class="thead-dark">
       <th scope="col">ID</th>
-      <th scope="col">Nombre</th>
+      <th data-card-title scope="col">Nombre</th>
       <th scope="col">Email</th>
-      <th scope="col">Opciones</th>
+      <th data-card-footer scope="col">Opciones</th>
     </tr>
   </thead>
   <tbody>
   @foreach($users as $user)
         <tr>
-            <th scope="row">{{$user->id}}</th>
+            <td scope="row">{{$user->id}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
             <td>
               <form action="{{route('usuarios.destroy', $user->id )}}" method="POST">
               <a href="{{route('usuarios.show', $user->id)}}"><button type="button" class="btn btn-secondary">Ver</button></a>
               <a href="{{route('usuarios.edit', $user->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>
+              <a href=""><button type="button" class="btn btn-primary"></button></a>
+              <i class="fas fa-print"></i>
               @csrf
               @method('DELETE')
 

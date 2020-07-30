@@ -23,14 +23,14 @@
           <th scope="col">Observaciones</th>
           <th scope="col">Usuario</th>
 
-          <th scope="col">Opciones</th>
+          <th data-card-footer scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @foreach($wreports as $wreport)
 
             <tr>
-            <th scope="row">{{$wreport->id}}</th>
+            <td scope="row">{{$wreport->id}}</td>
 
                 <td>{{$wreport->date}}</td>
                 <td>{{$wreport->start_hour}}</td>
@@ -48,6 +48,7 @@
 
                 <td>
                   <form action="" method="POST">
+                    <a href="#"><button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
                   <a href=""><button type="button" class="btn btn-info"><i class="far fa-eye" alt="Submit"></i></button></a>
                   <a href=""><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
                   @csrf
