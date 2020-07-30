@@ -16,7 +16,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group ">
                                     <label for="example-date-input" >Fecha de generación</label>
-                                      <input class="form-control" type="date" name="" value="2011-08-19" name="date" id="date">
+                                <input class="form-control" type="date" name="" value="{{$date}}" name="date" id="date">
                                   </div>
                             </div>
 

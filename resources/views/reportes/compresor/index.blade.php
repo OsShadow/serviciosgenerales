@@ -31,13 +31,13 @@
                     <td>{{$creport->observations}}</td>
                     <td>{{$creport->user_report}}</td>
 
-
-
                     <td>
                       <form action="{{route('compresor.destroy', $creport->id )}}" method="POST">
+
                         
                       <a href="#"><button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
                       <a href="{{route('compresor.show', $creport->id)}}"><button type="button" class="btn btn-info"><i class="far fa-eye" alt="Submit" style="color: white"></i></button></a>
+
                       <a href="{{route('compresor.edit', $creport->id)}}"><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
 
 
