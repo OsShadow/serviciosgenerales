@@ -23,14 +23,14 @@
           <th scope="col">Observaciones</th>
           <th scope="col">Usuario</th>
 
-          <th scope="col">Opciones</th>
+          <th data-card-footer scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @foreach($wreports as $wreport)
 
             <tr>
-            <th scope="row">{{$wreport->id}}</th>
+            <td scope="row">{{$wreport->id}}</td>
 
                 <td>{{$wreport->date}}</td>
                 <td>{{$wreport->start_hour}}</td>
@@ -45,9 +45,11 @@
                 <td>{{$wreport->user_report}}</td>
 
                 <td>
+
                   <form action="{{route('agua.destroy', $wreport->id)}}" method="POST">
                   <a href="{{route('agua.show', $wreport->id)}}"><button type="button" class="btn btn-info"><i class="far fa-eye" style="color: white" alt="Submit"></i></button></a>
                   <a href="{{route('agua.edit', $wreport->id)}}"><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
+
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger" onclick= "return confirm('¿Seguro que desea Eliminar el reporte?')"><i class="far fa-trash-alt"></i></button></button>
