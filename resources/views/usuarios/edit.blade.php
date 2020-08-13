@@ -26,6 +26,15 @@
     <input type="email" class="form-control" name="email" value="{{$user->email}}" placeholder="Escribe tu email">
 
       </div>
+      <div class="form-group">
+    {{--  {{dd($roles)}}  --}}
+      <label for="Asignación de rol">Asignación de rol</label>
+      <select class="form-control" id="rol" placeholder="Asignación de Rol">
+        @foreach($roles as $rol)
+          <option>{{$rol->name}}</option>
+        @endforeach
+      </select>
+    </div>
     <button type="submit" class="btn btn-primary">Guardar</button>
     <button type="reset" class="btn btn-danger float-right">Cancelar</button>
   </form>
