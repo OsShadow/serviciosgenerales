@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('name','asc')->get();
+        $roles = Role::orderBy('name','asc')->get('name');
         return view('usuarios.create',compact('roles'));
     }
 
@@ -57,7 +57,7 @@ class UserController extends Controller
         $usuario->email = request('email');
         $usuario->password =  Hash::make(request('password'));
         $usuario->save();
-        $usuario->assignRole('Admin');
+        $usuario->assignRole(request('rol'));
 
         return redirect('/usuarios');
     }
@@ -84,7 +84,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::orderBy('name','asc')->get();
+        $roles = Role::orderBy('name','asc')->get('name');
         return view('usuarios.edit',compact('user','roles'));
     }
 

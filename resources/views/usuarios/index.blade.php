@@ -18,7 +18,9 @@
 
 @section('content')
 <div class="container" >
+@can('usuario.create')
 <a href="usuarios/create"> <button type="button" class="btn btn-success float-right" > Agregar usuario </button> </a>
+@endcan
 <a href="roles"> <button type="button" class="btn btn-success float-right" > Listado de Roles </button> </a>
 <h2> Lista de usuarios </h2>
 <h6>

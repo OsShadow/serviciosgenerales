@@ -12,7 +12,7 @@
           </div>
           <div class="form-group">
             <label for="description">Descripcion</label>
-            <textarea class="form-control" name="name" placeholder="Introduzca la descripcion que tendra el rol" rows="3"></textarea>
+            <textarea class="form-control" name="description" placeholder="Introduzca la descripcion que tendra el rol" rows="3"></textarea>
           </div>
           <div class="row">
             {{$cate = ""}}
