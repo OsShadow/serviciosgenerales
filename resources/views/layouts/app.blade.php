@@ -1,3 +1,5 @@
+<?php use App\User; ?>
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -195,19 +197,23 @@
                     <p>Inicio</p>
                 </a>
             </li>
-            {{--  @can('usuarios.index')  --}}
+
+            @can('usuarios.index')
+
             <li class="nav-item">
                 <a href="{{url('usuarios')}}"
                     class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Usuarios
-                        <?php use App\User; $users_count = User::all()->count(); ?>
+                        <?php  $users_count = User::all()->count(); ?>
+                        
                         <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
                     </p>
                 </a>
             </li>
-            {{--  @endcan  --}}
+
+            @endcan
             <!--
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -240,7 +246,7 @@
             </li>
         -->
 
-
+        @can('desechos.create')
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file"></i>
@@ -270,7 +276,9 @@
                     </li>
                 </ul>
             </li>
+            @endcan
 
+            @can('desechos.show')
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file-alt"></i>
@@ -300,19 +308,8 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="nav-item">
-                <a href="{{url('emergencias/create')}}"
-                        class="{{ Request::path() === 'emergencias/create' ? 'nav-link active' : 'nav-link' }}">
-                        <i class="nav-icon fas fa-exclamation-triangle"></i>
-                        <p>
-                            Reportar emergencia
-                            <span class="right badge badge-danger"></span>
-                        </p>
-                    </a>
-                </li>
-
-
+            @endcan
+            @can('usuarios.index')
                 <li class="nav-item has-treeview">
                     <a href="#" class="{{ Request::path() === 'emergencias/create' ? 'nav-link active' : 'nav-link' }}" >
                         
@@ -327,6 +324,7 @@
                                 <p>Crear reporte</p>
                             </a>
                         </li>
+                        @can('usuarios.show')
                         <li class="nav-item">
                             <a href="{{url('emergencias')}}"
                                 class="{{ Request::path() === 'emergencias/index' ? 'nav-link active' : 'nav-link' }}">
@@ -334,6 +332,9 @@
                                 <p>Ver reportes</p>
                             </a>
                         </li>
+                        @endcan
+
+                        @endcan
                     </ul>
                 </li>
         
