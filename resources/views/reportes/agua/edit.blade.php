@@ -10,7 +10,7 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{route('agua.update', $wreport->id) }}">
-                        @method('PATCH')
+                      
                         @csrf
                         <div class="form-row">
                             

@@ -35,6 +35,11 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear Usuarios'
             ]);
         Permission::create([
+             'name' => 'usuarios.update',
+            'category' => 'Usuarios',
+              'display'=>'Actualizar Usuarios'
+              ]);
+        Permission::create([
             'name' => 'usuarios.destroy',
             'category' => 'Usuarios',
             'display'=>'Eliminar Usuarios'
@@ -59,6 +64,11 @@ class PermissionTableSeeder extends Seeder
             'name' => 'roles.create',
             'category' => 'Roles',
             'display'=>'Crear Roles'
+            ]);
+        Permission::create([
+            'name' => 'roles.update',
+            'category' => 'Roles',
+            'display'=>'Actualizar Roles'
             ]);
         Permission::create([
             'name' => 'roles.destroy',
@@ -87,6 +97,11 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Compresor'
             ]);
         Permission::create([
+                'name' => 'compresor.update',
+                'category' => 'Compresor',
+                'display'=>'Actualizar reporte de Compresor'
+                ]);
+        Permission::create([
             'name' => 'compresor.destroy',
             'category' => 'Compresor',
             'display'=>'Eliminar reporte de Compresor'
@@ -113,6 +128,11 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Desechos'
             ]);
         Permission::create([
+            'name' => 'desechos.update',
+            'category' => 'Desechos',
+            'display'=>'Actualizar reporte de Desechos'
+            ]);
+        Permission::create([
             'name' => 'desechos.destroy',
             'category' => 'Desechos',
             'display'=>'Eliminar reporte de Desechos'
@@ -137,6 +157,11 @@ class PermissionTableSeeder extends Seeder
             'name' => 'agua.create',
             'category' => 'Agua',
             'display'=>'Crear reporte de Agua'
+            ]);
+        Permission::create([
+            'name' => 'agua.update',
+            'category' => 'Agua',
+            'display'=>'Actualizar reporte de Agua'
             ]);
         Permission::create([
             'name' => 'agua.destroy',

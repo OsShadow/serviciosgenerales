@@ -15,7 +15,7 @@
             @endif
 <h3>Editar Usuario: {{$user->name}}</h3>
         <form action="{{route('usuarios.update',$user->id)}}" method="POST">
-            @method('PATCH')
+           
     @csrf
     <div class="form-group">
       <label for="name">Nombre</label>
