@@ -18,9 +18,11 @@
 
 @section('content')
 <div class="container" >
-@can('usuario.create')
+
+@can('usuarios.create')
 <a href="usuarios/create"> <button type="button" class="btn btn-success float-right" > Agregar usuario </button> </a>
 @endcan
+
 <a href="roles"> <button type="button" class="btn btn-success float-right" > Listado de Roles </button> </a>
 <h2> Lista de usuarios </h2>
 <h6>
@@ -30,7 +32,6 @@
 </div>
   @endif
 </h6>
-
 <table class="table table-striped table-bordered" id="myTable">
   <thead>
     <tr class="thead-dark">
@@ -48,9 +49,11 @@
             <td>{{$user->email}}</td>
             <td>
               <form action="{{route('usuarios.destroy', $user->id )}}" method="POST">
-              {{--  @can('usuarios.show')  --}}
+               
+              @can('usuarios.show') 
               <a href="{{route('usuarios.show', $user->id)}}"><button type="button" class="btn btn-secondary">Ver</button></a>
-              {{--  @endcan  --}}
+              @endcan 
+
               <a href="{{route('usuarios.edit', $user->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>
               <a href=""><button type="button" class="btn btn-primary"></button></a>
               <i class="fas fa-print"></i>
