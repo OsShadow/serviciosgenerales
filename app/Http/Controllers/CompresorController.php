@@ -96,7 +96,7 @@ class CompresorController extends Controller
 
         $compresor->update();
 
-        return redirect('/reportes/compresor');
+        return redirect('reportes/compresor');
     }
 
     /**

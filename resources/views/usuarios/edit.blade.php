@@ -8,14 +8,14 @@
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>{{ $error }}</li> 
                         @endforeach
                     </ul>
                 </div>
             @endif
 <h3>Editar Usuario: {{$user->name}}</h3>
         <form action="{{route('usuarios.update',$user->id)}}" method="POST">
-            @method('PATCH')
+           
     @csrf
     <div class="form-group">
       <label for="name">Nombre</label>

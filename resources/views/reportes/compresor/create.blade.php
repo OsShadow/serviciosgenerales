@@ -22,14 +22,14 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="nivel">Nivel de aceite</label>
-                                    <input type="text" class="form-control" id="nivel" name="level" placeholder="">
+                                    <input type="text" class="form-control" id="nivel" name="level" placeholder="Medida de nivel de aceite">
                                   </div>
 
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label for="Temperatura">Temperatura</label>
-                                    <input type="text" class="form-control" id="Temperatura" name="temperature" placeholder="">
+                                    <label for="Temperatura">Temperatura °C</label>
+                                    <input type="text" class="form-control" id="Temperatura" name="temperature" placeholder="Ingrese medida de temperatura">
                                   </div>
                             </div>
 
