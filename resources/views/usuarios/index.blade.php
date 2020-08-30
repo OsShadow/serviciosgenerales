@@ -49,17 +49,12 @@
             <td>{{$user->email}}</td>
             <td>
               <form action="{{route('usuarios.destroy', $user->id )}}" method="POST">
-               
               @can('usuarios.show') 
               <a href="{{route('usuarios.show', $user->id)}}"><button type="button" class="btn btn-secondary">Ver</button></a>
               @endcan 
-
               <a href="{{route('usuarios.edit', $user->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>
-              <a href=""><button type="button" class="btn btn-primary"></button></a>
-              <i class="fas fa-print"></i>
               @csrf
               @method('DELETE')
-
               <button type="submit" class="btn btn-danger" onclick= "return confirm('¿Seguro que desea Eliminar el reporte?')"><i class="far fa-trash-alt"></i></button></button>
             </form>
             </td>
