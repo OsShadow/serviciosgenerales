@@ -198,6 +198,7 @@
                 </a>
             </li>
 
+
             @can('usuarios.index')
 
             <li class="nav-item">
@@ -212,8 +213,9 @@
                     </p>
                 </a>
             </li>
-
+            
             @endcan
+            
             <!--
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">

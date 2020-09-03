@@ -102,6 +102,7 @@ class PermissionTableSeeder extends Seeder
                 'display'=>'Actualizar reporte de Compresor'
                 ]);
         Permission::create([
+
             'name' => 'compresor.destroy',
             'category' => 'Compresor',
             'display'=>'Eliminar reporte de Compresor'
@@ -159,6 +160,7 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Agua'
             ]);
         Permission::create([
+
             'name' => 'agua.update',
             'category' => 'Agua',
             'display'=>'Actualizar reporte de Agua'
