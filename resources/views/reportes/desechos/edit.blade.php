@@ -47,7 +47,7 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{route('desechos.update', $treports->id) }}">
-                        @method('PATCH')
+                        
                         @csrf
 
                         <div class="form-row">

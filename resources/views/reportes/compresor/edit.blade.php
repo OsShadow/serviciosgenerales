@@ -45,7 +45,7 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{route('compresor.update', $creport->id) }}">
-                        @method('PATCH')
+                        
                         @csrf
                         <div class="form-row">
 

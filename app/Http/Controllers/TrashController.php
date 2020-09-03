@@ -45,6 +45,7 @@ class TrashController extends Controller
         $trash = new TrashReports();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
+        
 
         $trash->area_report = $request->area;
         $trash->date = $date;

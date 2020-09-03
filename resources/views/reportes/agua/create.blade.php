@@ -66,8 +66,10 @@
 
                             <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label for="initial_read">Lectura inicial</label>
-                                    <input type="text" class="form-control" id="initial_read" name="initial_read" placeholder="">
+
+                                    <label for="Lectura_inicial">Lectura inicial</label>
+                                    <input type="text" class="form-control" id="initial_read" name="initial_read" placeholder="Medida de lectura inicial">
+
                                   </div>
 
                             </div>
@@ -81,8 +83,10 @@
 
                             <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label for="final_read">Lectura Final</label>
-                                    <input type="text" class="form-control" id="final_read" name="final_read" placeholder="">
+
+                                    <label for="Lectura_f">Lectura Final</label>
+                                    <input type="text" class="form-control" id="final_read" name="final_read" placeholder="Medida de lectura final">
+
                                   </div>
 
                             </div>
