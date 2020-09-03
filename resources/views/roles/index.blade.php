@@ -28,12 +28,12 @@
             <td>{{$rol->description}}</td>
             <td>
               <form action="{{route('roles.destroy', $rol->id )}}" method="POST">
-              @can('roles.destroy')
+              {{--  @can('roles.show')  --}}
               <a href="{{route('roles.show', $rol->id)}}"><button type="button" class="btn btn-secondary">Ver</button></a>
-              @endcan
-              @can('roles.edit')
+              {{--  @endcan
+              @can('roles.edit')  --}}
               <a href="{{route('roles.edit', $rol->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>
-              @endcan
+              {{--  @endcan  --}}
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger" onclick= "return confirm('¿Seguro que desea Eliminar el rol?')"><i class="far fa-trash-alt"></i></button></button>

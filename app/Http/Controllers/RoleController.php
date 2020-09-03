@@ -46,8 +46,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
-        $rol = Role::create($request->all());
-        $rol->givePermissonTo(request()->get('permisos'));
+        $rol = Role::create(['name' => request('name'),'description' => request('description')]);
+        $rol->givePermissionTo(request()->get('permisos'));
         return redirect()->route('roles.index')->withSuccess('Rol creado correctamente');
     }
 

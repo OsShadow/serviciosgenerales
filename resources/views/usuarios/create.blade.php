@@ -21,10 +21,19 @@
     <div class="form-group">
         <label for="email">Email </label>
         <input type="email" class="form-control" name="email" placeholder="Escribe el correo electrónico">
-      </div>
+    </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" class="form-control" name="password" placeholder="Introduzca la contraseña">
+    </div>
+    <div class="form-group">
+    {{--  {{dd($roles)}}  --}}
+      <label for="Asignación de rol">Asignación de rol</label>
+      <select class="form-control" id="rol" name='rol' placeholder="Asignación de Rol">
+        @foreach($roles as $rol)
+          <option>{{$rol->name}}</option>
+        @endforeach
+      </select>
     </div>
     <button type="submit" class="btn btn-primary">Registrar</button>
     <button type="reset" class="btn btn-danger float-right">Cancelar</button>

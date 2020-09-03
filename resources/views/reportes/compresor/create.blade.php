@@ -1,6 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
+@if (count($errors) > 0)
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="text-center"> 
+                        <strong>¡Parece que algunos campos estan vacios o no tienen los datos correctos!</strong>
+                    </div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+
+                        <li>{{ $error }}</li>
+                            
+                        @endforeach
+                    </ul>
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    @endif
 
 <div class="container">
     <div class="row justify-content-center">
@@ -21,15 +47,15 @@
 
                             <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label for="nivel">Nivel de aceite</label>
-                                    <input type="text" class="form-control" id="nivel" name="level" placeholder="">
+                                    <label for="level">Nivel de aceite</label>
+                                    <input type="text" class="form-control" id="level" name="level" placeholder="">
                                   </div>
 
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label for="Temperatura">Temperatura</label>
-                                    <input type="text" class="form-control" id="Temperatura" name="temperature" placeholder="">
+                                    <label for="temperature">Temperatura</label>
+                                    <input type="text" class="form-control" id="temperature" name="temperature" placeholder="">
                                   </div>
                             </div>
 

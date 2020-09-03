@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CompresorStoreRequest;
+use App\Http\Requests\CompresorUpdateRequest;
 use Carbon\Carbon;
 use App\CompresorReports;
 
@@ -38,7 +40,7 @@ class CompresorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompresorStoreRequest $request)
     {
 
         $compresor = new CompresorReports();
@@ -85,7 +87,7 @@ class CompresorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompresorUpdateRequest $request, $id)
     {
 
         $compresor = CompresorReports::findOrFail($id);

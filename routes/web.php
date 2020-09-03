@@ -45,10 +45,10 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/compresor','CompresorController@index')->name('compresor.index')->middleware('permission:compresor.index');
     Route::post('reportes/compresor','CompresorController@store')->name('compresor.store')->middleware('permission:compresor.create');
     Route::get('reportes/compresor/create','CompresorController@create')->name('compresor.create')->middleware('permission:compresor.create');
-    // Route::put('reportes/compresor/{id}','CompresorController@update')->name('compresor.update')->middleware('permission:compresor.update');
-    // Route::get('reportes/compresor/show/{id}','CompresorController@show')->name('compresor.show')->middleware('permission:compresor.show');
-    // Route::delete('reportes/compresor/{id}','CompresorController@destroy')->name('compresor.destroy')->middleware('permission:compresor.destroy');
-    // Route::get('reportes/compresor/edit/{id}','CompresorController@edit')->name('compresor.edit')->middleware('permission:compresor.edit');
+    Route::put('reportes/compresor/{id}','CompresorController@update')->name('compresor.update')->middleware('permission:compresor.update');
+    Route::get('reportes/compresor/show/{id}','CompresorController@show')->name('compresor.show')->middleware('permission:compresor.show');
+    Route::delete('reportes/compresor/{id}','CompresorController@destroy')->name('compresor.destroy')->middleware('permission:compresor.destroy');
+    Route::get('reportes/compresor/edit/{id}','CompresorController@edit')->name('compresor.edit')->middleware('permission:compresor.edit');
 });
 
 // Route::resource('reportes/agua','waterController');
@@ -56,10 +56,10 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/agua','WaterController@index')->name('agua.index')->middleware('permission:agua.index');
     Route::post('reportes/agua','WaterController@store')->name('agua.store')->middleware('permission:agua.create');
     Route::get('reportes/agua/create','WaterController@create')->name('agua.create')->middleware('permission:agua.create');
-    // Route::put('reportes/agua/{id}','WaterController@update')->name('agua.update')->middleware('permission:agua.update');
-    // Route::get('reportes/agua/show/{id}','WaterController@show')->name('agua.show')->middleware('permission:agua.show');
-    // Route::delete('reportes/agua/{id}','WaterController@destroy')->name('agua.destroy')->middleware('permission:agua.destroy');
-    // Route::get('reportes/agua/edit/{id}','WaterController@edit')->name('agua.edit')->middleware('permission:agua.edit');
+    Route::put('reportes/agua/{id}','WaterController@update')->name('agua.update')->middleware('permission:agua.update');
+    Route::get('reportes/agua/show/{id}','WaterController@show')->name('agua.show')->middleware('permission:agua.show');
+    Route::delete('reportes/agua/{id}','WaterController@destroy')->name('agua.destroy')->middleware('permission:agua.destroy');
+    Route::get('reportes/agua/edit/{id}','WaterController@edit')->name('agua.edit')->middleware('permission:agua.edit');
 });
 
 // Route::resource('reportes/desechos','trashController');
@@ -67,10 +67,10 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/desechos','TrashController@index')->name('desechos.index')->middleware('permission:desechos.index');
     Route::post('reportes/desechos','TrashController@store')->name('desechos.store')->middleware('permission:desechos.create');
     Route::get('reportes/desechos/create','TrashController@create')->name('desechos.create')->middleware('permission:desechos.create');
-    // Route::put('reportes/desechos/{id}','TrashController@update')->name('desechos.update')->middleware('permission:desechos.update');
-    // Route::get('reportes/desechos/show/{id}','TrashController@show')->name('desechos.show')->middleware('permission:desechos.show');
-    // Route::delete('reportes/desechos/{id}','TrashController@destroy')->name('desechos.destroy')->middleware('permission:desechos.destroy');
-    // Route::get('reportes/desechos/edit/{id}','TrashController@edit')->name('desechos.edit')->middleware('permission:desechos.edit');
+    Route::put('reportes/desechos/{id}','TrashController@update')->name('desechos.update')->middleware('permission:desechos.update');
+    Route::get('reportes/desechos/show/{id}','TrashController@show')->name('desechos.show')->middleware('permission:desechos.show');
+    Route::delete('reportes/desechos/{id}','TrashController@destroy')->name('desechos.destroy')->middleware('permission:desechos.destroy');
+    Route::get('reportes/desechos/edit/{id}','TrashController@edit')->name('desechos.edit')->middleware('permission:desechos.edit');
 });
 
 Route::resource('emergencias','emergenciesController');

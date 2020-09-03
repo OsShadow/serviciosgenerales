@@ -71,78 +71,78 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Compresor',
             'display'=>'Acceso reporte de Compresor'
             ]);
-        // Permission::create([
-        //     'name' => 'compresor.edit',
-        //     'category' => 'Compresor',
-        //     'display'=>'Editar reporte de Compresor'
-        //     ]);
-        // Permission::create([
-        //     'name' => 'compresor.show',
-        //     'category' => 'Compresor',
-        //     'display'=>'Consultar reporte de Compresor'
-        //     ]);
+        Permission::create([
+            'name' => 'compresor.edit',
+            'category' => 'Compresor',
+            'display'=>'Editar reporte de Compresor'
+            ]);
+        Permission::create([
+            'name' => 'compresor.show',
+            'category' => 'Compresor',
+            'display'=>'Consultar reporte de Compresor'
+            ]);
         Permission::create([
             'name' => 'compresor.create',
             'category' => 'Compresor',
             'display'=>'Crear reporte de Compresor'
             ]);
-        // Permission::create([
-        //     'name' => 'compresor.destroy',
-        //     'category' => 'Compresor',
-        //     'display'=>'Eliminar reporte de Compresor'
-        //     ]);
+        Permission::create([
+            'name' => 'compresor.destroy',
+            'category' => 'Compresor',
+            'display'=>'Eliminar reporte de Compresor'
+            ]);
         // Permisos sobre modulos de desechos
         Permission::create([
             'name' => 'desechos.index',
             'category' => 'Desechos',
             'display'=>'Acceso reporte de Desechos'
             ]);
-        // Permission::create([
-        //     'name' => 'desechos.edit',
-        //     'category' => 'Desechos',
-        //     'display'=>'Editar reporte de Desechos'
-        //     ]);
-        // Permission::create([
-        //     'name' => 'desechos.show',
-        //     'category' => 'Desechos',
-        //     'display'=>'Consultar reporte de Desechos'
-        //     ]);
+        Permission::create([
+            'name' => 'desechos.edit',
+            'category' => 'Desechos',
+            'display'=>'Editar reporte de Desechos'
+            ]);
+        Permission::create([
+            'name' => 'desechos.show',
+            'category' => 'Desechos',
+            'display'=>'Consultar reporte de Desechos'
+            ]);
         Permission::create([
             'name' => 'desechos.create',
             'category' => 'Desechos',
             'display'=>'Crear reporte de Desechos'
             ]);
-        // Permission::create([
-        //     'name' => 'desechos.destroy',
-        //     'category' => 'Desechos',
-        //     'display'=>'Eliminar reporte de Desechos'
-        //     ]);
+        Permission::create([
+            'name' => 'desechos.destroy',
+            'category' => 'Desechos',
+            'display'=>'Eliminar reporte de Desechos'
+            ]);
         // Permisos sobre modulos de agua
         Permission::create([
             'name' => 'agua.index',
             'category' => 'Agua',
             'display'=>'Acceso reporte de Agua'
             ]);
-        // Permission::create([
-        //     'name' => 'agua.edit',
-        //     'category' => 'Agua',
-        //     'display'=>'Editar reporte de Agua'
-        //     ]);
-        // Permission::create([
-        //     'name' => 'agua.show',
-        //     'category' => 'Agua',
-        //     'display'=>'Consultar reporte de Agua'
-        //     ]);
+        Permission::create([
+            'name' => 'agua.edit',
+            'category' => 'Agua',
+            'display'=>'Editar reporte de Agua'
+            ]);
+        Permission::create([
+            'name' => 'agua.show',
+            'category' => 'Agua',
+            'display'=>'Consultar reporte de Agua'
+            ]);
         Permission::create([
             'name' => 'agua.create',
             'category' => 'Agua',
             'display'=>'Crear reporte de Agua'
             ]);
-        // Permission::create([
-        //     'name' => 'agua.destroy',
-        //     'category' => 'Agua',
-        //     'display'=>'Eliminar reporte de Agua'
-        //     ]);
+        Permission::create([
+            'name' => 'agua.destroy',
+            'category' => 'Agua',
+            'display'=>'Eliminar reporte de Agua'
+            ]);
         // Permisos sobre modulos de reportes
         // Permission::create(['name' => 'reportes.index']);
         // Permission::create(['name' => 'reportes.edit']);

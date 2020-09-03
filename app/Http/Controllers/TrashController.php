@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TrashStoreRequest;
+use App\Http\Requests\TrashUpdateRequest;
 use Carbon\Carbon;
 use App\TrashReports;
 
@@ -38,7 +40,7 @@ class TrashController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrashStoreRequest $request)
     {
         $trash = new TrashReports();
 
@@ -84,7 +86,7 @@ class TrashController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TrashUpdateRequest $request, $id)
     {
         $trash = TrashReports::findOrFail($id);
 
