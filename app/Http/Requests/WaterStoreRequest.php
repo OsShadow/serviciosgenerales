@@ -41,10 +41,10 @@ class WaterStoreRequest extends FormRequest
     {
         return [
             'initial_read' => 'required|max:255',
-            'cloration' => 'required    ',
-            'final_read' => 'min:0|required',
-            'consumption' => 'min:0|required',
-            'consumption_t' => 'min:0|required',
+            'cloration' => 'required|numeric',
+            'final_read' => 'min:0|required|numeric',
+            'consumption' => 'min:0|required|numeric',
+            'consumption_t' => 'min:0|required|numeric',
             'observations' => 'required'
         ];
     }
