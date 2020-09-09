@@ -45,14 +45,14 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="Lectura_inicial">Lectura inicial</label>
-                                <input type="text" class="form-control" id="initial_read" name="initial_read" placeholder="" value="{{$wreport->initial_read}}">
+                                <input type="number" class="form-control" id="initial_read" name="initial_read" placeholder="" value="{{$wreport->initial_read}}">
                                   </div>
 
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="Cloracion">Cloración</label>
-                                    <input type="text" class="form-control" id="cloration" name="cloration" placeholder="Cantidad por litro" value="{{$wreport->cloration}}">
+                                    <input type="number" class="form-control" id="cloration" name="cloration" placeholder="Cantidad por litro" value="{{$wreport->cloration}}">
                                   </div>
 
                             </div>
@@ -60,7 +60,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="Lectura_f">Lectura Final</label>
-                                    <input type="text" class="form-control" id="final_read" name="final_read" placeholder="" value="{{$wreport->final_read}}">
+                                    <input type="number" class="form-control" id="final_read" name="final_read" placeholder="" value="{{$wreport->final_read}}">
                                   </div>
 
                             </div>
