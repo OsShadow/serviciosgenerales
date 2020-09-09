@@ -46,7 +46,7 @@ class WaterUpdateRequest extends FormRequest
             'final_read' => 'min:0|required',
             'consumption' => 'min:0|required',
             'consumption_t' => 'min:0|required',
-            'observations' => 'observations'
+            'observations' => 'required'
         ];
     }
 }

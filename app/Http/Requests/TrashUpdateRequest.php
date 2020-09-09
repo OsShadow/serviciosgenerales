@@ -41,6 +41,7 @@ class TrashUpdateRequest extends FormRequest
             'date' => 'required',
             'area'=>'required',
             'quantity'=>'required'
+            
         ];
     }
 }
