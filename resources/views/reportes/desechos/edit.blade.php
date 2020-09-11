@@ -65,7 +65,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="quantity">Cantidad</label>
-                                <input type="text" class="form-control" value="{{$treports->quantity}}" id="quantity" name="quantity" placeholder="Cantidad por litro">
+                                <input type="number" class="form-control" value="{{$treports->quantity}}" id="quantity" name="quantity" placeholder="Cantidad por litro">
                                   </div>
 
                             </div>
