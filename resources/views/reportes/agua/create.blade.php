@@ -16,7 +16,6 @@
                         @foreach ($errors->all() as $error)
 
                         <li>{{ $error }}</li>
-                            
                         @endforeach
                     </ul>
 
@@ -107,17 +106,12 @@
 
                             </div>
 
-
                         </div>
-
-
 
                           <div class="form-group">
                             <label for="Observaciones">Observaciones</label>
                             <textarea class="form-control" id="observations" name="observations" rows="3"></textarea>
                         </div>
-
-
 
                         <div class="form-group col-md-6">
 

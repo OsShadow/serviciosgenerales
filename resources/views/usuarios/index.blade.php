@@ -21,10 +21,10 @@
 
 
 @can('usuarios.create')
-<a href="usuarios/create"> <button type="button" class="btn btn-success float-right" > Agregar usuario </button> </a>
+<a href="usuarios/create" > <button type="button" style="margin-left: 10px;" class="btn btn-success float-right" > Agregar usuario </button> </a>
 @endcan
 
-<a href="roles"> <button type="button" class="btn btn-success float-right" > Listado de Roles </button> </a>
+<a href="roles"> <button type="button"  class="btn btn-success float-right" > Listado de Roles </button> </a>
 <h2> Lista de usuarios </h2>
 <h6>
   @if($search)

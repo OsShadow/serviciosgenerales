@@ -115,4 +115,9 @@ class CompresorController extends Controller
 
         return redirect('/reportes/compresor');
     }
+
+    public function PDF(){
+        $pdf = \PDF::loadView('prueba');
+    }
+
 }
