@@ -67,7 +67,7 @@
                                 <div class="form-group">
 
                                     <label for="Lectura_inicial">Lectura inicial</label>
-                                    <input type="text" class="form-control" id="initial_read" name="initial_read" placeholder="Medida de lectura inicial">
+                                    <input type="number" class="form-control" id="initial_read" name="initial_read" placeholder="Medida de lectura inicial">
 
                                   </div>
 
@@ -75,7 +75,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="cloration">Cloración</label>
-                                    <input type="text" class="form-control" id="cloration" name="cloration" placeholder="Cantidad por litro">
+                                    <input type="number" class="form-control" id="cloration" name="cloration" placeholder="Cantidad por litro">
                                   </div>
 
                             </div>
@@ -84,7 +84,7 @@
                                 <div class="form-group">
 
                                     <label for="Lectura_f">Lectura Final</label>
-                                    <input type="text" class="form-control" id="final_read" name="final_read" placeholder="Medida de lectura final">
+                                    <input type="number" class="form-control" id="final_read" name="final_read" placeholder="Medida de lectura final">
 
                                   </div>
 

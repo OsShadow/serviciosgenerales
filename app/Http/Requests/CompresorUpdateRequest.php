@@ -24,7 +24,7 @@ class CompresorUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'date' => 'Fecha',
+            
             'level'=>'Nivel',
             'temperature'=>'Temperatura'
         ];
@@ -38,9 +38,9 @@ class CompresorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required',
-            'level'=>'required',
-            'temperature'=>'required'
+            
+            'level'=>'required|numeric',
+            'temperature'=>'required|numeric'
         ];
     }
 }

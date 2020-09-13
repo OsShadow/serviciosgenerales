@@ -40,7 +40,7 @@ class TrashStoreRequest extends FormRequest
         return [
             'date' => 'required',
             'area'=>'required',
-            'quantity'=>'required'
+            'quantity'=>'required|numeric'
         ];
     }
 }
