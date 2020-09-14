@@ -83,13 +83,9 @@
                                             value="{{ $wreport->consumption_total }}">
                                     </div>
 
-
                                 </div>
 
-
                             </div>
-
-
 
                             <div class="form-group">
                                 <label for="Observaciones">Observaciones</label>

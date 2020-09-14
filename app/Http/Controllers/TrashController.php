@@ -46,7 +46,6 @@ class TrashController extends Controller
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
         
-
         $trash->area_report = $request->area;
         $trash->date = $date;
         $trash->quantity = intval($request->quantity);
@@ -88,6 +87,7 @@ class TrashController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(TrashUpdateRequest $request, $id)
     {
         $trash = TrashReports::findOrFail($id);

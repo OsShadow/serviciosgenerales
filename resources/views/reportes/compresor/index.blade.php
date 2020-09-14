@@ -44,7 +44,6 @@
                                 <a href="{{ route('compresor.edit', $creport->id) }}"><button type="button"
                                         class="btn btn-success"><i class="far fa-edit"></i></button></a>
 
-
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"

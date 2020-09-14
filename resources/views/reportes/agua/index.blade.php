@@ -48,6 +48,8 @@
                         <td>
 
                             <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
+                                <a href=""><button type="button"
+                                    class="btn btn-warning"><i class="fas fa-print"></i></button></a>
                                 <a href="{{ route('agua.show', $wreport->id) }}"><button type="button"
                                         class="btn btn-info"><i class="far fa-eye" style="color: white"
                                             alt="Submit"></i></button></a>
