@@ -24,7 +24,7 @@
                 <tr>
 
                 <td scope="row">{{$treport->id}}</td>
-                <td></td>
+                <td>{{$treport ->date }}</td>
                 <td>{{$treport->area_report}}</td>
                 <td>{{$treport->quantity}}</td>
                 <td>{{$treport->user_report}}</td>

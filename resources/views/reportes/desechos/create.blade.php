@@ -52,7 +52,10 @@
                                 <label for="area">Area</label>
                                 <select class="custom-select" id="area" name="area" required>
                                   <option selected disabled value="">Elige area...</option>
-                                  <option>1</option>
+                                  @foreach ($areports as $areport)
+                                  <option value="{{ $areport->id }}">{{ $areport->label }}</option>
+                                  @endforeach
+                                  
                                 </select>
 
                             </div>
