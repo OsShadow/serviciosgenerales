@@ -97,16 +97,21 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Compresor'
             ]);
         Permission::create([
-                'name' => 'compresor.update',
-                'category' => 'Compresor',
-                'display'=>'Actualizar reporte de Compresor'
-                ]);
+              'name' => 'compresor.update',
+               'category' => 'Compresor',
+              'display'=>'Actualizar reporte de Compresor'
+              ]);
         Permission::create([
-
             'name' => 'compresor.destroy',
             'category' => 'Compresor',
             'display'=>'Eliminar reporte de Compresor'
             ]);
+        Permission::create([
+            'name' => 'compresor.pdf',
+            'category' => 'Compresor',
+            'display'=>'Crear pdf de reporte Compresor'
+            ]);
+
         // Permisos sobre modulos de desechos
         Permission::create([
             'name' => 'desechos.index',
@@ -138,6 +143,11 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Desechos',
             'display'=>'Eliminar reporte de Desechos'
             ]);
+         Permission::create([
+            'name' => 'desechos.pdf',
+            'category' => 'Desechos',
+            'display'=>'Crear pdf de reporte Desechos'
+            ]);
         // Permisos sobre modulos de agua
         Permission::create([
             'name' => 'agua.index',
@@ -160,7 +170,6 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Agua'
             ]);
         Permission::create([
-
             'name' => 'agua.update',
             'category' => 'Agua',
             'display'=>'Actualizar reporte de Agua'
@@ -170,6 +179,12 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Agua',
             'display'=>'Eliminar reporte de Agua'
             ]);
+        Permission::create([
+            'name' => 'agua.pdf',
+            'category' => 'Agua',
+            'display'=>'Crear pdf de reporte Agua'
+            ]);
+            
         // Permisos sobre modulos de reportes
         // Permission::create(['name' => 'reportes.index']);
         // Permission::create(['name' => 'reportes.edit']);
