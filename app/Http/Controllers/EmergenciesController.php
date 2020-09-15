@@ -50,7 +50,7 @@ class EmergenciesController extends Controller
 
         $emergencie->save();
 
-        return redirect('emergencias/create');
+        return redirect('emergencias');
     }
 
     /**
