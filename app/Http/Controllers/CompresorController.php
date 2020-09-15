@@ -90,6 +90,7 @@ class CompresorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(CompresorUpdateRequest $request, $id)
     {
 
@@ -121,8 +122,8 @@ class CompresorController extends Controller
     
         $compresor = CompresorReports::findOrFail($id);
         $user = User::findOrFail($compresor->user_report);
-        
         $pdf = \PDF::loadView('/reportes/compresor/pdf', compact('compresor','user'));
+        // $pdf->setPaper('letter', 'landscape');
         return $pdf->stream('compresorReport');
     }
 

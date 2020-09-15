@@ -44,6 +44,7 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Usuarios',
             'display'=>'Eliminar Usuarios'
             ]);
+            
         // Permisos sobre modulos de roles
         Permission::create([
             'name' => 'roles.index',
@@ -75,6 +76,7 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Roles',
             'display'=>'Eliminar Roles'
             ]);
+
         // Permisos sobre modulos de Compresor
         Permission::create([
             'name' => 'compresor.index',

@@ -113,4 +113,14 @@ class TrashController extends Controller
 
         return redirect('/reportes/desechos');
     }
+
+    public function pdf($id){
+    
+        $trash = TrashReports::findOrFail($id);
+        $area = Areas::findorfail($trash->area_report);
+        $pdf = \PDF::loadView('/reportes/desechos/pdf', compact('trash','area'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('trashReport');
+    }
+
 }

@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/agua/show/{id}','WaterController@show')->name('agua.show')->middleware('permission:agua.show');
     Route::delete('reportes/agua/{id}','WaterController@destroy')->name('agua.destroy')->middleware('permission:agua.destroy');
     Route::get('reportes/agua/edit/{id}','WaterController@edit')->name('agua.edit')->middleware('permission:agua.edit');
+    Route::get('reportes/agua/pdf/{id}','WaterController@pdf')->name('agua.pdf')->middleware('permission:agua.pdf');
 });
 
 // Route::resource('reportes/desechos','trashController');
@@ -84,6 +85,7 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/desechos/show/{id}','TrashController@show')->name('desechos.show')->middleware('permission:desechos.show');
     Route::delete('reportes/desechos/{id}','TrashController@destroy')->name('desechos.destroy')->middleware('permission:desechos.destroy');
     Route::get('reportes/desechos/edit/{id}','TrashController@edit')->name('desechos.edit')->middleware('permission:desechos.edit');
+    Route::get('reportes/desechos/pdf/{id}','TrashController@pdf')->name('desechos.pdf')->middleware('permission:desechos.pdf');
 });
 
 Route::resource('emergencias','emergenciesController');
