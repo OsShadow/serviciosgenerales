@@ -23,6 +23,7 @@ class CreateTrashreportsTable extends Migration
             $table->decimal('quantity');
             $table->unsignedBigInteger('area_report');
             $table->unsignedBigInteger('user_report');
+            $table->enum('type',array('Sanitario','General'));
             $table->timestamps();
 
             $table->foreign('user_report')

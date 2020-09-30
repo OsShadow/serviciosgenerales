@@ -60,7 +60,7 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-        $rol = Role::findOrFail($id)->with('permissions')->get();
+        $rol = Role::findOrFail($id);
         return view('roles.show',compact('rol'));
     }
 
