@@ -13,6 +13,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Encabezado</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <tr>
                         <th scope="row">{{ $ereport->id }}</th>
                         <td>{{ $ereport->date }}</td>
+                        <td>{{ $ereport->head }}</td>
 
                         <td>
                             <form action="{{ route('emergencias.destroy', $ereport->id) }}" method="POST">
@@ -43,7 +45,5 @@
             </tbody>
         </table>
     </div>
-
-
-
+    
 @endsection

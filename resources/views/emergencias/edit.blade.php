@@ -11,6 +11,12 @@
             </div>
 
             <div class="form-group">
+                <label for="head">Encabezado</label>
+                <textarea class="form-control" id="head" name="head"
+                    rows="3">{{ $ereport->head }}</textarea>
+            </div>
+
+            <div class="form-group">
                 <label for="description">Descripción</label>
                 <textarea class="form-control" id="description" name="description"
                     rows="3">{{ $ereport->description }}</textarea>

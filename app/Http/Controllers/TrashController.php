@@ -20,7 +20,7 @@ class TrashController extends Controller
     {
 
         $treports = TrashReports::all();
-        return view('reportes.desechos.index', ['treports' => $treports]);
+        return view('reportes.desechos.index', ['treports' => $treports ]);
     }
 
     /**
@@ -49,6 +49,7 @@ class TrashController extends Controller
         $trash->area_report = $request->area;
         $trash->date = $date;
         $trash->quantity = intval($request->quantity);
+        $trash->type = $request->type;
         $trash->user_report = auth()->id();
 
         $trash->save();
@@ -75,8 +76,9 @@ class TrashController extends Controller
      */
     public function edit($id)
     {
-        
-        return view('reportes.desechos.edit',[ 'treports'=> TrashReports::findOrFail($id)]);
+        $treports = TrashReports::findOrFail($id);
+        $area = Areas::findOrFail($treports->area_report);
+        return view('reportes.desechos.edit',[ 'treports'=> $treports, 'areports' => Areas::all(),'area' => $area]);
 
     }
 
@@ -94,6 +96,7 @@ class TrashController extends Controller
 
         $trash->area_report = $request->area;
         $trash->quantity = intval($request->quantity);
+        $trash->type = $request->type;
         $trash->save();
 
         return redirect('reportes/desechos');

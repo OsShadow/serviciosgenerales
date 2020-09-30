@@ -13,6 +13,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Area</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Usuario</th>
 
@@ -27,6 +28,7 @@
                         <td scope="row">{{ $treport->id }}</td>
                         <td>{{ $treport->date }}</td>
                         <td>{{ $treport->area_report }}</td>
+                        <td>{{ $treport->type }}</td>
                         <td>{{ $treport->quantity }}</td>
                         <td>{{ $treport->user_report }}</td>
 

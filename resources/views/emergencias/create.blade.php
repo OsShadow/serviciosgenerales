@@ -8,6 +8,11 @@
                 <label for="date">Fecha</label>
                 <input class="form-control" type="date" value="{{ $date }}" name="date" id="date">
             </div>
+            
+            <div class="form-group ">
+                <label for="head">Encabezado</label>
+                <input class="form-control" type="text" value="" name="head" id="head">
+            </div>
 
             <div class="form-group">
                 <label for="description">Descripción</label>
