@@ -7,6 +7,7 @@ use App\Http\Requests\CompresorStoreRequest;
 use App\Http\Requests\CompresorUpdateRequest;
 use Carbon\Carbon;
 use App\CompresorReports;
+use App\User;
 
 class CompresorController extends Controller
 {
@@ -66,7 +67,9 @@ class CompresorController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.compresor.show',[   'creport'=> CompresorReports::findOrFail($id)]);
+        $compresor = CompresorReports::findOrFail($id);
+        $user = User::findOrFail($compresor->user_report);
+        return view('reportes.compresor.show',[  'creport'=> $compresor , 'ureport'=> $user ]);
     }
 
     /**
@@ -87,6 +90,7 @@ class CompresorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(CompresorUpdateRequest $request, $id)
     {
 
@@ -110,9 +114,17 @@ class CompresorController extends Controller
     public function destroy($id)
     {
         $creport = CompresorReports::findOrFail($id);
-
         $creport->delete();
-
         return redirect('/reportes/compresor');
     }
+
+    public function pdf($id){
+    
+        $compresor = CompresorReports::findOrFail($id);
+        $user = User::findOrFail($compresor->user_report);
+        $pdf = \PDF::loadView('/reportes/compresor/pdf', compact('compresor','user'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('compresorReport');
+    }
+
 }

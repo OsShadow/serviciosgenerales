@@ -51,15 +51,21 @@
                         @csrf
 
                         <div class="form-row">
-
-
                             <div class="form-group col-md-4">
                                 <label for="area">Area</label>
-                                <select class="custom-select" id="area" name="area" required>
-                                <option selected >{{$treports->area_report}}</option>
-                                  <option >1</option>
+                                <select class="custom-select" id="area" name="area" value="{{$area->id}}"  required> 
+                                  @foreach ($areports as $areport)
+                                  <option {{ $areport->id == $area->id ? "selected" : "" }} value="{{ $areport->id }}">{{ $areport->label }}</option>
+                                  @endforeach
                                 </select>
+                            </div>
 
+                            <div class="form-group col-md-4">
+                                <label for="type">Tipo de basura</label>
+                                <select class="custom-select" id="type" name="type" required>
+                                  <option {{ $treports->id == "Sanitario" ? "selected" : "" }} value="Sanitario">Sanitario</option>
+                                  <option {{ $treports->id == "General" ? "selected" : "" }}value="General">General</option>
+                                </select>
                             </div>
 
                             <div class="form-group col-md-4">
@@ -67,17 +73,8 @@
                                     <label for="quantity">Cantidad</label>
                                 <input type="number" class="form-control" value="{{$treports->quantity}}" id="quantity" name="quantity" placeholder="Cantidad por litro">
                                   </div>
-
                             </div>
-
                         </div>
-
-
-
-
-
-
-
                         <div class="form-group col-md-6">
 
                                 <button type="submit" class="btn btn-primary btn-lg">

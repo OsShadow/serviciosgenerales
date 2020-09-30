@@ -7,6 +7,7 @@ use App\Http\Requests\TrashStoreRequest;
 use App\Http\Requests\TrashUpdateRequest;
 use Carbon\Carbon;
 use App\TrashReports;
+use App\Areas;
 
 class TrashController extends Controller
 {
@@ -19,7 +20,7 @@ class TrashController extends Controller
     {
 
         $treports = TrashReports::all();
-        return view('reportes.desechos.index', ['treports' => $treports]);
+        return view('reportes.desechos.index', ['treports' => $treports ]);
     }
 
     /**
@@ -30,13 +31,12 @@ class TrashController extends Controller
     public function create()
     {
         $date = Carbon::parse(Carbon::now())->format('Y-m-d');
-        return view('reportes.desechos.create',['date'=>$date]);  
+        return view('reportes.desechos.create',['date'=>$date, 'areports' => Areas::all()]);  
 
     }
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -46,10 +46,10 @@ class TrashController extends Controller
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
         
-
         $trash->area_report = $request->area;
         $trash->date = $date;
         $trash->quantity = intval($request->quantity);
+        $trash->type = $request->type;
         $trash->user_report = auth()->id();
 
         $trash->save();
@@ -65,7 +65,7 @@ class TrashController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.desechos.show',[   'treports'=> TrashReports::findOrFail($id)]);
+        return view('reportes.desechos.show',[ 'treports'=> TrashReports::findOrFail($id), 'areports' => Areas::all()]);
     }
 
     /**
@@ -76,7 +76,9 @@ class TrashController extends Controller
      */
     public function edit($id)
     {
-        return view('reportes.desechos.edit',[   'treports'=> TrashReports::findOrFail($id)]);
+        $treports = TrashReports::findOrFail($id);
+        $area = Areas::findOrFail($treports->area_report);
+        return view('reportes.desechos.edit',[ 'treports'=> $treports, 'areports' => Areas::all(),'area' => $area]);
 
     }
 
@@ -87,12 +89,14 @@ class TrashController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(TrashUpdateRequest $request, $id)
     {
         $trash = TrashReports::findOrFail($id);
 
         $trash->area_report = $request->area;
         $trash->quantity = intval($request->quantity);
+        $trash->type = $request->type;
         $trash->save();
 
         return redirect('reportes/desechos');
@@ -112,4 +116,14 @@ class TrashController extends Controller
 
         return redirect('/reportes/desechos');
     }
+
+    public function pdf($id){
+    
+        $trash = TrashReports::findOrFail($id);
+        $area = Areas::findorfail($trash->area_report);
+        $pdf = \PDF::loadView('/reportes/desechos/pdf', compact('trash','area'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('trashReport');
+    }
+
 }

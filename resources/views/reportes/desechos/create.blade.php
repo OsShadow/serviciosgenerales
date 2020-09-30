@@ -52,17 +52,26 @@
                                 <label for="area">Area</label>
                                 <select class="custom-select" id="area" name="area" required>
                                   <option selected disabled value="">Elige area...</option>
-                                  <option>1</option>
+                                  @foreach ($areports as $areport)
+                                  <option value="{{ $areport->id }}">{{ $areport->label }}</option>
+                                  @endforeach
                                 </select>
-
                             </div>
 
+                            <div class="form-group col-md-4">
+                                <label for="type">Tipo de basura</label>
+                                <select class="custom-select" id="type" name="type" required>
+                                  <option selected disabled value="">Elige tipo...</option>
+                                  <option value="Sanitario">Sanitario</option>
+                                  <option value="General">General</option>
+                                </select>
+                            </div>
+                            
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="quantity">Cantidad</label>
                                     <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Cantidad por litro">
                                   </div>
-
                             </div>
 
                         </div>

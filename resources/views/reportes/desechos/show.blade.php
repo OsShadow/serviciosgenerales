@@ -23,14 +23,13 @@
                     <div class="col-sm-6">
                         <p class="font-weight-bold">Area: </p>
                         <p>{{$treports->area_report}}</p></div>
+                        <div class="col-sm-6">
+                            <p class="font-weight-bold">Tipo de basura: </p>
+                            <p>{{$treports->type}}</p></div>
                     <div class="col-sm-6">
                         <p class="font-weight-bold">Cantidad: </p>
                         <p>{{$treports->quantity}}</p></div>
-
                 </div>
-
-
-
             </div>
             <div class="card-footer text-muted">
             <p class="text-left">Reporte de: {{$treports->date}}</p>

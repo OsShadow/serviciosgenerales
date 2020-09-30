@@ -17,6 +17,7 @@ class CreateEmergenciesTable extends Migration
             
             $table->bigIncrements('id');
             $table->date('date');
+            $table->string('head',150);
             $table->longText('description');
             $table->longText('observations');
             $table->unsignedBigInteger('user_area');

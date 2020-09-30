@@ -43,6 +43,7 @@ class EmergenciesController extends Controller
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
         $emergencie->date = $request->date;
+        $emergencie->head = $request->head;
         $emergencie->description = $request->description;
         $emergencie->observations = $request->observations;
         $emergencie->user_report = auth()->id();
@@ -50,7 +51,7 @@ class EmergenciesController extends Controller
 
         $emergencie->save();
 
-        return redirect('emergencias/create');
+        return redirect('emergencias');
     }
 
     /**
@@ -87,6 +88,7 @@ class EmergenciesController extends Controller
         $emergencie = Emergencies::findOrFail($id);
 
         $emergencie->date = $request->date;
+        $emergencie->head = $request->head;
         $emergencie->observations = $request->observations;
         $emergencie->description = $request->description;
         $emergencie->save();

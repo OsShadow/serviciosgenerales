@@ -32,7 +32,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        
         $permisos = Permission::orderBy('name','asc')->get();
         return view('roles.create',compact('permisos'));
     }
@@ -60,7 +60,7 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-        $rol = Role::findOrFail($id)->with('permissions')->get();
+        $rol = Role::findOrFail($id);
         return view('roles.show',compact('rol'));
     }
 

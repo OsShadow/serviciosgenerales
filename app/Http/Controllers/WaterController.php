@@ -131,4 +131,18 @@ $wreport->delete();
 
 return redirect('/reportes/agua');
 }
+
+/**
+ * Funcion create pdf
+ */
+
+public function pdf($id){
+    
+    $wreport = WaterReports::findOrFail($id);
+    $pdf = \PDF::loadView('/reportes/agua/pdf', compact('wreport'));
+    // $pdf->setPaper('letter', 'landscape');
+    return $pdf->stream('waterReport');
+}
+
+
 }
