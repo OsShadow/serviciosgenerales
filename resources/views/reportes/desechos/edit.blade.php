@@ -29,7 +29,6 @@
         
     @endif
 
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -78,7 +77,7 @@
                         <div class="form-group col-md-6">
 
                                 <button type="submit" class="btn btn-primary btn-lg">
-                                    {{ __('Crear Reporte') }}
+                                    {{ __('Editar Reporte') }}
                                 </button>
 
                         </div>
