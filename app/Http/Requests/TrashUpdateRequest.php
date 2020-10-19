@@ -24,7 +24,7 @@ class TrashUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'date' => 'Fecha',
+           
             'area'=>'Area',
             'quantity'=>'Cantidad'
         ];
@@ -38,7 +38,7 @@ class TrashUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required',
+            
             'area'=>'required',
             'quantity'=>'required|numeric'
             
