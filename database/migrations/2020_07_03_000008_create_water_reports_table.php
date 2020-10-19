@@ -29,8 +29,6 @@ class CreateWaterReportsTable extends Migration
             $table->decimal('initial_read');
             $table->decimal('final_read');
             $table->decimal('cloration');
-            $table->decimal('consumption');
-            $table->decimal('consumption_total');
             $table->longText('Observations')->nullable();
             $table->unsignedBigInteger('user_report');
             $table->timestamps();
@@ -41,6 +39,21 @@ class CreateWaterReportsTable extends Migration
             ->onDelete('cascade');
 
         });
+
+        Schema::create('water_reports_general', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('id_water_reports');
+            $table->binary('current');
+
+            $table->foreign('id_water_reports')
+            ->references('id')
+            ->on('water_reports')
+            ->onDelete('cascade');
+
+            $table->primary(['id','id_water_reports']);
+
+        });
     }
 
     /**
@@ -48,6 +61,7 @@ class CreateWaterReportsTable extends Migration
      *
      * @return void
      */
+
      public function down()
      {
        Schema::dropIfExists('water_reports');
