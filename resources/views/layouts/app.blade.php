@@ -18,7 +18,8 @@
 <script src="{{ asset('dist/js/adminlte.js') }}" defer></script>
 <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap-table-cards/tableToCards.js')}}"></script>
-
+<script src="{{ asset('plugins/popper/umd/popper.min.js')}}" ></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
 

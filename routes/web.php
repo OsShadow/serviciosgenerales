@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function(){
     Route::delete('reportes/agua/{id}','WaterController@destroy')->name('agua.destroy')->middleware('permission:agua.destroy');
     Route::get('reportes/agua/edit/{id}','WaterController@edit')->name('agua.edit')->middleware('permission:agua.edit');
     Route::get('reportes/agua/pdf/{id}','WaterController@pdf')->name('agua.pdf')->middleware('permission:agua.pdf');
+    Route::post('reportes/agua/exportpdf','WaterController@exportpdf')->name('agua.exportpdf');
 });
 
 // Route::resource('reportes/desechos','trashController');

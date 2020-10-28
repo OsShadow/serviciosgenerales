@@ -145,4 +145,15 @@ public function pdf($id){
 }
 
 
+public function exportpdf(Request $request){
+
+    
+    
+    $wreport = WaterReports::findOrFail($id);
+    $pdf = \PDF::loadView('/reportes/agua/pdf', compact('wreport'));
+    // $pdf->setPaper('letter', 'landscape');
+    return $pdf->stream('waterReport');
+}
+
+
 }
