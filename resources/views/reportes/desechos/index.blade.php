@@ -21,18 +21,18 @@
                 </tr>
             </thead>
             <tbody>
-
+                
                 @foreach ($treports as $treport)
                     <tr>
 
                         <td scope="row">{{ $treport->id }}</td>
                         <td>{{ $treport->date }}</td>
-                        <td>{{ $treport->area_report }}</td>
+                        <td>{{ $treport->label }}</td>
                         <td>{{ $treport->type }}</td>
                         <td>{{ $treport->quantity }}</td>
                         <td>{{ $treport->user_report }}</td>
 
-
+                       
                         <td>
                             <form action="{{ route('desechos.destroy', $treport->id) }}" method="POST">
                                 <a href="{{ route('desechos.pdf', $treport->id) }}"><button type="button" class="btn btn-warning"><i

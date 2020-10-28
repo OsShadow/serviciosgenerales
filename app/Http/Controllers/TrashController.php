@@ -8,6 +8,7 @@ use App\Http\Requests\TrashUpdateRequest;
 use Carbon\Carbon;
 use App\TrashReports;
 use App\Areas;
+use DB;
 
 class TrashController extends Controller
 {
@@ -19,7 +20,9 @@ class TrashController extends Controller
     public function index()
     {
 
-        $treports = TrashReports::all();
+        $treports = DB::table('trash_reports')
+        ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+        ->get();
         return view('reportes.desechos.index', ['treports' => $treports ]);
     }
 
@@ -65,7 +68,12 @@ class TrashController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.desechos.show',[ 'treports'=> TrashReports::findOrFail($id), 'areports' => Areas::all()]);
+        $treport = DB::table('trash_reports')
+        ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+        ->where('trash_reports.id','=', $id )
+        ->get();
+
+        return view('reportes.desechos.show',[ 'treport'=>$treport  ]);
     }
 
     /**
