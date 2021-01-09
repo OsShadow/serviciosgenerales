@@ -23,12 +23,10 @@ class WaterStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'initial_read' => 'Lectura inicial',
-            'cloration' => 'Cloración    ',
-            'final_read' => 'Lectura Final',
-            'consumption' => 'Consumo Metros Cubicos',
-            'consumption_t' => 'Consumo Total',
-            'observations' => 'Observaciones'
+            'date' => 'Fecha',
+            'read' => 'Lectura',
+            'hour' => 'Hora ',
+            'cloration' => 'Cloración'
         ];
     }
 
@@ -40,12 +38,10 @@ class WaterStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'initial_read' => 'required|max:255',
-            'cloration' => 'required|numeric',
-            'final_read' => 'min:0|required|numeric',
-            'consumption' => 'min:0|required|numeric',
-            'consumption_t' => 'min:0|required|numeric',
-            'observations' => 'required'
+            'date' => 'required|max:255',
+            'read' => 'required|max:255',
+            'hour' => 'required|max:255',
+            'cloration' => 'required|numeric'
         ];
     }
 }

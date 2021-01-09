@@ -24,34 +24,30 @@ class CreateWaterReportsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->date('date');
-            $table->time('start_hour');
-            $table->time('final_hour');
-            $table->decimal('initial_read');
-            $table->decimal('final_read');
+            $table->time('hour');
+            $table->decimal('read');
             $table->decimal('cloration');
             $table->longText('Observations')->nullable();
-            $table->unsignedBigInteger('user_report');
             $table->timestamps();
 
-            $table->foreign('user_report')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade');
 
         });
 
         Schema::create('water_reports_general', function (Blueprint $table) {
-            $table->engine = 'MyISAM';
-            $table->unsignedBigInteger('id');
-            $table->unsignedBigInteger('id_water_reports');
-            $table->binary('current');
+            
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_date_start');
+            $table->unsignedBigInteger('id_date_end');
 
-            $table->foreign('id_water_reports')
+            $table->foreign('id_date_start')
             ->references('id')
             ->on('water_reports')
             ->onDelete('cascade');
 
-            $table->primary(['id','id_water_reports']);
+            $table->foreign('id_date_end')
+            ->references('id')
+            ->on('water_reports')
+            ->onDelete('cascade');
 
         });
     }

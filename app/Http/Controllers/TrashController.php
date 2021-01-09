@@ -21,6 +21,7 @@ class TrashController extends Controller
     {
 
         $treports = DB::table('trash_reports')
+        ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
         ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
         ->get();
         return view('reportes.desechos.index', ['treports' => $treports ]);

@@ -24,12 +24,8 @@ class WaterUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'initial_read' => 'Lectura inicial',
-            'cloration' => 'Cloración    ',
-            'final_read' => 'Lectura Final',
-            'consumption' => 'Consumo Metros Cubicos',
-            'consumption_t' => 'Consumo Total',
-            'observations' => 'Observaciones'
+            'read' => 'Lectura',
+            'cloration' => 'Cloración'
         ];
     }
 
@@ -41,12 +37,8 @@ class WaterUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'initial_read' => 'required|max:255',
-            'cloration' => 'required|numeric',
-            'final_read' => 'min:0|required|numeric',
-            'consumption' => 'min:0|required|numeric',
-            'consumption_t' => 'min:0|required|numeric',
-            'observations' => 'required'
+            'read' => 'required|max:255',
+            'cloration' => 'required|numeric'
         ];
     }
 }
