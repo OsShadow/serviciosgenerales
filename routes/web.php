@@ -71,9 +71,12 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/agua/create','WaterController@create')->name('agua.create')->middleware('permission:agua.create');
     Route::post('reportes/agua/{id}','WaterController@update')->name('agua.update')->middleware('permission:agua.update');
     Route::get('reportes/agua/show/{id}','WaterController@show')->name('agua.show')->middleware('permission:agua.show');
+    Route::get('reportes/agua/showreport/{id}','WaterController@showreport')->name('agua.showreport')->middleware('permission:agua.show');
     Route::delete('reportes/agua/{id}','WaterController@destroy')->name('agua.destroy')->middleware('permission:agua.destroy');
     Route::get('reportes/agua/edit/{id}','WaterController@edit')->name('agua.edit')->middleware('permission:agua.edit');
+    Route::get('reportes/agua/editreport/{id}','WaterController@editreport')->name('agua.editreport')->middleware('permission:agua.edit');
     Route::get('reportes/agua/pdf/{id}','WaterController@pdf')->name('agua.pdf')->middleware('permission:agua.pdf');
+    Route::get('reportes/agua/{inicio}/{final}', 'WaterController@complete')->name('agua.complete');
     Route::post('reportes/agua/exportpdf','WaterController@exportpdf')->name('agua.exportpdf');
 });
 

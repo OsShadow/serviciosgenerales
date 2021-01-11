@@ -40,73 +40,54 @@
 
                             @csrf
                             <div class="form-row">
-
-
-                                <div class="form-group col-md-4">
-                                    <div class="form-group">
-                                        <label for="Lectura_inicial">Lectura inicial</label>
-                                        <input type="number" class="form-control" id="initial_read" name="initial_read"
-                                            placeholder="" value="{{ $wreport->initial_read }}">
+                                <div class="form-group col-md-6">
+                                    <div class="form-group ">
+                                        <label for="date">Fecha de generación</label>
+                                        <input class="form-control" type="date" name="" value="{{ $wreport->date }}" name="date"
+                                            id="date">
                                     </div>
-
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <div class="form-group">
-                                        <label for="Cloracion">Cloración</label>
+                                        <label for="hour">Hora de lectura</label>
+                                        <input class="form-control" type="time" value="{{ $wreport->hour }}" id="start_hour"
+                                            name="hour">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="form-group">
+                                        <label for="cloration">Cloración</label>
                                         <input type="number" class="form-control" id="cloration" name="cloration"
                                             placeholder="Cantidad por litro" value="{{ $wreport->cloration }}">
                                     </div>
-
                                 </div>
-
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <div class="form-group">
-                                        <label for="Lectura_f">Lectura Final</label>
-                                        <input type="number" class="form-control" id="final_read" name="final_read"
-                                            placeholder="" value="{{ $wreport->final_read }}">
+                                        <label for="read">Lectura </label>
+                                        <input type="number" class="form-control" id="final_read" name="read"
+                                            placeholder="" value="{{ $wreport->read }}">
                                     </div>
-
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <div class="form-group">
-                                        <label for="Consumo_m">Consumo Metros cubicos</label>
-                                        <input class="form-control" type="number" id="consumption" name="consumption"
-                                            value="{{ $wreport->consumption }}">
-                                    </div>
-
-
+                                <div class="form-group col-md-12">
+                                    <label for="Observaciones">Observaciones</label>
+                                    <textarea class="form-control" id="observations" name="Observations"
+                                        rows="3">{{ $wreport->Observations }}</textarea>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <div class="form-group">
-                                        <label for="Consumo_t">Consumo Total del mes</label>
-                                        <input class="form-control" type="number" id="consumption_t" name="consumption_t"
-                                            value="{{ $wreport->consumption_total }}">
-                                    </div>
-
-                                </div>
-
                             </div>
-
-                            <div class="form-group">
-                                <label for="Observaciones">Observaciones</label>
-                                <textarea class="form-control" id="observations" name="observations"
-                                    rows="3">{{ $wreport->Observations }}</textarea>
-                            </div>
-
-
-
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12 text-right">
 
                                 <button type="submit" class="btn btn-primary btn-lg">
                                     {{ __('Editar Reporte') }}
                                 </button>
-
+        
                             </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                   
             </div>
         </div>
+    </div>
     </div>
 
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\WaterStoreRequest;
 use App\Http\Requests\WaterUpdateRequest;
 use Carbon\Carbon;
 use App\WaterReports;
+use DB;
 
 class WaterController extends Controller
 {
@@ -20,9 +21,60 @@ class WaterController extends Controller
 public function index(Request $request)
 {
 
-$wreports = WaterReports::all();
-return view('reportes.agua.index', ['wreports' => $wreports]);
 
+$wreports = DB::table('water_reports_general as t1')
+        ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
+        ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
+        ->get();
+
+$lwreport = DB::table('water_reports_general')
+->select('id_date_end')
+->orderByDesc('id')
+->limit(1)
+->get();
+
+$lreport = DB::table('water_reports')
+->select('id')
+->orderByDesc('id')
+->limit(1)
+->get();
+
+$blnactualreport = false;
+$actualreport = [];
+
+if($lwreport[0]->id_date_end != $lreport[0]->id){
+
+    $blnactualreport = true;
+
+    $actualreport = DB::table('water_reports')
+    ->orderByDesc('id')
+    ->where('id', '>' ,$lwreport[0]->id_date_end)
+    ->get();
+
+}
+
+return view('reportes.agua.index', ['wreports' => $wreports, 'actualreport' => $actualreport, 'blnactualreport' => $blnactualreport, 'pruebauno' =>$lwreport[0]->id_date_end, 'prueba2' => $lreport[0]->id]);
+
+}
+
+public function complete( $inicio, $fin)
+{
+
+    $nreport = DB::table('water_reports_general')
+        ->select('id')
+        ->orderByDesc('id')
+        ->limit(1)
+        ->get();
+
+
+        DB::table('water_reports_general')->insert([
+            'id' => $nreport[0]->id+1,
+            'id_date_start' => $inicio,
+            'id_date_end' => $fin
+        ]);
+
+    return redirect('/reportes/agua');
 }
 
 /**
@@ -30,11 +82,13 @@ return view('reportes.agua.index', ['wreports' => $wreports]);
  *
  * @return \Illuminate\Http\Response
  */
+
 public function create()
 {
 
-$date = Carbon::parse(Carbon::now())->format('Y-m-d');
-return view('reportes.agua.create',['date'=>$date]);  
+$date = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+$hour = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('H:i');
+return view('reportes.agua.create',['date'=>$date],['hour'=>$hour]);  
 
 }
 
@@ -46,27 +100,23 @@ return view('reportes.agua.create',['date'=>$date]);
  */
 
 
-
 public function store(WaterStoreRequest $request)
 {
+    
 $water = new WaterReports();
 
 $date = Carbon::parse($request->date)->format('Y-m-d');
+$hour = Carbon::parse($request->hour)->format('H:i');
 
 $water->date = $date;
-$water->start_hour = $request->start_hour;
-$water->final_hour = $request->final_hour;
-$water->initial_read = $request->initial_read;
-$water->final_read = $request->final_read;
+$water->hour = $hour;
+$water->read = $request->read;
 $water->cloration = $request->cloration;
-$water->consumption = $request->consumption;
-$water->consumption_total = $request->consumption_t;
-$water->observations = $request->observations;
-$water->user_report = auth()->id();
-
+$water->Observations = $request->observations;
+// $water->user_report = auth()->id();
 $water->save();
-
 return redirect('reportes/agua');
+
 }
 
 /**
@@ -77,7 +127,38 @@ return redirect('reportes/agua');
  */
 public function show($id)
 {
-return view('reportes.agua.show',['wreport'=> WaterReports::findOrFail($id)]);
+
+    $range = DB::table('water_reports_general')
+    ->select('id_date_start','id_date_end')
+    ->where('id','=',$id)
+    ->get();
+    
+    $consumption = DB::table('water_reports_general as t1')
+        ->select(DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
+        ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
+        ->where('t1.id', '=', $id)
+        ->get();
+
+
+    $wreports = DB::table('water_reports')
+    ->select('id','date','hour','read','cloration','Observations')
+    ->whereBetween('id',[$range[0]->id_date_start, $range[0]->id_date_end])
+    ->get();
+
+
+return view('reportes.agua.show',['wreports'=> $wreports ],['consumption' => $consumption[0]->consumption],['id_general' => $id]);
+}
+
+
+public function showreport($id)
+{
+
+$wreport = WaterReports::findOrFail($id);
+
+return view('reportes.agua.showreport',['wreport' => $wreport], ['id' => $id]);
+
+
 }
 
 /**
@@ -105,12 +186,11 @@ public function update(WaterUpdateRequest $request, $id)
 {
 $water = WaterReports::findOrFail($id);
 
-$water->initial_read = $request->initial_read;
-$water->final_read = $request->final_read;
+$water->read = $request->date;
+$water->hour = $request->hour;
+$water->read = $request->read;
 $water->cloration = $request->cloration;
-$water->consumption = $request->consumption;
-$water->consumption_total = $request->consumption_t;
-$water->observations = $request->observations;
+$water->Observations = $request->Observations;
 
 $water->update();   
 
@@ -147,8 +227,6 @@ public function pdf($id){
 
 public function exportpdf(Request $request){
 
-    
-    
     $wreport = WaterReports::findOrFail($id);
     $pdf = \PDF::loadView('/reportes/agua/pdf', compact('wreport'));
     // $pdf->setPaper('letter', 'landscape');
