@@ -4,7 +4,7 @@
     
       <!-- /.row -->
       <div class="row justify-content-center">
-        <div class="col-8 justify-content-center">
+        <div class="col-10 justify-content-center">
             <h1 class="display-4">Roles</h1>
           <div class="card">
             <div class="card-header">
