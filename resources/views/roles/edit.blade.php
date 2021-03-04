@@ -1,24 +1,22 @@
 @extends('layouts.app')
 @section('content')
-
-
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card card-primary">
             <div class="card-header ">Editar</div>
 
             <div class="card-body">
-                <form action="/roles" method="POST">
+                <form action="{{ route('roles.update',  $rol->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="name">Nombre del Rol</label>
-                        <input type="text" class="form-control" name="name" value="{{ $rol[0]->name }}"
+                        <input type="text" class="form-control" name="name" value="{{ $rol->name }}"
                             placeholder="Introduzca el nombre que tendra el rol">
                     </div>
                     <div class="form-group">
                         <label for="description">Descripcion</label>
-                        <textarea class="form-control" name="name" placeholder="Introduzca la descripcion que tendra el rol"
-                            rows="3">{{ $rol[0]->description }}</textarea>
+                        <textarea class="form-control" name="description" placeholder="Introduzca la descripcion que tendra el rol"
+                            rows="3">{{ $rol->description }}</textarea>
                     </div>
 
 
@@ -34,7 +32,7 @@
                                     </div>
                                     
                                 @endif
-                                @foreach ($rol[0]->permissions as $rolPermiso)
+                                @foreach ($rol->permissions as $rolPermiso)
                                     @if ($rolPermiso->name == $permiso->name)
                                         <div style="display:none;">
                                             {{ $flag = true }}
@@ -55,13 +53,10 @@
                         @endforeach
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                     <button type="reset" class="btn btn-danger float-right">Cancelar</button>
                 </form>
-                
-                
             </div>
-            
         </div>
     </div>
 </div>

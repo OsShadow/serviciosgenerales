@@ -10,7 +10,7 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>AdminLTE 3</title>
+<title>Servicios Generales</title>
 
 
 <!-- Scripts -->
