@@ -280,7 +280,7 @@
             </li>
         -->
 
-        @can('desechos.create')
+        {{-- @can('desechos.create')
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file"></i>
@@ -310,13 +310,13 @@
                     </li>
                 </ul>
             </li>
-            @endcan
+            @endcan --}}
 
             @can('desechos.show')
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file-alt"></i>
-                    <p>Ver reportes <i class="fas fa-angle-left right"></i></p>
+                    <p>Reportes <i class="fas fa-angle-left right"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">

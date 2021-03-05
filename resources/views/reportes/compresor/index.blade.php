@@ -3,15 +3,14 @@
 @section('content')
 
 <h2> Reportes de Compresor </h2>
+
     <div class="card">
         <div class="card-body">
             <a href="{{ url('reportes/compresor/create') }}"> <button type="button"
                     class="btn btn-success float-right">Crear
                     nuevo </button> </a>
             
-
             {{-- Rangos fecha --}}
-
 
             <div class="card-body">
 
@@ -43,11 +42,9 @@
                                     Actualizar</button>
 
                             </div>
-
                         </div>
                     </form>
                 </div>
-
 
             </div>
 

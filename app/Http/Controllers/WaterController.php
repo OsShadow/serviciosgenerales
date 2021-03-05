@@ -31,7 +31,7 @@ public function index(Request $request)
         $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
 $wreports = DB::table('water_reports_general as t1')
-        ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
         ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
         ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
         ->get();
@@ -76,7 +76,7 @@ return view('reportes.agua.index', ['wreports' => $wreports, 'actualreport' => $
         // con filtro
 
         $wreports = DB::table('water_reports_general as t1')
-        ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
         ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
         ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
         ->whereBetween('t2.date',[$DateIni, $DateEnd])
@@ -205,7 +205,7 @@ public function show($id)
     ->get();
     
     $consumption = DB::table('water_reports_general as t1')
-        ->select(DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->select(DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
         ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
         ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
         ->where('t1.id', '=', $id)
@@ -294,7 +294,7 @@ public function pdf($id){
     ->get();
     
     $consumption = DB::table('water_reports_general as t1')
-        ->select(DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->select(DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
         ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
         ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
         ->where('t1.id', '=', $id)
@@ -323,7 +323,7 @@ public function exportpdf(Request $request){
 public function pdfgeneral($DateIni, $DateEnd){
 
     $wreports = DB::table('water_reports_general as t1')
-    ->select('t1.id','t1.id_date_start', 't1.id_date_end','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+    ->select('t1.id','t1.id_date_start', 't1.id_date_end','t2.date as date_start','t3.date as date_end',DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
     ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
     ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
     ->whereBetween('t2.date',[$DateIni, $DateEnd])
