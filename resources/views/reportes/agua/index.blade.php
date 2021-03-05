@@ -6,6 +6,7 @@
         <h2> Reportes de agua </h2>
 
         <div class="card">
+            
             {{-- <div class="card-header">
                 <div class="row">
                     <div class="col-md-6">
@@ -84,7 +85,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Inicio</div>
                                         </div>
-                                        <input type="date" name="DateIni" value="" class="form-control"
+                                        <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
                                             id="DateInitial">
                                     </div>
                                 </div>
@@ -93,23 +94,32 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Fin</div>
                                         </div>
-                                        <input type="date" name="DateEnd" value="" class="form-control"
+                                        <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
                                             id="DateEnding">
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
                                         Actualizar</button>
-
                                 </div>
-
                             </div>
                         </form>
                     </div>
 
                 </div>
 
-            {{-- @if (  --}}
+                @if (isset($seleccion))
+                <div class="row" style="margin-left: 20px; margin-right: 20px">
+                    <div class="col-md-6">
+                        Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
+                        <span style="font-weight: bold">{{ $DateEnd }}</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ route('agua.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
+                            <i class="fas fa-print"></i> Exportar selección</a>
+                    </div>
+                </div>
+            @endif
 
             {{-- Rangos fecha --}}
 

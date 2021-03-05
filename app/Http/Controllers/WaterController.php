@@ -21,12 +21,20 @@ class WaterController extends Controller
 public function index(Request $request)
 {
 
+    $DateIni = $request->get('DateIni');
+    $DateEnd = $request->get('DateEnd');
+
+
+    if($DateIni == '' || $DateEnd == ''){
+        
+        $DateIni = '2021-01-01';
+        $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+
 $wreports = DB::table('water_reports_general as t1')
         ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
         ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
         ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
         ->get();
-
 
 $lwreport = DB::table('water_reports_general')
 ->select('id_date_end')
@@ -61,7 +69,58 @@ if($lwreport[0]->id_date_end != $lreport[0]->id){
     ->get();
 }
 
-return view('reportes.agua.index', ['wreports' => $wreports, 'actualreport' => $actualreport, 'blnactualreport' => $blnactualreport]);
+return view('reportes.agua.index', ['wreports' => $wreports, 'actualreport' => $actualreport, 'blnactualreport' => $blnactualreport, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
+    }else{
+
+
+        // con filtro
+
+        $wreports = DB::table('water_reports_general as t1')
+        ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+        ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
+        ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
+        ->whereBetween('t2.date',[$DateIni, $DateEnd])
+        ->get();
+
+        $lwreport = DB::table('water_reports_general')
+        ->select('id_date_end')
+        ->orderByDesc('id')
+        ->limit(1)
+        ->get();
+
+        $lreport = DB::table('water_reports')
+        ->select('id')
+        ->orderByDesc('id')
+        ->limit(1)
+        ->get();
+
+        $blnactualreport = false;
+        $actualreport = [];
+
+        if(isset($lwreport[0])){
+        if($lwreport[0]->id_date_end != $lreport[0]->id){
+
+            $blnactualreport = true;
+
+            $actualreport = DB::table('water_reports')
+            ->orderByDesc('id')
+            ->where('id', '>' ,$lwreport[0]->id_date_end)
+            ->get();
+
+        }
+        }else{
+
+            $actualreport = DB::table('water_reports')
+            ->orderByDesc('id')
+            ->get();
+        }
+
+        $seleccion = true;
+
+        return view('reportes.agua.index', ['wreports' => $wreports, 'actualreport' => $actualreport,
+         'blnactualreport' => $blnactualreport, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+
+    }
 
 }
 
@@ -262,6 +321,23 @@ public function exportpdf(Request $request){
     // $pdf->setPaper('letter', 'landscape');
     return $pdf->stream('waterReport');
 }
+
+public function pdfgeneral($DateIni, $DateEnd){
+
+    // $DateIni = $request->get('DateIni');
+    // $DateEnd = $request->get('DateEnd');
+
+    // $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
+
+    // $pdf = \PDF::loadView('/reportes/compresor/pdfgeneral', compact('compresor', 'DateIni'));
+
+    // $pdf->setPaper('letter', 'landscape');
+
+    // return $pdf->stream('compresorReport');
+
+}
+
+
 
 
 }

@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/agua/pdf/{id}','WaterController@pdf')->name('agua.pdf')->middleware('permission:agua.pdf');
     Route::get('reportes/agua/{inicio}/{final}', 'WaterController@complete')->name('agua.complete');
     Route::post('reportes/agua/exportpdf','WaterController@exportpdf')->name('agua.exportpdf');
+    Route::get('reportes/agua/pdfgeneral/{fechainicio}/{fechafin}','WaterController@pdfgeneral')->name('agua.pdfgeneral');
 });
 
 // Route::resource('reportes/desechos','trashController');
