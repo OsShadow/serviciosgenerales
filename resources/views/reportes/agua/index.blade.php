@@ -6,7 +6,7 @@
         <h2> Reportes de agua </h2>
 
         <div class="card">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <div class="row">
                     <div class="col-md-6">
                         <h5>Buscar por fecha</h5>
@@ -53,108 +53,172 @@
                             </div>
                         </form>
                     </div>
-                    @if ($blnactualreport == false)
-                        <div class="col-md-4">
-                            <a href="{{ url('reportes/agua/create') }}"> <button type="button" style="margin: 5px;"
-                                    class="btn btn-success float-right">Crear nuevo
-                                </button> </a>
-                        </div>
-                    @endif
+                    
                 </div>
-            </div>
+            </div> --}}
+
+           
             <!-- /.card-header -->
-            @if ($blnactualreport != false)
-            <div class="card-body">
-                <h3>Reportes en progreso: </h3>
-                <table class="table table-striped table-bordered table-hover ">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col-xs-1">ID</th>
-                            <th scope="col">Fecha </th>
-                            <th scope="col">Lectura</th>
-                            <th scope="col">Cloracion</th>
-                            <th data-card-footer scope="col-xs-1">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{-- {{ $actualreport[count($actualreport)-1]->id }}
-                        {{ $actualreport[0]->id }} --}}
-                        @foreach ($actualreport as $areport)
 
-                            <tr>
-                                <td scope="row">{{ $areport->id }}</td>
-                                <td>{{ $areport->date }}</td>
-                                <td>{{ $areport->read }}</td>
-                                <td>{{ $areport->cloration }}</td>
-                                <td>
 
-                                    <form action="{{ route('agua.destroy', $areport->id) }}" method="POST">
-                                        <a href="{{ route('agua.edit', $areport->id) }}"><button type="button"
-                                                class="btn btn-info"> <i class="far fa-eye" style="color: white"
-                                                    alt="Submit"> </i> Editar </button></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"> <i
-                                                class="far fa-trash-alt"></i> Eliminar registro </button></button>
+            {{-- Rangos fecha --}}
 
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <div>
-                        @if ($blnactualreport != false)
-                        <a href="{{ route('agua.complete', [$actualreport[count($actualreport)-1]->id, $actualreport[0]->id] ) }}"> <button type="button" style="margin: 5px;"
-                                class="btn btn-success float-right">Finalizar reportes
-                            </button> </a>
-                            @endif
+                <div class="card-body">
+
+
+                    @if ($blnactualreport == false && count($actualreport) == 0)
+                    <div class="col-md-12">
                         <a href="{{ url('reportes/agua/create') }}"> <button type="button" style="margin: 5px;"
-                                class="btn btn-info float-right">Agregar reporte
+                                class="btn btn-success float-right">Crear nuevo
                             </button> </a>
                     </div>
-                </table>
+                @endif
 
-            </div>
+                    <div class="card-title">Filtrar por fecha</div>
+
+                    <div class="card-text">
+                        <form>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Inicio</div>
+                                        </div>
+                                        <input type="date" name="DateIni" value="" class="form-control"
+                                            id="DateInitial">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Fin</div>
+                                        </div>
+                                        <input type="date" name="DateEnd" value="" class="form-control"
+                                            id="DateEnding">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
+                                        Actualizar</button>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            {{-- @if (  --}}
+
+            {{-- Rangos fecha --}}
+
+
+            @if ($blnactualreport != false || count($actualreport) > 0)
+                <div class="card-body">
+                    <h3>En progreso: </h3>
+                    <table class="table table-striped table-bordered table-hover ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col-xs-1">ID</th>
+                                <th scope="col">Fecha </th>
+                                <th scope="col">Lectura</th>
+                                <th scope="col">Cloracion</th>
+                                <th data-card-footer scope="col-xs-1">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- {{ $actualreport[count($actualreport)-1]->id }}
+                        {{ $actualreport[0]->id }} --}}
+                            @foreach ($actualreport as $areport)
+
+                                <tr>
+                                    <td scope="row">{{ $areport->id }}</td>
+                                    <td>{{ $areport->date }}</td>
+                                    <td>{{ $areport->read }}</td>
+                                    <td>{{ $areport->cloration }}</td>
+                                    <td>
+
+                                        <form action="{{ route('agua.destroy', $areport->id) }}" method="POST">
+                                            <a href="{{ route('agua.edit', $areport->id) }}"><button type="button"
+                                                    class="btn btn-info"> <i class="far fa-eye" style="color: white"
+                                                        alt="Submit"> </i> Editar </button></a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"> <i
+                                                    class="far fa-trash-alt"></i> Eliminar registro </button></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <div>
+                            @if ($blnactualreport != false || count($actualreport) > 0)
+                                <a
+                                    href="{{ route('agua.complete', [$actualreport[count($actualreport) - 1]->id, $actualreport[0]->id]) }}">
+                                    <button type="button" style="margin: 5px;" class="btn btn-success float-right">Finalizar
+                                        reporte
+                                    </button> </a>
+                            @endif
+                            <a href="{{ url('reportes/agua/create') }}"> <button type="button" style="margin: 5px;"
+                                    class="btn btn-info float-right">Agregar subregistro
+                                </button> </a>
+                        </div>
+                    </table>
+
+                </div>
+            @endif
+            @if (count($wreports) > 0)
+
+                <div class="card-body">
+
+                    <h3>Finalizados: </h3>
+                    <table class="table table-striped table-bordered table-hover ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col-xs-1">ID</th>
+                                <th scope="col">Fecha Inicio</th>
+                                <th scope="col">Fecha Fin</th>
+                                <th scope="col">Consumo Total</th>
+                                <th data-card-footer scope="col-xs-1">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($wreports as $wreport)
+
+                                <tr>
+                                    <td scope="row">{{ $wreport->id }}</td>
+                                    <td>{{ $wreport->date_start }}</td>
+                                    <td>{{ $wreport->date_end }}</td>
+                                    <td>{{ $wreport->consumption }}</td>
+                                    <td>
+
+
+
+                                        <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
+                                            <a href="{{ route('agua.pdf', $wreport->id) }}"><button type="button"
+                                                    class="btn btn-warning"><i class="fas fa-print"></i> Exportar registro
+                                                </button></a>
+                                            <a href="{{ route('agua.show', $wreport->id) }}"><button type="button"
+                                                    class="btn btn-info"> <i class="far fa-eye" style="color: white"
+                                                        alt="Submit"> </i> Ver subregistros </button></a>
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            @endif
+            @if (count($wreports) == 0)
+                <h5 class="col-md-12 text-center">No hay registros finalizados</h5>
             @endif
 
-            <div class="card-body">
-
-                <table class="table table-striped table-bordered table-hover ">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col-xs-1">ID</th>
-                            <th scope="col">Fecha Inicio</th>
-                            <th scope="col">Fecha Fin</th>
-                            <th scope="col">Consumo Total</th>
-                            <th data-card-footer scope="col-xs-1">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($wreports as $wreport)
-
-                            <tr>
-                                <td scope="row">{{ $wreport->id }}</td>
-                                <td>{{ $wreport->date_start }}</td>
-                                <td>{{ $wreport->date_end }}</td>
-                                <td>{{ $wreport->consumption }}</td>
-                                <td>
-
-                                    <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
-                                        <a href="{{ route('agua.pdf', $wreport->id) }}"><button type="button"
-                                                class="btn btn-warning"><i class="fas fa-print"></i> Exportar registro </button></a>
-                                        <a href="{{ route('agua.show', $wreport->id) }}"><button type="button"
-                                                class="btn btn-info"> <i class="far fa-eye" style="color: white"
-                                                    alt="Submit"> </i> Ver Subregistros </button></a>
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
             </div>

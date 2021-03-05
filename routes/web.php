@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function(){
     Route::delete('reportes/compresor/{id}','CompresorController@destroy')->name('compresor.destroy')->middleware('permission:compresor.destroy');
     Route::get('reportes/compresor/edit/{id}','CompresorController@edit')->name('compresor.edit')->middleware('permission:compresor.edit');
     Route::get('reportes/compresor/pdf/{id}','CompresorController@pdf')->name('compresor.pdf')->middleware('permission:compresor.pdf');
+    Route::get('reportes/compresor/pdfgeneral/{fechaini}/{fechafin}','CompresorController@pdfgeneral')->name('compresor.pdfgeneral');
 });
 
 // Route::resource('reportes/agua','waterController');
@@ -90,6 +91,7 @@ Route::middleware('auth')->group(function(){
     Route::delete('reportes/desechos/{id}','TrashController@destroy')->name('desechos.destroy')->middleware('permission:desechos.destroy');
     Route::get('reportes/desechos/edit/{id}','TrashController@edit')->name('desechos.edit')->middleware('permission:desechos.edit');
     Route::get('reportes/desechos/pdf/{id}','TrashController@pdf')->name('desechos.pdf')->middleware('permission:desechos.pdf');
+    Route::get('reportes/desechos/pdfgeneral/{fechainicio}/{fechafin}','TrashController@pdfgeneral')->name('desechos.pdfgeneral');
 });
 
 Route::resource('emergencias','emergenciesController');

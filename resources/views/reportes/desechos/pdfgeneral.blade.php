@@ -10,39 +10,36 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body style="font-family: Arial" >
+<body>
+
     <div style="margin-left: 50px;">
 
-      <h4>Reporte lecturas del agua</h4>
-      <br>
+        <h4>Reporte de lecturas del compresor</h4>
+        <br>
 
         <table class="table table-bordered" style="width: 600px; ">
             <tbody>
-                <tr style="border: 5px;" >
+                <tr style="border: 5px;">
                     <th scope="row" style="width: 100px"> Fecha: </th>
-                    <th scope="row" style="width: 100px"> Hora: </th>
-                    <th scope="row"> Lectura: </th>
-                    <th scope="row"> Cloración: </th>
+                    <th scope="row"> Cantidad </th>
+                    <th scope="row"> Area: </th>
+                    <th scope="row"> Tipo: </th>
                 </tr>
-                @foreach ($wreports as $wreport)  
+                @foreach ($trash as $tr)
                     <tr>
-                        <td>{{ $wreport->date }} </td>
-                        <td>{{ $wreport->hour }}</td>
-                        <td>{{ $wreport->read }}</td>
-                        <td>{{ $wreport->cloration }}</td>
+                        <td>{{ $tr->date }}</td>
+                        <td>{{ $tr->quantity }}</td>
+                        <td>{{ $tr->label }}</td>
+                        <td>{{ $tr->type }}</td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
         <br>
 
-        <h5>
-            @foreach ($consumption as $consumo)
-                Consumo total: {{ $consumo->consumption }} lt
-            @endforeach
-        </h5>
     </div>
+
+
 </body>
 
 </html>
