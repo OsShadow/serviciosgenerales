@@ -17,14 +17,41 @@ class TrashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $treports = DB::table('trash_reports')
-        ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
-        ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
-        ->get();
-        return view('reportes.desechos.index', ['treports' => $treports ]);
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
+
+
+        if($DateIni == '' || $DateEnd == ''){
+
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+           
+            $treports = DB::table('trash_reports')
+            ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
+            ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+            ->get();
+            return view('reportes.desechos.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
+           
+
+                }else{
+
+                    $seleccion = true;
+
+                    $treports = DB::table('trash_reports')
+                    ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
+                    ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+                    ->whereBetween('trash_reports.date',[$DateIni, $DateEnd])
+                    ->get();
+                    return view('reportes.desechos.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
+                   
+                }
+
+        
+
+    
     }
 
     /**
@@ -131,6 +158,19 @@ class TrashController extends Controller
         $trash = TrashReports::findOrFail($id);
         $area = Areas::findorfail($trash->area_report);
         $pdf = \PDF::loadView('/reportes/desechos/pdf', compact('trash','area'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('trashReport');
+    }
+
+    public function pdfgeneral($DateIni, $DateEnd){
+    
+        $trash = DB::table('trash_reports')
+        ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
+        ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+        ->whereBetween('trash_reports.date',[$DateIni, $DateEnd])
+        ->get();
+
+        $pdf = \PDF::loadView('/reportes/desechos/pdfgeneral', compact('trash'));
         // $pdf->setPaper('letter', 'landscape');
         return $pdf->stream('trashReport');
     }

@@ -5,7 +5,7 @@
 <div class="card-body">
 
     <div style="margin-bottom: 10px">
-    <a href="{{ route('agua.pdf', $algo=1) }}"><button type="button"
+    <a href="{{ route('agua.pdf', $id) }}"><button type="button"
         class="btn btn-warning"><i class="fas fa-print"></i> Imprimir reporte</button></a>
     </div>
               
@@ -33,7 +33,6 @@
                   <td>
                     
                       <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
-                          
                           <a href="{{ route('agua.showreport', $wreport->id) }}"><button type="button"
                                   class="btn btn-info"><i class="far fa-eye" style="color: white"
                                       alt="Submit"></i></button></a>
