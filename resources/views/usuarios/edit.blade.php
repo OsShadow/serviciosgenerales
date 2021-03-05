@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -29,14 +28,19 @@
                     <div class="form-group">
                         {{-- {{ dd($roles) }} --}}
                         <label for="Asignación de rol">Asignación de rol</label>
-                        <select class="form-control" id="rol" placeholder="Asignación de Rol">
+                        <select class="form-control" id="rol" name='roles' placeholder="Asignación de Rol">
                             @foreach ($roles as $rol)
-                                <option>{{ $rol->name }}</option>
+                                @if($rol->name === $user_rol[0])
+                                    <option selected>{{ $rol->name }}</option>
+                                @else
+                                    <option>{{ $rol->name }}</option>
+                                @endif
+                                
                             @endforeach
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <button type="reset" class="btn btn-danger float-right">Cancelar</button>
+                    <button type="cancel" class="btn btn-danger float-right">Cancelar</button>
                 </form>
 
             </div>
