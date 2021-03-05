@@ -7,6 +7,62 @@
             </button> </a>
         <h2> Reportes de desechos </h2>
 
+          {{-- Rangos fecha --}}
+          
+
+          <div class="card">
+            <div class="card-body">
+
+                <div class="card-title">Filtrar por fecha</div>
+
+                <div class="card-text">
+                    <form>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Inicio</div>
+                                    </div>
+                                    <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
+                                        id="DateInitial">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Fin</div>
+                                    </div>
+                                    <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
+                                        id="DateEnding">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
+                                    Actualizar</button>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+         
+
+        @if (isset($seleccion))
+        <div class="row">
+            <div class="col-md-6">
+                Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
+                <span style="font-weight: bold">{{ $DateEnd }}</span>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="{{ route('desechos.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2"> <i
+                        class="fas fa-print"></i> Exportar selección</a>
+            </div>
+        </div>
+    @endif
+
+    {{-- Rangos fecha --}}
+
         <table class="table table-striped table-hover ">
             <thead class="thead-dark">
                 <tr>
@@ -32,7 +88,6 @@
                         <td>{{ $treport->quantity }}</td>
                         <td>{{ $treport->user_report }}</td>
 
-                       
                         <td>
                             <form action="{{ route('desechos.destroy', $treport->id) }}" method="POST">
                                 <a href="{{ route('desechos.pdf', $treport->id) }}"><button type="button" class="btn btn-warning"><i
@@ -54,7 +109,8 @@
 
             </tbody>
         </table>
-
+    </div>
+</div>
     </div>
 
 

@@ -11,6 +11,8 @@ use App\User;
 
 class CompresorController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +20,30 @@ class CompresorController extends Controller
      */
     public function index(Request $request)
     {
-        $creports = CompresorReports::all();
-        return view('reportes.compresor.index', ['creports' => $creports]);
+       
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
+
+
+        if($DateIni == '' || $DateEnd == ''){
+
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+           
+
+                    $creports = CompresorReports::all();
+
+            return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
+           
+
+                }else{
+
+                    $seleccion = true;
+
+                    $creports = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
+                    return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+                   
+                }
 
     }
 
@@ -118,6 +142,10 @@ class CompresorController extends Controller
         return redirect('/reportes/compresor');
     }
 
+    /**
+     * Generacion de PDF
+     */
+
     public function pdf($id){
     
         $compresor = CompresorReports::findOrFail($id);
@@ -125,6 +153,25 @@ class CompresorController extends Controller
         $pdf = \PDF::loadView('/reportes/compresor/pdf', compact('compresor','user'));
         // $pdf->setPaper('letter', 'landscape');
         return $pdf->stream('compresorReport');
+    }
+
+    /**
+     * Generacion de PDF por rango de fecha
+     */
+
+    public function pdfgeneral($DateIni, $DateEnd){
+
+        // $DateIni = $request->get('DateIni');
+        // $DateEnd = $request->get('DateEnd');
+    
+        $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
+
+        $pdf = \PDF::loadView('/reportes/compresor/pdfgeneral', compact('compresor', 'DateIni'));
+
+        // $pdf->setPaper('letter', 'landscape');
+
+        return $pdf->stream('compresorReport');
+
     }
 
 }

@@ -15,7 +15,6 @@
                         <a href="{{url('reportes/compresor')}}" class="btn btn-secondary">Volver</a>
                         <a href="{{route('compresor.edit', $creport->id)}}" class="btn btn-primary">Editar</a>
                     </div>
-
                 </div>
 
             </div>
