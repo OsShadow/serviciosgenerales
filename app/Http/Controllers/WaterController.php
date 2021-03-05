@@ -287,8 +287,6 @@ return redirect('/reportes/agua');
  */
 
 public function pdf($id){
-    
-    // $wreport = WaterReports::findOrFail($id);
 
     $range = DB::table('water_reports_general')
     ->select('id_date_start','id_date_end')
@@ -307,10 +305,10 @@ public function pdf($id){
     ->whereBetween('id',[$range[0]->id_date_start, $range[0]->id_date_end])
     ->get();
 
-
     $pdf = \PDF::loadView('/reportes/agua/pdf', compact('wreports', 'consumption' ));
     // $pdf->setPaper('letter', 'landscape');
     return $pdf->stream('waterReport');
+
 }
 
 
@@ -324,16 +322,32 @@ public function exportpdf(Request $request){
 
 public function pdfgeneral($DateIni, $DateEnd){
 
-    // $DateIni = $request->get('DateIni');
-    // $DateEnd = $request->get('DateEnd');
+    $wreports = DB::table('water_reports_general as t1')
+    ->select('t1.id','t1.id_date_start', 't1.id_date_end','t2.date as date_start','t3.date as date_end',DB::raw('(`t3`.`read` - `t2`.`read`) as `consumption`'))
+    ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
+    ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
+    ->whereBetween('t2.date',[$DateIni, $DateEnd])
+    ->get();
 
-    // $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
+        $reportes = array();
 
-    // $pdf = \PDF::loadView('/reportes/compresor/pdfgeneral', compact('compresor', 'DateIni'));
+        foreach ($wreports as $indice => $wr) {
+
+            $wreport = DB::table('water_reports')
+    ->select('id','date','hour','read','cloration','Observations')
+    ->whereBetween('id',[$wr->id_date_start, $wr->id_date_end])
+    ->get();
+
+            array_push($reportes, $wreport);
+        }
+
+    $agua = '';
+
+    $pdf = \PDF::loadView('/reportes/agua/pdfgeneral', compact('reportes','wreports'));
 
     // $pdf->setPaper('letter', 'landscape');
 
-    // return $pdf->stream('compresorReport');
+    return $pdf->stream('compresorReport');
 
 }
 
