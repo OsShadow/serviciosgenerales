@@ -85,7 +85,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::orderBy('name','asc')->get('name');
-        return view('usuarios.edit',compact('user','roles'));
+        $user_rol = $user->getRoleNames();
+        return view('usuarios.edit',compact('user','roles','user_rol'));
     }
 
     /**
