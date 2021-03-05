@@ -205,8 +205,6 @@
                                     <td>{{ $wreport->consumption }}</td>
                                     <td>
 
-
-
                                         <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
                                             <a href="{{ route('agua.pdf', $wreport->id) }}"><button type="button"
                                                     class="btn btn-warning"><i class="fas fa-print"></i> Exportar registro
