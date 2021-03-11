@@ -113,6 +113,11 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Compresor',
             'display'=>'Crear pdf de reporte Compresor'
             ]);
+         Permission::create([
+             'name' => 'compresor.pdfgeneral',
+            'category' => 'Compresor',
+            'display'=>'Crear pdf de reporte Compresor en rango de fechas '
+             ]);
 
         // Permisos sobre modulos de desechos
         Permission::create([
@@ -150,6 +155,11 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Desechos',
             'display'=>'Crear pdf de reporte Desechos'
             ]);
+         Permission::create([
+            'name' => 'desechos.pdfgeneral',
+            'category' => 'Desechos',
+            'display'=>'Crear pdf de reporte Desechos en rango de fechas'
+            ]);
         // Permisos sobre modulos de agua
         Permission::create([
             'name' => 'agua.index',
@@ -186,6 +196,12 @@ class PermissionTableSeeder extends Seeder
             'category' => 'Agua',
             'display'=>'Crear pdf de reporte Agua'
             ]);
+
+            Permission::create([
+                'name' => 'agua.pdfgeneral',
+                'category' => 'Agua',
+                'display'=>'Crear pdf de reporte Agua en rango de fechas'
+                ]);
             
         // Permisos sobre modulos de reportes
         // Permission::create(['name' => 'reportes.index']);
