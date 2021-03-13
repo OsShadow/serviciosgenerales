@@ -19,29 +19,21 @@
         <table class="table table-bordered" style="width: 600px; ">
             <tbody>
                 <tr style="border: 5px;" >
-                    <th scope="row" style="width: 100px"> Fecha: </th>
-                    <th scope="row" style="width: 100px"> Hora: </th>
-                    <th scope="row"> Lectura: </th>
-                    <th scope="row"> Cloración: </th>
+                    <th scope="row" style="width: 100px"> Titulo: </th>
+                    <th scope="row" style="width: 100px"> Fecha de reporte: </th>
+                    <th scope="row"> Descripción: </th>
+                    <th scope="row"> Observaciones: </th>
                 </tr>
-                @foreach ($wreports as $wreport)  
                     <tr>
-                        <td>{{ $wreport->date }} </td>
-                        <td>{{ $wreport->hour }}</td>
-                        <td>{{ $wreport->read }}</td>
-                        <td>{{ $wreport->cloration }}</td>
+                        <td>{{ $emergency->head }} </td>
+                        <td>{{ $emergency->date }}</td>
+                        <td>{{ $emergency->description }}</td>
+                        <td>{{ $emergency->observations }}</td>
                     </tr>
-                @endforeach
 
             </tbody>
         </table>
         <br>
-
-        <h5>
-            @foreach ($consumption as $consumo)
-                Consumo total: {{ $consumo->consumption }} lt
-            @endforeach
-        </h5>
     </div>
 </body>
 

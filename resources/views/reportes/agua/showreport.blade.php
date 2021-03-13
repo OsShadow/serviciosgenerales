@@ -9,7 +9,9 @@
                     <div class="row">
                         <div class="col-sm-12 text-right">
                             <a href="{{ route('agua.show', $id) }}" class="btn btn-secondary">Volver</a>
+                            @can('agua.create')
                             <a href="{{ route('agua.edit', $wreport->id) }}" class="btn btn-primary">Editar</a>
+                            @endcan
                         </div>
 
                     </div>

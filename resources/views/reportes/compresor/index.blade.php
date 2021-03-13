@@ -2,16 +2,16 @@
 
 @section('content')
 
-<h2> Reportes de Compresor </h2>
+    <h2> Reportes de Compresor </h2>
+
     <div class="card">
         <div class="card-body">
-            <a href="{{ url('reportes/compresor/create') }}"> <button type="button"
-                    class="btn btn-success float-right">Crear
-                    nuevo </button> </a>
-            
-
+            @can('compresor.create')
+                <a href="{{ url('reportes/compresor/create') }}"> <button type="button"
+                        class="btn btn-success float-right">Crear
+                        nuevo </button> </a>
+            @endcan
             {{-- Rangos fecha --}}
-
 
             <div class="card-body">
 
@@ -43,11 +43,9 @@
                                     Actualizar</button>
 
                             </div>
-
                         </div>
                     </form>
                 </div>
-
 
             </div>
 
@@ -57,10 +55,12 @@
                         Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
                         <span style="font-weight: bold">{{ $DateEnd }}</span>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <a href="{{ route('compresor.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
-                            <i class="fas fa-print"></i> Exportar selección</a>
-                    </div>
+                    @can('compresor.pdfgeneral')
+                        <div class="col-md-6 text-right">
+                            <a href="{{ route('compresor.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
+                                <i class="fas fa-print"></i> Exportar selección</a>
+                        </div>
+                    @endcan
                 </div>
             @endif
 
@@ -94,21 +94,25 @@
                             <td>
                                 <form action="{{ route('compresor.destroy', $creport->id) }}" method="POST">
 
-
+                                    @can('compresor.pdf')
                                     <a href="{{ route('compresor.pdf', $creport->id) }}"><button type="button"
                                             class="btn btn-warning"><i class="fas fa-print"></i></button></a>
+                                    @endcan
                                     <a href="{{ route('compresor.show', $creport->id) }}"><button type="button"
                                             class="btn btn-info"><i class="far fa-eye" alt="Submit"
                                                 style="color: white"></i></button></a>
-                                    <a href="{{ route('compresor.edit', $creport->id) }}"><button type="button"
-                                            class="btn btn-success"><i class="far fa-edit"></i></button></a>
+                                    @can('compresor.edit')
+                                        <a href="{{ route('compresor.edit', $creport->id) }}"><button type="button"
+                                                class="btn btn-success"><i class="far fa-edit"></i></button></a>
+                                    @endcan
 
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
-                                            class="far fa-trash-alt"></i></button></button>
-
+                                    @can('compresor.destroy')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
+                                                class="far fa-trash-alt"></i></button></button>
+                                    @endcan
                                 </form>
                             </td>
                         </tr>
