@@ -5,8 +5,10 @@
 <div class="card-body">
 
     <div style="margin-bottom: 10px">
+        @can('agua.pdf')
     <a href="{{ route('agua.pdf', $id) }}"><button type="button"
         class="btn btn-warning"><i class="fas fa-print"></i> Imprimir reporte</button></a>
+        @endcan
     </div>
               
     <table class="table table-striped table-bordered table-hover ">

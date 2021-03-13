@@ -96,3 +96,7 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::resource('emergencias','emergenciesController');
+
+Route::get('emergencias/pdf/{id}/','emergenciesController@pdf')->name('emergencias.pdf');
+
+Route::get('emergencias/pdfgeneral/{fechainicio}/{fechafin}','emergenciesController@pdfgeneral')->name('emergencias.pdfgeneral');
