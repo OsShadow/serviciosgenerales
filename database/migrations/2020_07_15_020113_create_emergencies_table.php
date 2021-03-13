@@ -19,7 +19,7 @@ class CreateEmergenciesTable extends Migration
             $table->date('date');
             $table->string('head',150);
             $table->longText('description');
-            $table->longText('observations');
+            $table->longText('observations')->nullable();
             $table->unsignedBigInteger('user_area');
             $table->unsignedBigInteger('user_report');
             $table->timestamps();

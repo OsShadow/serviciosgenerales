@@ -13,10 +13,34 @@ class EmergenciesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {       
-        $ereports = Emergencies::all();
-        return view('emergencias.index', ['ereports' => $ereports]);    
+
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
+
+
+        if($DateIni == '' || $DateEnd == ''){
+
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+           
+            $ereports = Emergencies::all();
+            return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);  
+           
+
+                }else{
+
+                    $seleccion = true;
+
+                    $ereports = Emergencies::all()->whereBetween('date',[$DateIni, $DateEnd]);
+
+                    return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
+                   
+                }
+
+
+
     }
 
     /**
@@ -110,4 +134,27 @@ class EmergenciesController extends Controller
 
         return redirect('emergencias');
     }
+
+    /**
+     * PDF 
+     */
+
+    public function pdf($id){
+    
+        $emergency = Emergencies::findOrFail($id);
+        $pdf = \PDF::loadView('/emergencias/pdf', compact('emergency'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('emergenciereport');
+
+    }
+
+    public function pdfgeneral($DateIni, $DateEnd){
+    
+        $emergency = Emergencies::all()->whereBetween('date',[$DateIni, $DateEnd]);
+
+        $pdf = \PDF::loadView('/emergencias/pdfgeneral', compact('emergency'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('emergenciereport');
+    }
+
 }
