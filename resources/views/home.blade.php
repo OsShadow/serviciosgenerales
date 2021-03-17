@@ -1,8 +1,9 @@
 @extends('layouts.app')
+{{--  @dd($treports)  --}}
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+        {{--  <div class="row justify-content-center">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Mensaje del servidor</div>
 
@@ -14,61 +15,140 @@
                         @endif
                         ¡Has iniciado sesión!
 
-                        <div id="linechart_material" style="width: 900px; height: 500px"></div>
-
-                        <script type="text/javascript">
-                        google.charts.load('current', {'packages':['line']});
-                        google.charts.setOnLoadCallback(drawChart);
-                        function drawChart() {
-                            //var data = google.visualization.arrayToDataTable([
-                            //    ['Order Id', 'Price', 'Product Name'],
-                    
-                            //    @php
-                            //    foreach($orders as $order) {
-                            //        echo "['".$order->id."', ".$order->price.", ".$order->Product_name."],";
-                            //    }
-                            //    @endphp
-                            //]);
-                            var data = new google.visualization.DataTable();
-                            data.addColumn('number', 'Day');
-                            data.addColumn('number', 'Guardians of the Galaxy');
-                            data.addColumn('number', 'The Avengers');
-                            data.addColumn('number', 'Transformers: Age of Extinction');
-
-                            data.addRows([
-                                [1,  37.8, 80.8, 41.8],
-                                [2,  30.9, 69.5, 32.4],
-                                [3,  25.4,   57, 25.7],
-                                [4,  11.7, 18.8, 10.5],
-                                [5,  11.9, 17.6, 10.4],
-                                [6,   8.8, 13.6,  7.7],
-                                [7,   7.6, 12.3,  9.6],
-                                [8,  12.3, 29.2, 10.6],
-                                [9,  16.9, 42.9, 14.8],
-                                [10, 12.8, 30.9, 11.6],
-                                [11,  5.3,  7.9,  4.7],
-                                [12,  6.6,  8.4,  5.2],
-                                [13,  4.8,  6.3,  3.6],
-                                [14,  4.2,  6.2,  3.4]
-                            ]);
-
-                            var options = {
-                                chart: {
-                                title: 'Box Office Earnings in First Two Weeks of Opening',
-                                subtitle: 'in millions of dollars (USD)'
-                                },
-                                width: 900,
-                                height: 500
-                            };
-
-                            var chart = new google.charts.Line(document.getElementById('linechart_material'));
-
-                            chart.draw(data, google.charts.Line.convertOptions(options));
-                        }
-                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>  --}}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="water_chart" style="width: 500px; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="trash_chart" style="width: 500px; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="compresor_chart" style="width: 700px; height: 400px"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart', 'line']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            //var data = google.visualization.arrayToDataTable([
+            //    ['Order Id', 'Price', 'Product Name'],
+
+            //    @php
+            //    foreach($orders as $order) {
+            //        echo "['".$order->id."', ".$order->price.", ".$order->Product_name."],";
+            //    }
+            //    @endphp
+            //]);
+            var data_compresor = google.visualization.arrayToDataTable([
+                ['Fecha', 'Nivel de Aceite', 'Temperatura'],
+                @php
+                foreach($creports as $creport){
+                    echo "['".$creport->date."', ".$creport->oil_level.", ".$creport->temperature."],";
+                }                
+                @endphp
+            ]);
+
+            var data_trash = google.visualization.arrayToDataTable([
+                ['Fecha', 'Desechos'],
+                @php
+                foreach($treports as $treport){
+                    echo "['".$treport->date."', ".$treport->quantity."],";
+                }                
+                @endphp
+            ]);
+
+            var data_water = google.visualization.arrayToDataTable([
+                ['Fecha', 'Lectura'],
+                @php
+                foreach($wreports as $wreport){
+                    echo "['".$wreport->date."', ".$wreport->read."],";
+                }                
+                @endphp
+            ]);
+
+            var options_compresor = {
+                chart: {
+                title: 'Compresor',
+                subtitle: 'Resumen Trimestral'
+                },
+                width: 800,
+                height: 400,
+                hAxis: {
+                    title: 'Reporte'
+                },
+                vAxis: {
+                    title: 'Fecha'
+                },
+                series: {
+                    1: {curveType: 'function'}
+                }
+            };
+
+            var options_trash = {
+                chart: {
+                title: 'Desechos',
+                subtitle: 'Resumen Trimestral'
+                },
+                width: 500,
+                height: 300,
+                legend: { position: 'none' },
+                hAxis: {
+                    title: 'Reporte'
+                },
+                vAxis: {
+                    title: 'Fecha'
+                },
+                series: {
+                    1: {curveType: 'function'}
+                }
+            };
+
+            var options_water = {
+                chart: {
+                title: 'Agua',
+                subtitle: 'Resumen General'
+                },
+                width: 500,
+                height: 300,
+                legend: { position: 'none' },
+                hAxis: {
+                    title: 'Lectura'
+                },
+                vAxis: {
+                    title: 'Fecha'
+                },
+                series: {
+                    1: {curveType: 'function'}
+                }
+            };
+
+            var compresor_chart = new google.charts.Line(document.getElementById('compresor_chart'));
+            compresor_chart.draw(data_compresor, google.charts.Line.convertOptions(options_compresor));
+
+            var trash_chart = new google.charts.Line(document.getElementById('trash_chart'));
+            trash_chart.draw(data_trash, google.charts.Line.convertOptions(options_trash));
+
+            var water_chart = new google.charts.Line(document.getElementById('water_chart'));
+            water_chart.draw(data_water, google.charts.Line.convertOptions(options_water));
+        }
+    </script>
 @endsection
