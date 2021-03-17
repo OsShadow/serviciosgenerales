@@ -23,23 +23,23 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <div id="water_chart" style="width: 500px; height: 300px"></div>
+                        <div id="water_chart" style="width: 400px; height: 250px"></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <div id="trash_chart" style="width: 500px; height: 300px"></div>
+                        <div id="trash_chart" style="width: 400px; height: 250px"></div>
                     </div>
                 </div>
             </div>
         </div>    
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <div id="compresor_chart" style="width: 700px; height: 400px"></div>
+                        <div id="compresor_chart" style="width: 600px; height: 300px"></div>
                     </div>
                 </div>
             </div>
@@ -88,10 +88,10 @@
             var options_compresor = {
                 chart: {
                 title: 'Compresor',
-                subtitle: 'Resumen Trimestral'
+                //subtitle: 'Resumen Trimestral'
                 },
-                width: 800,
-                height: 400,
+                width: 600,
+                height: 300,
                 hAxis: {
                     title: 'Reporte'
                 },
@@ -106,10 +106,10 @@
             var options_trash = {
                 chart: {
                 title: 'Desechos',
-                subtitle: 'Resumen Trimestral'
+                //subtitle: 'Resumen Trimestral'
                 },
-                width: 500,
-                height: 300,
+                width: 450,
+                height: 250,
                 legend: { position: 'none' },
                 hAxis: {
                     title: 'Reporte'
@@ -125,10 +125,10 @@
             var options_water = {
                 chart: {
                 title: 'Agua',
-                subtitle: 'Resumen General'
+                //subtitle: 'Resumen General'
                 },
-                width: 500,
-                height: 300,
+                width: 450,
+                height: 250,
                 legend: { position: 'none' },
                 hAxis: {
                     title: 'Lectura'
