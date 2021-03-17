@@ -23,7 +23,8 @@
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-
+    <!-- Script de Google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script
 
 
     <!-- Fonts -->
