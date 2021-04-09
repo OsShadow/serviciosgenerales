@@ -116,7 +116,7 @@
                         Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
                         <span style="font-weight: bold">{{ $DateEnd }}</span>
                     </div>
-                    @can('agua.pdfgeneal')
+                    @can('agua.pdfgeneral')
                         <div class="col-md-6 text-right">
                             <a href="{{ route('agua.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
                                 <i class="fas fa-print"></i> Exportar selección</a>

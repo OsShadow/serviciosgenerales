@@ -37,11 +37,6 @@
 
 
 
-
-
-
-
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
@@ -352,6 +347,33 @@
                                     @endcan
                                 </ul>
                             </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#"
+                                    class="{{ Request::path() === 'vehiculos/create' ? 'nav-link active' : 'nav-link' }}">
+
+                                    <i class="nav-icon fas fa-car"></i>
+                                    <p>Prestamo vehicular <i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ url('vehiculos/create') }}"
+                                            class="{{ Request::path() === 'vehiculos/create' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Crear reporte</p>
+                                        </a>
+                                    </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('vehiculos') }}"
+                                                class="{{ Request::path() === 'vehiculos/index' ? 'nav-link active' : 'nav-link' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Ver reportes</p>
+                                            </a>
+                                        </li>
+
+                                </ul>
+                            </li>
+
                             <li class="nav-item has-treeview">
                                 <a href="#"
                                     class="{{ Request::path() === 'emergencias/create' ? 'nav-link active' : 'nav-link' }}">

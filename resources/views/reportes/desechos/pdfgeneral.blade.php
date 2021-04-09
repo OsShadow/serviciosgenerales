@@ -12,9 +12,25 @@
 
 <body>
 
+    <div style="font-family: 'Trajan Pro'">
+        
+        <div class="d-inline-block"  style="margin-top: 10px">
+            <img src={{ asset('dist/img/udg/udg.png') }} style="height: 130px" alt="UDG">
+        </div>
+        <div class="d-inline-block" style="margin-top: 10px">
+        <p> <span style="font-size: 30px"> Universidad de Guadalajara </span> <br>
+            <span style="font-size: 20px">Centro Universitario de los Altos </span> <br>
+            <span>Secretaría Administrativa </span> <br>
+            <span>Coordinación de Servicios Generales </span>
+        </p>
+    </div>
+    </div>
+    
+    <p class="text-center" style="font-family: 'Arial'; font-size: 25px">Reporte de desechos</p>
+    
+
     <div style="margin-left: 50px;">
 
-        <h4>Reporte de lecturas del compresor</h4>
         <br>
 
         <table class="table table-bordered" style="width: 600px; ">
