@@ -97,9 +97,15 @@ Route::middleware('auth')->group(function(){
 
 Route::resource('emergencias','emergenciesController');
 
-Route::resource('vehiculos','vehicleController');
+// Route::resource('vehiculos','vehicleController');
+Route::get('vehiculos','vehicleController@index')->name('vehiculos.index');
+Route::get('vehiculos/edit/{id}/','vehicleController@edit')->name('vehiculos.edit');
+Route::get('vehiculos/create','vehicleController@create')->name('vehiculos.create');
+Route::post('vehiculos/{id}','vehicleController@update')->name('vehiculos.update');
+Route::delete('vehiculos/destroy/{id}','vehicleController@destroy')->name('vehiculos.destroy');
 Route::get('vehiculos/finaledit/{id}/','vehicleController@finaledit')->name('vehiculos.finaledit');
 Route::post('vehiculos/completereport/{id}/','vehicleController@completereport')->name('vehiculos.completereport');
+
 
 
 Route::get('emergencias/pdf/{id}/','emergenciesController@pdf')->name('emergencias.pdf');

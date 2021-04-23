@@ -91,7 +91,13 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehiclereport = VehiclesTravel::findOrFail($id);
+        $vehiclereport->date_start = Carbon::parse($vehiclereport->date_start)->format('Y-m-d');
+        $vehiclereport->hour_start = Carbon::parse($vehiclereport->hour_start)->format('H:i');
+
+        $vehicle =DB::table('vehicles_travel')->where('vehicles_travel.id','=', $id)->leftJoin('vehicles', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+
+        return view('vehiculos/edit',['vehiclereport'=>$vehiclereport, 'vehicle'=>$vehicle]);
     }
 
     public function finaledit($id)
@@ -118,7 +124,21 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $vehiclereport = VehiclesTravel::findOrFail($id);
+
+        $vehiclereport->date_start = $request->date_start;
+        $vehiclereport->date_end= $request->date_end;
+        $vehiclereport->hour_start = $request->hour_start;
+        $vehiclereport->hour_end = $request->hour_end;
+        $vehiclereport->driver = $request->driver;
+        $vehiclereport->gas_recharge = $request->gas_recharge;
+        $vehiclereport->km_start = $request->km_start;
+        $vehiclereport->km_end = $request->km_end;
+        $vehiclereport->observations = $request->observations;
+        $vehiclereport->finished = 1;
+        $vehiclereport->save();
+
+        return redirect('vehiculos');
 
     }
 
@@ -142,6 +162,7 @@ class VehicleController extends Controller
         $vehiclereport->gas_recharge = $request->gas_recharge;
         $vehiclereport->km_start = $request->km_start;
         $vehiclereport->km_end = $request->km_end;
+        $vehiclereport->observations = $request->observations;
         $vehiclereport->finished = 1;
         $vehiclereport->save();
 

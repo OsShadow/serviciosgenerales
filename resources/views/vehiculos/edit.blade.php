@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Reporte vehicular - completar registro') }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('vehiculos.completereport' ,  $vehiclereport->id) }}">
+                        <form method="POST" action="{{ route('vehiculos.update' ,  $vehiclereport->id) }}">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -83,37 +83,37 @@
                                 <div class="form-group col-md-6">
                                     <div class="form-group ">
                                         <label for="date">Fecha de llegada</label>
-                                        <input class="form-control" type="date" name="date_end" value="{{ $date }}" 
+                                        <input class="form-control" type="date" name="date_end" value="{{ $v->date_end }}" 
                                             id="date_end">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="form-group">
                                         <label for="hour">Hora de llegada</label>
-                                        <input class="form-control" type="time" value="{{ $hour }}" id="hour_end"
+                                        <input class="form-control" type="time" value="{{ $v->hour_end }}" id="hour_end"
                                             name="hour_end">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="form-group">
                                         <label for="Lectura_inicial">KM de llegada</label>
-                                        <input type="number" class="form-control" id="km_end" name="km_end"
+                                        <input type="number" class="form-control" id="km_end" name="km_end" value="{{ $v->km_end }}"
                                             placeholder="Medida de lectura ">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="form-group">
                                         <label for="Lectura_inicial">Recarga de gasolina</label>
-                                        <input type="number" class="form-control" id="gas_recharge" name="gas_recharge"
+                                        <input type="number" class="form-control" id="gas_recharge" name="gas_recharge" value="{{ $v->gas_recharge }}"
                                             placeholder="Recarga de litros para el viaje">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="Observaciones">Observaciones</label>
-                                    <textarea class="form-control" id="observations" name="observations" rows="3"></textarea>
+                                    <textarea class="form-control" id="observations" name="observations" rows="3">{{ $v->observations }} </textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-lg">
-                                    {{ __('Finalizar Reporte') }}
+                                    {{ __('Editar Reporte') }}
                                 </button>
 
                             </div>
