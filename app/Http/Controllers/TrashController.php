@@ -162,17 +162,17 @@ class TrashController extends Controller
         return $pdf->stream('trashReport');
     }
 
-    // public function pdfgeneral($DateIni, $DateEnd){
+    public function pdfgeneral($DateIni, $DateEnd){
     
-    //     $trash = DB::table('trash_reports')
-    //     ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
-    //     ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
-    //     ->whereBetween('trash_reports.date',[$DateIni, $DateEnd])
-    //     ->get();
+        $trash = DB::table('trash_reports')
+        ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
+        ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+        ->whereBetween('trash_reports.date',[$DateIni, $DateEnd])
+        ->get();
 
-    //     $pdf = \PDF::loadView('/reportes/desechos/pdfgeneral', compact('trash'));
-    //     // $pdf->setPaper('letter', 'landscape');
-    //     return $pdf->stream('trashReport');
-    // }
+        $pdf = \PDF::loadView('/reportes/desechos/pdfgeneral', compact('trash'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('trashReport');
+    }
 
 }
