@@ -69,17 +69,17 @@
         <div class="wrapper">
 
 
-            <!-- Navbar -->
-            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-                <!-- Left navbar links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
 
-                        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-                    </li>
-                </ul>
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
 
-                @yield('search')
+            @yield('search')
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
@@ -311,14 +311,14 @@
                 </ul>
             </li>
             @endcan --}}
-
+                                @canany(['compresor.index', 'agua.index', 'desechos.index'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-file-alt"></i>
                                     <p>Reportes <i class="fas fa-angle-left right"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    @can('compresor.show')
+                                    @can('compresor.index')
                                         <li class="nav-item">
                                             <a href="{{ url('reportes/compresor') }}"
                                                 class="{{ Request::path() === 'reportes/compresor' ? 'nav-link active' : 'nav-link' }}">
@@ -327,7 +327,7 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    @can('agua.show')
+                                    @can('agua.index')
                                         <li class="nav-item">
                                             <a href="{{ url('reportes/agua') }}"
                                                 class="{{ Request::path() === 'reportes/agua' ? 'nav-link active' : 'nav-link' }}">
@@ -336,7 +336,7 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    @can('desechos.show')
+                                    @can('desechos.index')
                                         <li class="nav-item">
                                             <a href="{{ url('reportes/desechos') }}"
                                                 class="{{ Request::path() === 'reportes/desechos' ? 'nav-link active' : 'nav-link' }}">
@@ -347,33 +347,18 @@
                                     @endcan
                                 </ul>
                             </li>
-
-                            <li class="nav-item has-treeview">
-                                <a href="#"
-                                    class="{{ Request::path() === 'vehiculos/create' ? 'nav-link active' : 'nav-link' }}">
-
-                                    <i class="nav-icon fas fa-car"></i>
-                                    <p>Prestamo vehicular <i class="fas fa-angle-left right"></i></p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ url('vehiculos/create') }}"
-                                            class="{{ Request::path() === 'vehiculos/create' ? 'nav-link active' : 'nav-link' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Crear reporte</p>
-                                        </a>
-                                    </li>
+                            @endcanany
+                            @canany(['vehiculos.indexuser','vehiculos.indexadmin'])
+                           
                                         <li class="nav-item">
                                             <a href="{{ url('vehiculos') }}"
                                                 class="{{ Request::path() === 'vehiculos/index' ? 'nav-link active' : 'nav-link' }}">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Ver reportes</p>
+                                                <i class="nav-icon fas fa-car"></i>
+                                                <p>Préstamo vehicular</p>
                                             </a>
                                         </li>
 
-                                </ul>
-                            </li>
-
+                                @endcanany
                             <li class="nav-item has-treeview">
                                 <a href="#"
                                     class="{{ Request::path() === 'emergencias/create' ? 'nav-link active' : 'nav-link' }}">

@@ -50,8 +50,6 @@ class TrashController extends Controller
                 }
 
         
-
-    
     }
 
     /**

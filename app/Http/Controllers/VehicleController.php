@@ -16,15 +16,42 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $vehiclesunfinished =DB::table('vehicles')->where('finished','=','0')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
-        $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+        
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
 
+        $vehiclesunfinished =DB::table('vehicles')->where('finished','=','0')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
      
-        return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished,'vehiclesunfinished' =>$vehiclesunfinished]);
+
+        if($DateIni == '' || $DateEnd == ''){
+
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+
+        $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+        return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished,'vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
+    
+
+    }else{
+        $seleccion = true;  
+        $DateIni = $request->get('DateIni');
+            $DateEnd = $request->get('DateEnd');
+            
+            $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')
+            ->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')
+            ->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])
+            ->get();
+        
+            return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished,'vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+        
     }
+
+    
+     
+ }
 
     /**
      * Show the form for creating a new resource.
@@ -184,4 +211,53 @@ class VehicleController extends Controller
 
         return redirect('vehiculos');
     }
+
+     /**
+     * PDF
+     */
+
+    public function pdf($id){
+    
+            $vehiclereport = VehiclesTravel::findOrFail($id);
+        $vehiclereport->date_start = Carbon::parse($vehiclereport->date_start)->format('Y-m-d');
+        $vehiclereport->hour_start = Carbon::parse($vehiclereport->hour_start)->format('H:i');
+
+        $vehicle =DB::table('vehicles_travel')->where('vehicles_travel.id','=', $id)->leftJoin('vehicles', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+        $vehicle= $vehicle[0];
+        $pdf = \PDF::loadView('vehiculos/pdf', compact('vehiclereport','vehicle'));
+
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('vehicleReport  ');
+    }
+
+    /**
+     * PDF General
+     */
+
+    public function pdfgeneral($DateIni, $DateEnd){
+
+
+
+        $vehicles =DB::table('vehicles_travel')->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])->leftJoin('vehicles', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+
+
+        // $vehicles = array();
+
+        // $vehiclereports = VehiclesTravel::whereBetween('date_start',[$DateIni, $DateEnd]);
+        
+        // foreach ($vehiclereports as $vehicler) {
+        //     $vehiclereport->date_start = Carbon::parse($vehiclereport->date_start)->format('Y-m-d');
+        //     $vehiclereport->hour_start = Carbon::parse($vehiclereport->hour_start)->format('H:i');
+
+        //     $vehicle =DB::table('vehicles_travel')->where('vehicles_travel.id','=', 4)->leftJoin('vehicles', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+
+        //     array_push($vehicles, $vehicle[0]);
+        // }
+        
+        $pdf = \PDF::loadView('vehiculos/pdfgeneral', compact('vehicles'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('vehicleReport');
+    }
+
+
 }
