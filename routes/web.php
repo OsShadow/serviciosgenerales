@@ -20,7 +20,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-
 /**
  * Rutas para rol
  */
@@ -77,9 +76,9 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/agua/edit/{id}','WaterController@edit')->name('agua.edit')->middleware('permission:agua.edit');
     Route::get('reportes/agua/editreport/{id}','WaterController@editreport')->name('agua.editreport')->middleware('permission:agua.edit');
     Route::get('reportes/agua/pdf/{id}','WaterController@pdf')->name('agua.pdf')->middleware('permission:agua.pdf');
-    Route::get('reportes/agua/{inicio}/{final}', 'WaterController@complete')->name('agua.complete');
-    Route::post('reportes/agua/exportpdf','WaterController@exportpdf')->name('agua.exportpdf');
-    Route::get('reportes/agua/pdfgeneral/{fechainicio}/{fechafin}','WaterController@pdfgeneral')->name('agua.pdfgeneral');
+    Route::get('reportes/agua/{inicio}/{final}', 'WaterController@complete')->name('agua.complete')->middleware('permission:agua.create');
+    Route::post('reportes/agua/exportpdf','WaterController@exportpdf')->name('agua.exportpdf')->middleware('permission:agua.pdf');
+    Route::get('reportes/agua/pdfgeneral/{fechainicio}/{fechafin}','WaterController@pdfgeneral')->name('agua.pdfgeneral')->middleware('permission:agua.pdfgeneral');
 });
 
 // Route::resource('reportes/desechos','trashController');
@@ -95,19 +94,21 @@ Route::middleware('auth')->group(function(){
     Route::get('reportes/desechos/pdfgeneral/{fechainicio}/{fechafin}','TrashController@pdfgeneral')->name('desechos.pdfgeneral');
 });
 
-Route::resource('emergencias','emergenciesController');
-
 // Route::resource('vehiculos','vehicleController');
+Route::middleware('auth')->group(function(){
 Route::get('vehiculos','vehicleController@index')->name('vehiculos.index');
-Route::get('vehiculos/edit/{id}/','vehicleController@edit')->name('vehiculos.edit');
-Route::get('vehiculos/create','vehicleController@create')->name('vehiculos.create');
-Route::post('vehiculos/{id}','vehicleController@update')->name('vehiculos.update');
-Route::delete('vehiculos/destroy/{id}','vehicleController@destroy')->name('vehiculos.destroy');
-Route::get('vehiculos/finaledit/{id}/','vehicleController@finaledit')->name('vehiculos.finaledit');
-Route::post('vehiculos/completereport/{id}/','vehicleController@completereport')->name('vehiculos.completereport');
+Route::get('vehiculos/edit/{id}/','vehicleController@edit')->name('vehiculos.edit')->middleware('permission:vehiculos.edit');
+Route::get('vehiculos/create','vehicleController@create')->name('vehiculos.create')->middleware('permission:vehiculos.create');
+Route::post('vehiculos','vehicleController@store')->name('vehiculos.store')->middleware('permission:vehiculos.create');
+Route::post('vehiculos/{id}','vehicleController@update')->name('vehiculos.update')->middleware('permission:vehiculos.edit');
+Route::delete('vehiculos/destroy/{id}','vehicleController@destroy')->name('vehiculos.destroy')->middleware('permission:vehiculos.destroy');
+Route::get('vehiculos/finaledit/{id}/','vehicleController@finaledit')->name('vehiculos.finaledit')->middleware('permission:vehiculos.create');
+Route::post('vehiculos/completereport/{id}/','vehicleController@completereport')->name('vehiculos.completereport')->middleware('permission:vehiculos.create');
+Route::get('vehiculos/pdfgeneral/{fechainicio}/{fechafin}','vehicleController@pdfgeneral')->name('vehiculos.pdfgeneral')->middleware('permission:vehiculos.pdfgeneral');
+Route::get('vehiculos/pdf/{id}','vehicleController@pdf')->name('vehiculos.pdf')->middleware('permission:vehiculos.pdf');
+});
 
 
-
+Route::resource('emergencias','emergenciesController');
 Route::get('emergencias/pdf/{id}/','emergenciesController@pdf')->name('emergencias.pdf');
-
 Route::get('emergencias/pdfgeneral/{fechainicio}/{fechafin}','emergenciesController@pdfgeneral')->name('emergencias.pdfgeneral');
