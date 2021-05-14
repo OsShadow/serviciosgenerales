@@ -34,7 +34,10 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Reporte vehicular - completar registro') }}</div>
+                    <div class="card-header">
+                        <img src={{ asset('dist/img/udg/udg.png') }} style="height: 40px; margin-right:10px" alt="UDG">
+                        <i class="nav-icon fas fa-car-side" style="font-size:20px"></i>
+                          {{ __('Reporte vehicular - completar registro') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('vehiculos.update' ,  $vehiclereport->id) }}">
                             @csrf

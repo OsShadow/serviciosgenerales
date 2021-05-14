@@ -193,16 +193,61 @@ class PermissionTableSeeder extends Seeder
             ]);
         Permission::create([
             'name' => 'agua.pdf',
-            'category' => 'Agua',
+            'category' => 'Agua',   
             'display'=>'Crear pdf de reporte Agua'
             ]);
 
-            Permission::create([
-                'name' => 'agua.pdfgeneral',
-                'category' => 'Agua',
-                'display'=>'Crear pdf de reporte Agua en rango de fechas'
-                ]);
-            
+        Permission::create([
+             'name' => 'agua.pdfgeneral',
+              'category' => 'Agua',
+             'display'=>'Crear pdf de reporte Agua en rango de fechas'
+              ]);
+
+        Permission::create([
+                'name' => 'vehiculos.indexuser',
+                'category' => 'Vehiculos',
+                'display'=>'Acceso a repote vehicular usuario común'
+                ]); 
+
+        Permission::create([
+                    'name' => 'vehiculos.indexadmin',
+                    'category' => 'Vehiculos',
+                    'display'=>'Acceso a repote vehicular administrador'
+                    ]); 
+
+        Permission::create([
+                'name' => 'vehiculos.create',
+                'category' => 'Vehiculos',
+                'display'=>'Crear reporte vehicular'
+        ]); 
+
+                Permission::create([
+                'name' => 'vehiculos.edit',
+                'category' => 'Vehiculos',
+                'display'=>'Editar reporte vehicular'
+        ]); 
+
+
+        Permission::create([
+            'name' => 'vehiculos.destroy',
+            'category' => 'Vehiculos',
+            'display'=>'Eliminar reporte vehicular'
+    ]); 
+                
+        Permission::create([
+             'name' => 'vehiculos.pdf',
+               'category' => 'Vehiculos',
+                'display'=>'Crear pdf de reporte vehicular'
+        ]); 
+         
+        Permission::create([
+            'name' => 'vehiculos.pdfgeneral',
+              'category' => 'Vehiculos',
+               'display'=>'Crear pdf de reporte vehicular con rango de fechas'
+       ]); 
+       
+       
+
         // Permisos sobre modulos de reportes
         // Permission::create(['name' => 'reportes.index']);
         // Permission::create(['name' => 'reportes.edit']);

@@ -7,6 +7,7 @@ use App\Http\Requests\WaterStoreRequest;
 use App\Http\Requests\WaterUpdateRequest;
 use Carbon\Carbon;
 use App\WaterReports;
+
 use DB;
 
 class WaterController extends Controller
