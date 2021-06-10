@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function(){
     Route::post('usuarios','UserController@store')->name('usuarios.store')->middleware('permission:usuarios.create');
     Route::get('usuarios/create','UserController@create')->name('usuarios.create')->middleware('permission:usuarios.create');
     Route::post('usuarios/{id}','UserController@update')->name('usuarios.update')->middleware('permission:usuarios.update');
+    Route::post('usuarios/changepass/{id}','UserController@changepass')->name('usuarios.changepass')->middleware('permission:usuarios.update');
     Route::get('usuarios/show/{id}','UserController@show')->name('usuarios.show')->middleware('permission:usuarios.show');
     Route::delete('usuarios/{id}','UserController@destroy')->name('usuarios.destroy')->middleware('permission:usuarios.destroy');
     Route::get('usuarios/edit/{id}','UserController@edit')->name('usuarios.edit')->middleware('permission:usuarios.edit');
