@@ -70,7 +70,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="quantity">Cantidad</label>
-                                    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Cantidad por litro">
+                                    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Cantidad por kilo">
                                   </div>
                             </div>
 

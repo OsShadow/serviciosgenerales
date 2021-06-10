@@ -12,6 +12,8 @@
                         </ul>
                     </div>
                 @endif
+              
+                <div class="card-body" style="background-color:white">
                 <h3>Editar Usuario: {{ $user->name }}</h3>
                 <form action="{{ route('usuarios.update', $user->id) }}" method="POST">
                     @csrf
@@ -25,6 +27,14 @@
                         <input type="email" class="form-control" name="email" value="{{ $user->email }}"
                             placeholder="Escribe tu email">
                     </div>
+                    {{-- <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" name="password" placeholder="Introduzca la contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Repetir Contraseña</label>
+                        <input type="password2" class="form-control" name="password2" placeholder="Vuelva a introducir la contraseña">
+                    </div> --}}
                     <div class="form-group">
                         {{-- {{ dd($roles) }} --}}
                         <label for="Asignación de rol">Asignación de rol</label>
@@ -40,8 +50,27 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <button type="cancel" class="btn btn-danger float-right">Cancelar</button>
+                    <button type="cancel" class="btn btn-danger float-right">Regresar</button>
                 </form>
+            </div>
+            <br>
+            <div class="card-body" style="background-color:white">
+                <h4>Cambiar contraseña</h4>
+                <form action="{{ route('usuarios.changepass', $user->id) }}" method="POST">
+                    @csrf
+                   
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" name="password" placeholder="Introduzca la contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirmation">Repetir Contraseña</label>
+                        <input type="password" class="form-control" name="password_confirmation" placeholder="Vuelva a introducir la contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="cancel" class="btn btn-danger float-right">Regresar</button>
+                </form>
+            </div>
 
             </div>
         </div>

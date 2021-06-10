@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserFormRequest;
+use App\Http\Requests\UserPasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -104,6 +105,23 @@ class UserController extends Controller
         $usuario->update();
         $usuario->SyncRoles(request('roles'));
         return redirect('/usuarios'); 
+    }
+
+     /**
+     * Change password the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changepass(UserPasswordRequest $request, $id)
+    {
+
+        $usuario = User::findOrFail($id);
+        $usuario->password =  Hash::make(request('password'));
+        $usuario->update();
+        return redirect('/usuarios'); 
+
     }
 
     /**
