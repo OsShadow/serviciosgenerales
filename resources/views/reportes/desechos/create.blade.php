@@ -64,6 +64,10 @@
                                   <option selected disabled value="">Elige tipo...</option>
                                   <option value="Sanitario">Sanitario</option>
                                   <option value="General">General</option>
+                                  <option value="RPBI">RPBI</option>
+                                  <option value="Cartón">Cartón</option>
+                                  <option value="Aluminio">Aluminio</option>
+                                  <option value="PET">PET</option>
                                 </select>
                             </div>
                             

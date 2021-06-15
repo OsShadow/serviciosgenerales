@@ -64,6 +64,12 @@
                                 <select class="custom-select" id="type" name="type" required>
                                   <option {{ $treports->id == "Sanitario" ? "selected" : "" }} value="Sanitario">Sanitario</option>
                                   <option {{ $treports->id == "General" ? "selected" : "" }}value="General">General</option>
+                                  <option {{ $treports->id == "RPBI" ? "selected" : "" }} value="RPBI">RPBI</option>
+                                  <option {{ $treports->id == "Cartón" ? "selected" : "" }}value="Cartón">Cartón</option>
+                                  <option {{ $treports->id == "Aluminio" ? "selected" : "" }} value="Aluminio">Aluminio</option>
+                                  <option {{ $treports->id == "PET" ? "selected" : "" }}value="PET">PET</option>
+
+                                  
                                 </select>
                             </div>
 
