@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card">
+<div class="card-body">
     <div class="container">
         <form method="POST" action="{{ url('emergencias') }}">
             @csrf
@@ -29,5 +31,6 @@
         </form>
     </div>
     </div>
-
+    </div>
+    </div>
 @endsection
