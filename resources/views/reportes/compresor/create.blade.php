@@ -49,7 +49,7 @@
                                 <div class="form-group col-md-4">
                                     <div class="form-group">
 
-                                        <label for="nivel">Nivel de aceite</label>
+                                        <label for="nivel">Nivel de aceite (%)</label>
                                         <input type="number" class="form-control" id="nivel" name="level"
                                             placeholder="Medida de nivel de aceite">
 
@@ -59,7 +59,7 @@
                                 <div class="form-group col-md-4">
                                     <div class="form-group">
 
-                                        <label for="Temperatura">Temperatura °C</label>
+                                        <label for="Temperatura">Temperatura (°C)</label>
                                         <input type="number" class="form-control" id="Temperatura" name="temperature"
                                             placeholder="Ingrese medida de temperatura">
 

@@ -41,17 +41,15 @@
                 @foreach ($compresor as $com)
                     <tr>
                         <td>{{$com->date}}</td>
-                        <td>{{$com->oil_level}}</td>
-                        <td>{{$com->temperature}}</td>
+                        <td>{{$com->oil_level}} %</td>
+                        <td>{{$com->temperature}} °C</td>
                         <td>{{$com->observations}}</td>
                     </tr>
                     @endforeach
             </tbody>
         </table>
         <br>
-
     </div>
-
 
 </body>
 </html>

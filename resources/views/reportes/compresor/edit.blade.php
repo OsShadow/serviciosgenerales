@@ -51,7 +51,7 @@
 
                                 <div class="form-group col-md-4">
                                     <div class="form-group">
-                                        <label for="nivel">Nivel de aceite</label>
+                                        <label for="nivel">Nivel de aceite (%)</label>
                                         <input type="number" class="form-control" id="nivel" name="level"
                                             value="{{ $creport->oil_level }}" placeholder="">
                                     </div>
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <div class="form-group">
-                                        <label for="Temperatura">Temperatura</label>
+                                        <label for="Temperatura">Temperatura (°C)</label>
                                         <input type="number" class="form-control" value="{{ $creport->temperature }}"
                                             id="Temperatura" name="temperature" placeholder="">
                                     </div>

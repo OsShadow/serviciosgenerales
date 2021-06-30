@@ -37,11 +37,11 @@
                 </tr>
                 <tr>
                     <th scope="row"> Nivel de aceite: </th>
-                    <td>{{ $compresor->oil_level }}</td>
+                    <td>{{ $compresor->oil_level }} %</td>
                 </tr>
                 <tr>
                     <th scope="row"> Temperatura: </th>
-                    <td>{{ $compresor->temperature }}</td>
+                    <td>{{ $compresor->temperature }} °C</td>
                 </tr>
                 <tr>
                     <th scope="row"> Observaciones: </th>

@@ -86,8 +86,8 @@
                         <tr>
                             <td scope="row">{{ $creport->id }}</td>
                             <td>{{ $creport->date }}</td>
-                            <td>{{ $creport->oil_level }}</td>
-                            <td>{{ $creport->temperature }}</td>
+                            <td>{{ $creport->oil_level }} %</td>
+                            <td>{{ $creport->temperature }} °C</td>
                             <td>{{ $creport->observations }}</td>
                             <td>{{ $creport->user_report }}</td>
 
