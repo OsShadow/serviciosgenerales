@@ -68,8 +68,6 @@
                                   <option value="Cartón">Cartón</option>
                                   <option value="Aluminio">Aluminio</option>
                                   <option value="PET">PET</option>
-                                  <option value="CVPE">CVPE</option>
-                                  <option value="CAMI">CAMI</option>
                                 </select>
                             </div>
                             
