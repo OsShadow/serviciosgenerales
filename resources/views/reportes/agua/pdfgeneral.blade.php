@@ -9,55 +9,58 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
+
 <body style="font-family: Arial">
 
-    <div class="d-inline-block"  style="margin-top: 10px">
+    <div class="d-inline-block" style="margin-top: 10px">
         <img src={{ asset('dist/img/udg/udg.png') }} style="height: 130px" alt="UDG">
     </div>
     <div class="d-inline-block" style="margin-top: 10px">
-    <p> <span style="font-size: 30px"> Universidad de Guadalajara </span> <br>
-        <span style="font-size: 20px">Centro Universitario de los Altos </span> <br>
-        <span>Secretaría Administrativa </span> <br>
-        <span>Coordinación de Servicios Generales </span>
-    </p>
-</div>
-</div>
+        <p> <span style="font-size: 30px"> Universidad de Guadalajara </span> <br>
+            <span style="font-size: 20px">Centro Universitario de los Altos </span> <br>
+            <span>Secretaría Administrativa </span> <br>
+            <span>Coordinación de Servicios Generales </span>
+        </p>
+    </div>
+    </div>
 
-<p class="text-center" style="font-family: 'Arial'; font-size: 25px">Reporte de agua</p>
+    <p class="text-center" style="font-family: 'Arial'; font-size: 25px">Reporte de agua</p>
 
 
     <div style="margin-left: 50px;">
         <br>
 
-        @foreach ($reportes as $indice => $reporte)
+        {{-- @foreach ($reportes as $indice => $reporte) --}}
 
-            <table class="table table-bordered" style="width: 600px; ">
-                <tbody>
-                    <tr style="border: 5px;">
-                        <th scope="row" style="width: 100px"> Fecha: </th>
-                        <th scope="row" style="width: 100px"> Hora: </th>
-                        <th scope="row"> Lectura: </th>
-                        <th scope="row"> Cloración: </th>
+        <table class="table table-bordered" style="width: 600px; ">
+            <tbody>
+                <tr style="border: 5px;">
+                    <th scope="row" style="width: 100px"> Fecha: </th>
+                    <th scope="row" style="width: 100px"> Hora: </th>
+                    <th scope="row"> Lectura: </th>
+                    <th scope="row"> Cloración: </th>
+                </tr>
+
+                @foreach ($wreports as $wreport)
+                    <tr>
+                        <td>{{ $wreport->date }} </td>
+                        <td>{{ $wreport->hour }}</td>
+                        <td>{{ $wreport->read }}</td>
+                        <td>{{ $wreport->cloration }}</td>
+
                     </tr>
 
-                    @foreach ($reporte as $r)
-                        <tr>
-                            <td>{{ $r->date }} </td>
-                            <td>{{ $r->hour }}</td>
-                            <td>{{ $r->read }}</td>
-                            <td>{{ $r->cloration }}</td>
+                @endforeach
 
-                        </tr>
+            </tbody>
+            <h5 class="text-right" style="margin-right: 50px">
+                Consumo: 
+                {{ $wreports[0]->read - $wreports[ (count($wreports) - 1)]->read }} lt
+                {{-- {{ count($wreports) }} --}}
+            </h5>
+        </table>
 
-                    @endforeach
-
-                </tbody>
-                <h5 class="text-right" style="margin-right: 50px">
-                    Consumo: {{ $wreports[$indice]->consumption }}
-                 </h5>
-            </table>
-
-        @endforeach
+        {{-- @endforeach --}}
         <br>
 
 
