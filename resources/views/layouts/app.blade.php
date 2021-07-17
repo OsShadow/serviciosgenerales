@@ -350,12 +350,30 @@
                             @endcanany
                             @canany(['vehiculos.indexuser','vehiculos.indexadmin'])
                            
-                                        <li class="nav-item">
-                                            <a href="{{ url('vehiculos') }}"
+                                        <li class="nav-item has-treeview">
+                                            <a href="#"
                                                 class="{{ Request::path() === 'vehiculos/index' ? 'nav-link active' : 'nav-link' }}">
                                                 <i class="nav-icon fas fa-car"></i>
-                                                <p>Préstamo vehicular</p>
+                                                <p>Préstamo vehicular <i class="fas fa-angle-left right"></i></p>
                                             </a>
+                                            {{--  --}}
+                                            <ul class="nav nav-treeview">
+                                                    <li class="nav-item">
+                                                        <a href="{{ url('vehiculos') }}"
+                                                            class="{{ Request::path() === 'vehiculos' ? 'nav-link active' : 'nav-link' }}">
+                                                            <i class="far fa-circle nav-icon"></i>
+                                                            <p>En proceso</p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{ url('vehiculos/finalizados') }}"
+                                                            class="{{ Request::path() === 'vehiculos/finalizados' ? 'nav-link active' : 'nav-link' }}">
+                                                            <i class="far fa-circle nav-icon"></i>
+                                                            <p>Finalizados</p>
+                                                        </a>
+                                                    </li>
+                                            </ul>
+                                            {{--  --}}
                                         </li>
 
                                 @endcanany

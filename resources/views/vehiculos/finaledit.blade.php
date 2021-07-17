@@ -74,13 +74,18 @@
                                 <div class="form-group col-md-12">
                                 <div class=" col-md-4">
                                     <label for="vehicle">Vehiculo</label>
-                                    <select class="custom-select" id="vehicle" name="vehicle" required disabled>
-                            
-                                      @foreach ($vehicle as $v)
+                                    <select class="custom-select" id="vehicle" name="vehicle" required >
+                                    
+                                        <option value="{{ $vehicle->id }}">{{ $vehicle->code_car }} - ({{ $vehicle->model }} {{ $vehicle->year }})</option>
+                                     
+                                      {{-- @foreach ($vehicle as $v)
                                       <option selected value="{{ $v->id }}">{{ $v->code_car }} - ({{ $v->model }} {{ $v->year }})</option>
-                                      @endforeach
+                                      @endforeach --}}
                                     </select>
                                 </div>
+
+
+
                             </div>
 
                                 <div class="form-group col-md-6">

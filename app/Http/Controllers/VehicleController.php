@@ -19,20 +19,19 @@ class VehicleController extends Controller
     public function index(Request $request)
     {
 
+        $finalizados = false;
         
         $DateIni = $request->get('DateIni');
         $DateEnd = $request->get('DateEnd');
 
         $vehiclesunfinished =DB::table('vehicles')->where('finished','=','0')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
      
-
         if($DateIni == '' || $DateEnd == ''){
 
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
-        $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
-        return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished,'vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
+       return view('vehiculos.index', ['vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'finalizados' => $finalizados ]);
     
 
     }else{
@@ -40,18 +39,55 @@ class VehicleController extends Controller
         $DateIni = $request->get('DateIni');
             $DateEnd = $request->get('DateEnd');
             
-            $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')
+            $vehiclesunfinished = DB::table('vehicles')->where('finished','=','1')
             ->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')
+            ->where('finished','=','0')
             ->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])
             ->get();
         
-            return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished,'vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+            return view('vehiculos.index', ['vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion, 'finalizados' => $finalizados]);
         
     }
-
-    
      
  }
+
+ /**
+  * Vista vehiculos finalizados
+  */
+
+ public function finalizados(Request $request)
+ {
+     $finalizados = true;
+
+     $DateIni = $request->get('DateIni');
+     $DateEnd = $request->get('DateEnd');
+
+   
+     if($DateIni == '' || $DateEnd == ''){
+
+         $DateIni = '2021-01-01';
+         $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+
+     $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+     return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'finalizados' => $finalizados  ]);
+ 
+
+ } else {
+
+     $seleccion = true;  
+     $DateIni = $request->get('DateIni');
+         $DateEnd = $request->get('DateEnd');
+         
+         $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')
+         ->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')
+         ->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])
+         ->get();
+     
+         return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion, 'finalizados' => $finalizados ]);
+          
+ }
+  
+}
 
     /**
      * Show the form for creating a new resource.
@@ -65,8 +101,6 @@ class VehicleController extends Controller
         $hour = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('H:i');
 
         $vehicles = Vehicles::all()->where('in_use','=','0');
-
-    
 
         return view('vehiculos.create',['date'=>$date,'hour'=>$hour,'vehicles' => $vehicles]);
 
@@ -85,6 +119,10 @@ class VehicleController extends Controller
 
         $date = Carbon::parse($request->date_start)->format('Y-m-d');
         $hour = Carbon::parse($request->hour_start)->format('H:i');
+
+        //Marcar vehiculo en uso
+        Vehicles::where('id', $request->vehicle)
+        ->update(['in_use' => 1]);
 
         $vehiclereport->date_start = $date;
         $vehiclereport->hour_start = $hour;
@@ -138,7 +176,7 @@ class VehicleController extends Controller
 
         $vehicle =DB::table('vehicles_travel')->where('vehicles_travel.id','=', $id)->leftJoin('vehicles', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
 
-        return view('vehiculos/finaledit',['vehiclereport'=>$vehiclereport, 'vehicle'=>$vehicle, 'date' => $date, 'hour'=>$hour]);
+        return view('vehiculos/finaledit',['vehiclereport'=>$vehiclereport, 'vehicle'=>$vehicle[0], 'date' => $date, 'hour'=>$hour]);
 
     }
 
@@ -180,6 +218,10 @@ class VehicleController extends Controller
     {
         
         $vehiclereport = VehiclesTravel::findOrFail($id);
+
+            //Desmarcar vehiculo en uso
+            Vehicles::where('id', $request->vehicle)
+            ->update(['in_use' => 0]);
 
         $vehiclereport->date_start = $request->date_start;
         $vehiclereport->date_end= $request->date_end;

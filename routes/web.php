@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function(){
 // Route::resource('vehiculos','vehicleController');
 Route::middleware('auth')->group(function(){
 Route::get('vehiculos','vehicleController@index')->name('vehiculos.index');
+
 Route::get('vehiculos/edit/{id}/','vehicleController@edit')->name('vehiculos.edit')->middleware('permission:vehiculos.edit');
 Route::get('vehiculos/create','vehicleController@create')->name('vehiculos.create')->middleware('permission:vehiculos.create');
 Route::post('vehiculos','vehicleController@store')->name('vehiculos.store')->middleware('permission:vehiculos.create');
@@ -107,6 +108,7 @@ Route::get('vehiculos/finaledit/{id}/','vehicleController@finaledit')->name('veh
 Route::post('vehiculos/completereport/{id}/','vehicleController@completereport')->name('vehiculos.completereport')->middleware('permission:vehiculos.create');
 Route::get('vehiculos/pdfgeneral/{fechainicio}/{fechafin}','vehicleController@pdfgeneral')->name('vehiculos.pdfgeneral')->middleware('permission:vehiculos.pdfgeneral');
 Route::get('vehiculos/pdf/{id}','vehicleController@pdf')->name('vehiculos.pdf')->middleware('permission:vehiculos.pdf');
+Route::get('vehiculos/finalizados','vehicleController@finalizados')->name('vehiculos.finalizado');
 });
 
 

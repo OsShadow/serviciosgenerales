@@ -30,18 +30,15 @@
 
     <div style="margin-left: 50px;">
 
-
-
-
         <br>
 
         <table class="table table-bordered" style="width: 600px; ">
             <tbody>
                 <tr style="border: 5px;">
-                    <th scope="row" style="width: 100px"> Fecha: </th>
-                    <th scope="row" style="width: 100px"> Hora: </th>
-                    <th scope="row"> Lectura: </th>
-                    <th scope="row"> Cloración: </th>
+                    <th scope="row" style="width: 100px"> Fecha </th>
+                    <th scope="row" style="width: 100px"> Hora </th>
+                    <th scope="row"> Lectura (lt) </th>
+                    <th scope="row"> Cloración </th>
                 </tr>
                 @foreach ($wreports as $wreport)
                     <tr>

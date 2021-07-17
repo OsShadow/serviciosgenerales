@@ -4,7 +4,6 @@
 
     <div class="container col-md-12">
         <h2> Reportes de agua </h2>
-
         <div class="card">
 
             {{-- <div class="card-header">
@@ -64,22 +63,22 @@
 
             {{-- Rangos fecha --}}
 
-            <div class="card-body">
+            <div class="card-body" style="padding: 5px !important">
 
 
-                @if ($blnactualreport == false && count($actualreport) == 0)
-                    <div class="col-md-12">
-                        @can('agua.create')
-                            <a href="{{ url('reportes/agua/create') }}"> <button type="button" style="margin: 5px;"
-                                    class="btn btn-success float-right">Crear nuevo
-                                </button> </a>
-                        @endcan
-                    </div>
-                @endif
+                {{-- @if ($blnactualreport == false && count($actualreport) == 0) --}}
+                <div class="col-sm-12">
+                    @can('agua.create')
+                        <a href="{{ url('reportes/agua/create') }}"> <button type="button" style="margin: 5px;"
+                                class="btn btn-success float-right">Crear nuevo
+                            </button> </a>
+                    @endcan
+                </div>
+                {{-- @endif --}}
+                <br>
+                <div style="margin-left: 1.25em" class="card-title">Filtrar por fecha</div>
 
-                <div class="card-title">Filtrar por fecha</div>
-
-                <div class="card-text">
+                <div style="margin-left: 1.25em"  class="card-text">
                     <form>
                         <div class="form-row align-items-center">
                             <div class="col-auto">
@@ -127,7 +126,7 @@
 
             {{-- Rangos fecha --}}
 
-            @can('agua.edit')
+            {{-- @can('agua.edit')
 
                 @if ($blnactualreport != false || count($actualreport) > 0)
                     <div class="card-body">
@@ -142,10 +141,10 @@
                                     <th data-card-footer scope="col-xs-1">Opciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {{-- {{ $actualreport[count($actualreport)-1]->id }}
+                            <tbody> --}}
+            {{-- {{ $actualreport[count($actualreport)-1]->id }}
                         {{ $actualreport[0]->id }} --}}
-                                @foreach ($actualreport as $areport)
+            {{-- @foreach ($actualreport as $areport)
 
                                     <tr>
                                         <td scope="row">{{ $areport->id }}</td>
@@ -187,46 +186,65 @@
                         </table>
 
                     </div>
-                @endif
+                @endif --}}
 
-            @endcan
+            {{-- @endcan --}}
 
             @if (count($wreports) > 0)
 
                 <div class="card-body">
 
-                    <h3>Finalizados: </h3>
+                    {{-- <h3>Finalizados: </h3> --}}
                     <table class="table table-striped table-bordered table-hover ">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col-xs-1">ID</th>
-                                <th scope="col">Fecha Inicio</th>
-                                <th scope="col">Fecha Fin</th>
-                                <th scope="col">Consumo Total</th>
-                                <th data-card-footer scope="col-xs-1">Opciones</th>
+                                {{-- <th scope="col-xs-1">ID</th> --}}
+                                <th scope="col">Fecha </th>
+                                <th scope="col">Lectura (lt)</th>
+                                <th scope="col">Consumo (lt)</th>
+                                <th class="text-center" style="width: 200px" data-card-footer scope="col-xs-1">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($wreports as $wreport)
+                            @foreach ($wreports as $key => $wreport)
 
                                 <tr>
-                                    <td scope="row">{{ $wreport->id }}</td>
-                                    <td>{{ $wreport->date_start }}</td>
-                                    <td>{{ $wreport->date_end }}</td>
-                                    <td>{{ $wreport->consumption }}</td>
-                                    <td>
-
+                                    {{-- <td scope="row">{{ $wreport->id }}</td> --}}
+                                    <td>{{ $wreport->date }}</td>
+                                    <td>{{ $wreport->read }}</td>
+                                    @if ($key == 0)
+                                        <td> 0.00 </td>
+                                    @else
+                                        <td>{{ number_format($wreports[$key - 1]->read - $wreports[$key]->read, 2, '.', '') }}
+                                        </td>
+                                    @endif
+                                    <td class="text-center">
                                         <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
-                                            @can('agua.pdf')
+                                            @can('agua.edit')
+
+                                                <a href="{{ route('agua.showreport', $wreport->id) }}"><button type="button"
+                                                        class="btn btn-info" [$key]><i class="far fa-eye" style="color: white"
+                                                            alt="Submit"></i></button></a>
+
+                                                <a href="{{ route('agua.edit', $wreport->id) }}"><button type="button"
+                                                        class="btn btn-primary"><i class="far fa-edit" style="color: white"
+                                                            alt="Submit"></i></button></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
+                                                        class="far fa-trash-alt"></i></button>
+                                            @endcan
+                                            {{-- @can('agua.pdf')
                                                 <a href="{{ route('agua.pdf', $wreport->id) }}"><button type="button"
                                                         class="btn btn-warning"><i class="fas fa-print"></i> Exportar registro
                                                     </button></a>
-                                            @endcan
-                                            <a href="{{ route('agua.show', $wreport->id) }}"><button type="button"
+                                            @endcan --}}
+                                            {{-- <a href="{{ route('agua.show', $wreport->id) }}"><button type="button"
                                                     class="btn btn-info"> <i class="far fa-eye" style="color: white"
                                                         alt="Submit"> </i> Ver subregistros </button></a>
-                                            @csrf
+                                            @csrf --}}
                                             @method('DELETE')
                                         </form>
                                     </td>
@@ -238,8 +256,9 @@
 
             @endif
             @if (count($wreports) == 0)
-                <h5 class="col-md-12 text-center">No hay registros finalizados</h5>
+                <h5 class="col-md-12 text-center">No hay registros</h5>
             @endif
+            <h4 class="text-right" style="margin-right:1.25em">Consumo total: {{ number_format( $wreports[0]->read - $wreports[count($wreports) - 1]->read, 2, '.', '')  }} lt </h4>
 
             <!-- /.card-body -->
             <div class="card-footer clearfix">
@@ -248,3 +267,4 @@
     </div>
 
 @endsection
+ 
