@@ -24,7 +24,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Script de Google charts -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
     <!-- Fonts -->
@@ -67,8 +67,6 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div id="app">
         <div class="wrapper">
-
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -85,10 +83,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown">
-                        {{-- <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-comments"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
-        </a> --}}
+                        
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <a href="#" class="dropdown-item">
                                 <!-- Message Start -->
@@ -150,10 +145,7 @@
                     </li>
                     <!-- Notifications Dropdown Menu -->
                     <li class="nav-item dropdown">
-                        {{-- <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
-        </a> --}}
+                        
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <span class="dropdown-item dropdown-header">15 Notifications</span>
                             <div class="dropdown-divider"></div>
@@ -199,22 +191,22 @@
                                 alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block">
-                                @guest
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
-                                @else
-                                    {{ Auth::user()->name }}
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                        <p style="color:gray">Cerrar Sesión</p>
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                @endguest
+                            <a href="#" style="font-weight: bold; font-size: 18px;" class="d-block">
+                                {{ Auth::user()->name }}
                             </a>
+                            @guest
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
+                            @else
+                                <a class=""  href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                    Cerrar Sesión
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
+                            @endguest
                         </div>
                     </div>
 
@@ -241,7 +233,7 @@
                                             Usuarios
                                             <?php $users_count = User::all()->count(); ?>
 
-                                            <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
+                                            <span class="right badge badge-light">{{ $users_count ?? '0' }}</span>
                                         </p>
                                     </a>
                                 </li>
@@ -317,7 +309,7 @@
                                     <i class="nav-icon fas fa-file-alt"></i>
                                     <p>Reportes <i class="fas fa-angle-left right"></i></p>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-tlarareeview">
                                     @can('compresor.index')
                                         <li class="nav-item">
                                             <a href="{{ url('reportes/compresor') }}"
