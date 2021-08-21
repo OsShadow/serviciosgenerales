@@ -75,15 +75,23 @@
                 }                
                 @endphp
             ]);
-
             var data_water = google.visualization.arrayToDataTable([
                 ['Fecha', 'Lectura'],
                 @php
-                foreach($wreports as $wreport){
-                    echo "['".$wreport->date."', ".$wreport->read."],";
+                
+                //foreach($wreports as $wreport){
+                for($i = 0; $i < count($wreports); ++$i){
+                    if($i == 0){
+                        echo "['".$wreports[$i]->date."', 0.00],";
+                    }else{
+                        echo "['".$wreports[$i]->date."', ".number_format($wreports[$i - 1]->read - $wreports[$i]->read, 2, '.', '')."],";
+                    }
                 }                
                 @endphp
             ]);
+            //for($i = 0; $i < count($wreports); ++$i){
+               //    echo "['".$wreports[$i]->date."', ".number_format($wreports[$i - 1]->read - $wreports[$i]->read, 2, '.', '')."],"; 
+               // }
 
             var options_compresor = {
                 chart: {
