@@ -37,7 +37,7 @@
                 <tr style="border: 5px;">
                     <th scope="row" style="width: 100px"> Fecha </th>
                     <th scope="row" style="width: 100px"> Hora </th>
-                    <th scope="row"> Lectura (lt) </th>
+                    <th scope="row"> Lectura (m³) </th>
                     <th scope="row"> Cloración </th>
                 </tr>
                 @foreach ($wreports as $wreport)
@@ -55,7 +55,7 @@
 
         <h5>
             @foreach ($consumption as $consumo)
-                Consumo total: {{ $consumo->consumption }} lt
+                Consumo total: {{ $consumo->consumption }} m³
             @endforeach
         </h5>
     </div>

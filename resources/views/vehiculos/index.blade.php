@@ -85,7 +85,6 @@
                         <table class="table table-striped table-hover ">
                             <thead class="thead-dark">
                                 <tr>
-                                    {{-- <th scope="col">ID</th> --}}
                                     <th scope="col">Fecha Salida</th>
                                     <th scope="col">Chofer</th>
                                     <th scope="col">Vehiculo</th>
@@ -121,7 +120,7 @@
                                     @else
                                         @can('vehiculos.indexadmin')
                                             <tr>
-                                                <td scope="row">{{ $vehicle->id }}</td>
+                                                {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
                                                 <td>{{ $vehicle->date_start }}</td>
                                                 <td>{{ $vehicle->driver }}</td>
                                                 <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
@@ -155,11 +154,9 @@
 
                 @if ($finalizados)
                     @if (count($vehiclesfinished) > 0)
-                        {{-- <h3>Finalizados: </h3> --}}
                         <table class="table table-striped table-hover ">
                             <thead class="thead-dark">
                                 <tr>
-                                    {{-- <th scope="col">ID</th> --}}
                                     <th scope="col">Fecha Salida</th>
                                     <th scope="col">Chofer</th>
                                     <th scope="col">Vehiculo</th>
@@ -173,7 +170,6 @@
                                 @foreach ($vehiclesfinished as $vehicle)
                                     @if (auth()->id() == $vehicle->id_user)
                                         <tr>
-                                            {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
                                             <td>{{ $vehicle->date_start }}</td>
                                             <td>{{ $vehicle->driver }}</td>
                                             <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
@@ -211,7 +207,7 @@
                                     @else
                                         @can('vehiculos.indexadmin')
                                             <tr>
-                                                <td scope="row">{{ $vehicle->id }}</td>
+                                                {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
                                                 <td>{{ $vehicle->date_start }}</td>
                                                 <td>{{ $vehicle->driver }}</td>
                                                 <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
