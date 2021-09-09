@@ -55,7 +55,7 @@
             </tbody>
             <h5 class="text-right" style="margin-right: 50px">
                 Consumo: 
-                {{ $wreports[0]->read - $wreports[ (count($wreports) - 1)]->read }} lt
+                {{ $wreports[0]->read - $wreports[ (count($wreports) - 1)]->read }} m³
                 {{-- {{ count($wreports) }} --}}
             </h5>
         </table>

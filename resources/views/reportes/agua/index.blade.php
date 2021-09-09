@@ -200,8 +200,8 @@
                             <tr>
                                 {{-- <th scope="col-xs-1">ID</th> --}}
                                 <th scope="col">Fecha </th>
-                                <th scope="col">Lectura (lt)</th>
-                                <th scope="col">Consumo (lt)</th>
+                                <th scope="col">Lectura (m³)</th>
+                                <th scope="col">Consumo (m³)</th>
                                 <th class="text-center" style="width: 200px" data-card-footer scope="col-xs-1">Opciones</th>
                             </tr>
                         </thead>
@@ -258,7 +258,7 @@
             @if (count($wreports) == 0)
                 <h5 class="col-md-12 text-center">No hay registros</h5>
             @endif
-            <h4 class="text-right" style="margin-right:1.25em">Consumo total: {{ number_format( $wreports[0]->read - $wreports[count($wreports) - 1]->read, 2, '.', '')  }} lt </h4>
+            <h4 class="text-right" style="margin-right:1.25em">Consumo total: {{ number_format( $wreports[0]->read - $wreports[count($wreports) - 1]->read, 2, '.', '')  }} m³ </h4>
 
             <!-- /.card-body -->
             <div class="card-footer clearfix">

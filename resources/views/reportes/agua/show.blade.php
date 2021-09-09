@@ -48,7 +48,7 @@
       </tbody>
   </table>
   <br>
-  <h4 class="text-right">Consumo total: {{ $consumption }} lt</h3>
+  <h4 class="text-right">Consumo total: {{ $consumption }} m³</h3>
 
   </div>
 
