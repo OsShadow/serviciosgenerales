@@ -2,25 +2,23 @@
 
 @section('content')
 
-    <div class="container">
-
-
-        <h2> Reportes de emergencias ambientales </h2>
-
-        <div class="card">
-            <div class="card-body">
-
-                <a href="{{ url('emergencias/create') }}"> <button type="button" style="margin-bottom: 10px"
-                        class="btn btn-success float-right">Crear nuevo
-                        reporte </button> </a> <br>
+    <div class="row  border-bottom bg-light dashboard-header " style="padding:0; margin-left: -7px !important; margin-bottom: 10px">
+        <div class="col-lg-6" style="margin-left:15px; padding:0;">
+            <h2> Reportes de emergencias ambientales </h2>
+        </div>
+    </div>
+    <div class="card" style="padding: 5px">
+        <div class="card-body" style="padding: 5px !important">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="card-title">Filtrar por fecha</div>
+                </div>
+            </div>
 
                 {{-- Rango fecha --}}
-
-                <div class="card-body">
-
-                    <div class="card-title">Filtrar por fecha</div>
-
-                    <div class="card-text">
+            <div class="row">
+                <div class="col-sm-12 col-md-10"> 
+                    <div  class="card-text">
                         <form>
                             <div class="form-row align-items-center">
                                 <div class="col-auto">
@@ -49,8 +47,17 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
+                <div class="col-sm-12 col-md-2">   
+                    @can('roles.create')
+                        <a href="{{ url('emergencias/create') }}"> <button type="button" style="margin-bottom: 10px"
+                            class="btn btn-success float-right">Crear nuevo
+                            reporte </button> 
+                        </a> <br>   
+                    @endcan
+                </div>
+            </div>
+
 
                 {{-- Rango fecha --}}
 
@@ -60,29 +67,36 @@
                         Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
                         <span style="font-weight: bold">{{ $DateEnd }}</span>
                     </div>
-                    @can('compresor.pdfgeneral')
-                        <div class="col-md-6 text-right">
-                            <a href="{{ route('emergencias.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
-                                <i class="fas fa-print"></i> Exportar selección</a>
-                        </div>
-                    @endcan
+                    
+                    @if (count($ereports) > 0)
+
+                        @can('compresor.pdfgeneral')
+                            <div class="col-md-6 text-right">
+                                <a href="{{ route('emergencias.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
+                                    <i class="fas fa-print"></i> Exportar selección</a>
+                            </div>
+                        @endcan
+                    @endif
                 </div>
             @endif
 
-                <table class="table table-striped table-hover ">
+            @if (count($ereports) > 0)
+
+
+                <table class="table table-striped table-hover " id="TableEmergensiesReports">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">ID</th>
+                            {{-- <th scope="col">ID</th> --}}
                             <th scope="col">Fecha</th>
                             <th scope="col">Encabezado</th>
-                            <th scope="col">Opciones</th>
+                            <th class="text-center" style="width: 250px" data-card-footer scope="col-xs-2">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach ($ereports as $ereport)
                             <tr>
-                                <th scope="row">{{ $ereport->id }}</th>
+                                {{-- <th scope="row">{{ $ereport->id }}</th> --}}
                                 <td>{{ $ereport->date }}</td>
                                 <td>{{ $ereport->head }}</td>
 
@@ -108,7 +122,21 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
+                <div class="row d-sm-block">
+                    <div class="col-sm-12">
+                        {{ $ereports->links() }}
+    
+                    </div>
+    
+                </div>
+                @else
+                <div class="row border" style="margin: 5px; ">
+                    <div class="col-xs-12 text-center mx-auto" style="width: 400px; padding:15px;" >
+                        <h5 style="margin: 0" >No hay reportes para mostrar</h5>
+                        
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 

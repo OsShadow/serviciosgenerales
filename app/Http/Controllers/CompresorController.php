@@ -31,19 +31,17 @@ class CompresorController extends Controller
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
            
 
-                    $creports = CompresorReports::all();
+                    $creports = CompresorReports::paginate(30);
 
             return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
            
 
-                }else{
-
-                    $seleccion = true;
-
-                    $creports = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
-                    return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
-                   
-                }
+        }else{
+            $seleccion = true;
+            $creports = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+           
+        }
 
     }
 
@@ -164,7 +162,7 @@ class CompresorController extends Controller
         // $DateIni = $request->get('DateIni');
         // $DateEnd = $request->get('DateEnd');
     
-        $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
+        $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
 
         $pdf = \PDF::loadView('/reportes/compresor/pdfgeneral', compact('compresor', 'DateIni'));
 

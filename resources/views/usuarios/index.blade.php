@@ -16,11 +16,9 @@
 @endsection
 
 @section('content')
-    <div class="">
-        
-        <div class="row  border-bottom white-bg dashboard-header" style="margin-left:-3px;">
-            <div class="col-lg-6">
-                <h2> Lista de usuarios </h2>
+        <div class="row  border-bottom bg-light dashboard-header " style="padding:0; margin-left: -7px !important; margin-bottom: 10px">
+            <div class="col-lg-6" style="padding:0; padding-left:15px; ">
+                <h2>Usuarios </h2>
             </div>
             <div class="col-lg-6">
                 @can('usuarios.create')
@@ -39,13 +37,13 @@
                 
             @endif
         </h6>
-        <table class="table table-striped table-bordered" id="TablaUsuarios">
+        <table class="table table-striped table-bordered table-hover " id="TablaUsuarios">
             <thead>
                 <tr class="thead-dark">
                     <th data-card-title scope="col">Nombre</th>
                     <th scope="col">Email</th>
                     <th scope="col">Codigo</th>
-                    <th data-card-footer scope="col">Opciones</th>
+                    <th class="text-center" style="width: 150px" data-card-footer scope="col-xs-2">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,5 +79,4 @@
             </tbody>
         </table>
         {{ $users->links() }}
-    </div>
 @endsection

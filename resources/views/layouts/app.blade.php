@@ -420,7 +420,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
+            <footer class="main-footer" style="padding: 3px;">
                 <!-- NO QUITAR -->
                 <strong>Servicios generales
                     <div class="float-right d-none d-sm-inline-block">

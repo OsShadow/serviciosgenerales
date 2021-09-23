@@ -31,12 +31,11 @@ public function index(Request $request)
         $DateIni = '2021-01-01';
         $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
-$wreports = DB::table('water_reports')
+        $wreports = DB::table('water_reports')
         // ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
         // ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
         // ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
-        ->get();
-
+        ->paginate(30);
 // $lwreport = DB::table('water_reports_general')
 // ->select('id_date_end')
 // ->orderByDesc('id')

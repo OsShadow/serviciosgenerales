@@ -24,32 +24,31 @@ class VehicleController extends Controller
         $DateIni = $request->get('DateIni');
         $DateEnd = $request->get('DateEnd');
 
-        $vehiclesunfinished =DB::table('vehicles')->where('finished','=','0')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+        $vehiclesunfinished =DB::table('vehicles')->where('finished','=','0')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->paginate(30);
      
         if($DateIni == '' || $DateEnd == ''){
 
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
-       return view('vehiculos.index', ['vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'finalizados' => $finalizados ]);
+            return view('vehiculos.index', ['vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'finalizados' => $finalizados ]);
     
-
-    }else{
-        $seleccion = true;  
-        $DateIni = $request->get('DateIni');
-            $DateEnd = $request->get('DateEnd');
+        }else{
+            $seleccion = true;  
+            $DateIni = $request->get('DateIni');
+                $DateEnd = $request->get('DateEnd');
+                
+                $vehiclesunfinished = DB::table('vehicles')->where('finished','=','1')
+                ->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')
+                ->where('finished','=','0')
+                ->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])
+                ->paginate(30);
             
-            $vehiclesunfinished = DB::table('vehicles')->where('finished','=','1')
-            ->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')
-            ->where('finished','=','0')
-            ->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])
-            ->get();
-        
-            return view('vehiculos.index', ['vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion, 'finalizados' => $finalizados]);
+                return view('vehiculos.index', ['vehiclesunfinished' =>$vehiclesunfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion, 'finalizados' => $finalizados]);
+            
+        }
         
     }
-     
- }
 
  /**
   * Vista vehiculos finalizados
@@ -68,7 +67,7 @@ class VehicleController extends Controller
          $DateIni = '2021-01-01';
          $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
-     $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->get();
+     $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')->paginate(30);
      return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished , 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'finalizados' => $finalizados  ]);
  
 
@@ -81,7 +80,7 @@ class VehicleController extends Controller
          $vehiclesfinished = DB::table('vehicles')->where('finished','=','1')
          ->leftJoin('vehicles_travel', 'vehicles_travel.id_car', '=', 'vehicles.id')
          ->whereBetween('vehicles_travel.date_start',[$DateIni, $DateEnd])
-         ->get();
+         ->paginate(30);
      
          return view('vehiculos.index', ['vehiclesfinished' =>$vehiclesfinished, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion, 'finalizados' => $finalizados ]);
           

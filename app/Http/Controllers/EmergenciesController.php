@@ -19,25 +19,20 @@ class EmergenciesController extends Controller
         $DateIni = $request->get('DateIni');
         $DateEnd = $request->get('DateEnd');
 
-
         if($DateIni == '' || $DateEnd == ''){
 
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
            
-            $ereports = Emergencies::all();
-            return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);  
+            $ereports = Emergencies::paginate(30);
+            return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);     
+
+        }else{
+            $seleccion = true;
+            $ereports = Emergencies::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
            
-
-                }else{
-
-                    $seleccion = true;
-
-                    $ereports = Emergencies::all()->whereBetween('date',[$DateIni, $DateEnd]);
-
-                    return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
-                   
-                }
+        }
 
 
 

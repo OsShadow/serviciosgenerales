@@ -2,80 +2,95 @@
 
 @section('content')
 
-    <h2> Reportes de Compresor </h2>
+    <div class="row  border-bottom bg-light dashboard-header " style="padding:0; margin-left: -7px !important; margin-bottom: 10px">
+        <div class="col-lg-6" style="margin-left:15px; padding:0;">
+            <h2> Reportes de Compresor </h2>
+        </div>
+    </div>
 
-    <div class="card">
-        <div class="card-body">
-            @can('compresor.create')
-                <a href="{{ url('reportes/compresor/create') }}"> <button type="button"
-                        class="btn btn-success float-right">Crear
-                        nuevo </button> </a>
-            @endcan
-            {{-- Rangos fecha --}}
+    <div class="card" style="padding: 5px">
+        <div class="card-body"  style="padding: 5px !important">
 
-            <div class="card-body">
-
-                <div class="card-title">Filtrar por fecha</div>
-
-                <div class="card-text">
-                    <form>
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Inicio</div>
-                                    </div>
-                                    <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
-                                        id="DateInitial">
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Fin</div>
-                                    </div>
-                                    <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
-                                        id="DateEnding">
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
-                                    Actualizar</button>
-
-                            </div>
-                        </div>
-                    </form>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="card-title">Filtrar por fecha</div>
                 </div>
-
             </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10"> 
+                    <div  class="card-text">
+                        <form>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Inicio</div>
+                                        </div>
+                                        <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
+                                            id="DateInitial">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Fin</div>
+                                        </div>
+                                        <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
+                                            id="DateEnding">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
+                                        Actualizar</button>
+    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    
+                    @can('compresor.create')
+                        <a href="{{ url('reportes/compresor/create') }}"> 
+                            <button type="button" class="btn btn-success float-right">Crear nuevo </button> 
+                        </a>
+                    @endcan
+                </div>
+            </div>
+
 
             @if (isset($seleccion))
                 <div class="row">
                     <div class="col-md-6">
-                        Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
+                        Resultados de tu búsqueda entre rangos 
+                        <span style="font-weight: bold">{{ $DateIni }}</span> y
                         <span style="font-weight: bold">{{ $DateEnd }}</span>
                     </div>
-                    @can('compresor.pdfgeneral')
+                    
+                    @if (count($treports) > 0)
+
+                        @can('compresor.pdfgeneral')
                         <div class="col-md-6 text-right">
                             <a href="{{ route('compresor.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
                                 <i class="fas fa-print"></i> Exportar selección</a>
                         </div>
-                    @endcan
+                        @endcan
+                    @endif
                 </div>
             @endif
 
             {{-- Rangos fecha --}}
-
-            <table class="table table-striped table-hover " id="myTable">
+            @if (count($creports) > 0)
+            <table class="table table-striped table-bordered table-hover  " id="TableCompresorReports">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Nivel de aceite</th>
                         <th scope="col">Temperatura</th>
                         <th scope="col">Observaciones</th>
                         <th scope="col">Usuario</th>
-                        <th data-card-footer scope="col">Opciones</th>
+                        <th class="text-center" style="width: 250px" data-card-footer scope="col-xs-2">Opciones</th>
 
                     </tr>
                 </thead>
@@ -84,7 +99,6 @@
                     @foreach ($creports as $creport)
 
                         <tr>
-                            <td scope="row">{{ $creport->id }}</td>
                             <td>{{ $creport->date }}</td>
                             <td>{{ $creport->oil_level }} %</td>
                             <td>{{ $creport->temperature }} °C</td>
@@ -119,6 +133,22 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="row d-sm-block">
+                <div class="col-sm-12">
+                    {{ $creports->links() }}
+
+                </div>
+
+            </div>
+            @else
+                <div class="row border" style="margin: 5px; ">
+                    <div class="col-xs-12 text-center mx-auto" style="width: 400px; padding:15px;" >
+                        <h5 style="margin: 0" >No hay reportes para mostrar</h5>
+                        
+                    </div>
+                </div>
+            @endif
+        
 
         </div>
     </div>
