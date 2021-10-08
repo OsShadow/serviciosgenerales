@@ -27,13 +27,13 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-              <table class="table table-striped table-bordered table-hover " id="TableRoles">
+              <table class="table table-hover " id="TableRoles" style="border: solid 1px black">
                 <thead class="thead-dark">
                     <tr>
                         {{-- <th scope="col">ID</th> --}}
                         <th scope="col">Rol</th>
                         <th scope="col">Descripción</th>
-                        <th class="text-center" style="width: 200px" data-card-footer scope="col-xs-2">Opciones</th>
+                        <th class="text-center" style="width: 180px" data-card-footer scope="col-xs-2">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>

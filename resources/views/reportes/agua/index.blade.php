@@ -80,11 +80,11 @@
                 <div class="card-body" style="padding: 10px">
 
                     {{-- <h3>Finalizados: </h3> --}}
-                    <table class="table table-striped table-bordered table-hover " id="TableWaterReports">
+                    <table class="table table-hover " id="TableWaterReports"  style="border: solid 1px black">
                         <thead class="thead-dark">
                             <tr>
                                 {{-- <th scope="col-xs-1">ID</th> --}}
-                                <th scope="col">Fecha </th>
+                                <th scope="col " class="text-center" style="width: 120px">Fecha </th>
                                 <th scope="col">Lectura (m³)</th>
                                 <th scope="col">Consumo (m³)</th>
                                 <th class="text-center" style="width: 200px" data-card-footer scope="col-xs-1">Opciones</th>
@@ -96,12 +96,12 @@
 
                                 <tr>
                                     {{-- <td scope="row">{{ $wreport->id }}</td> --}}
-                                    <td>{{ $wreport->date }}</td>
-                                    <td>{{ $wreport->read }}</td>
+                                    <td class="text-center">{{ $wreport->date }}</td>
+                                    <td class="text-secondary">{{ $wreport->read }}</td>
                                     @if ($key == 0)
-                                        <td> 0.00 </td>
+                                        <td class="text-secondary"> 0.00 </td>
                                     @else
-                                        <td>{{ number_format($wreports[$key - 1]->read - $wreports[$key]->read, 2, '.', '') }}
+                                        <td class="text-secondary">{{ number_format($wreports[$key - 1]->read - $wreports[$key]->read, 2, '.', '') }}
                                         </td>
                                     @endif
                                     <td class="text-center">

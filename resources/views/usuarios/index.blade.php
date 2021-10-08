@@ -37,7 +37,7 @@
                 
             @endif
         </h6>
-        <table class="table table-striped table-bordered table-hover " id="TablaUsuarios">
+        <table class="table tabñe-border table-hover " id="TablaUsuarios" style="border: solid 1px black">
             <thead>
                 <tr class="thead-dark">
                     <th data-card-title scope="col">Nombre</th>

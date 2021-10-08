@@ -1,11 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="row  border-bottom bg-light dashboard-header " style="padding:0; margin-left: -7px !important; margin-bottom: 10px">
     <div class="col-lg-6" style="margin-left:15px; padding:0;">
         <h2> Crear reporte emergencia </h2>
     </div>
 </div>
+@if (count($errors) > 0)
+
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="text-center">
+                    <strong>¡Parece que algunos campos estan vacios o no tienen los datos correctos!</strong>
+                </div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+@endif
 <div class="card">
     <div class="card-body">
         <div class="container">

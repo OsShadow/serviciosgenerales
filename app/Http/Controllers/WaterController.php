@@ -32,42 +32,8 @@ public function index(Request $request)
         $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
         $wreports = DB::table('water_reports')
-        // ->select('t1.id','t2.date as date_start','t3.date as date_end',DB::raw('(`t2`.`read` - `t3`.`read`) as `consumption`'))
-        // ->leftJoin('water_reports as t2', 't2.id', '=', 't1.id_date_start')
-        // ->leftJoin('water_reports as t3', 't3.id', '=', 't1.id_date_end')
         ->paginate(30);
-// $lwreport = DB::table('water_reports_general')
-// ->select('id_date_end')
-// ->orderByDesc('id')
-// ->limit(1)
-// ->get();
 
-// $lreport = DB::table('water_reports')
-// ->select('id')
-// ->orderByDesc('id')
-// ->limit(1)
-// ->get();
-
-// $blnactualreport = false;
-// $actualreport = [];
-
-// if(isset($lwreport[0])){
-// if($lwreport[0]->id_date_end != $lreport[0]->id){
-
-    // $blnactualreport = true;
-
-    // $actualreport = DB::table('water_reports')
-    // ->orderByDesc('id')
-    // ->where('id', '>' ,$lwreport[0]->id_date_end)
-    // ->get();
-
-// }
-// }else{
-
-//     $actualreport = DB::table('water_reports')
-//     ->orderByDesc('id')
-//     ->get();
-// }
 
 return view('reportes.agua.index', ['wreports' => $wreports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
 

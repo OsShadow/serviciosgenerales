@@ -68,7 +68,7 @@
                         <span style="font-weight: bold">{{ $DateEnd }}</span>
                     </div>
                     
-                    @if (count($treports) > 0)
+                    @if (count($creports) > 0)
 
                         @can('compresor.pdfgeneral')
                         <div class="col-md-6 text-right">
@@ -82,15 +82,16 @@
 
             {{-- Rangos fecha --}}
             @if (count($creports) > 0)
-            <table class="table table-striped table-bordered table-hover  " id="TableCompresorReports">
+            <table class="table table-hover" id="TableCompresorReports"  style="border: solid 1px black">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Nivel de aceite</th>
-                        <th scope="col">Temperatura</th>
+                        <th scope="col" class="text-center" style="width: 120px">Fecha</th>
+                        <th scope="col" style="width: 150px">Nivel de aceite</th>
+                        <th scope="col" style="width: 150px">Temperatura</th>
                         <th scope="col">Observaciones</th>
                         <th scope="col">Usuario</th>
-                        <th class="text-center" style="width: 250px" data-card-footer scope="col-xs-2">Opciones</th>
+                        <th scope="col"  style="width: 210px">Código de usuario</th>
+                        <th class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
 
                     </tr>
                 </thead>
@@ -99,13 +100,14 @@
                     @foreach ($creports as $creport)
 
                         <tr>
-                            <td>{{ $creport->date }}</td>
-                            <td>{{ $creport->oil_level }} %</td>
-                            <td>{{ $creport->temperature }} °C</td>
-                            <td>{{ $creport->observations }}</td>
-                            <td>{{ $creport->user_report }}</td>
+                            <td class="text-center text-secondary">{{ $creport->date }}</td>
+                            <td class="text-secondary">{{ $creport->oil_level }} %</td>
+                            <td class="text-secondary">{{ $creport->temperature }} °C</td>
+                            <td class="text-secondary">{{ $creport->observations }}</td>
+                            <td class="text-secondary">{{ $creport->name }}</td>
+                            <td class="text-center text-secondary">{{ $creport->code }}</td>
 
-                            <td>
+                            <td class="text-center">
                                 <form action="{{ route('compresor.destroy', $creport->id) }}" method="POST">
 
                                     @can('compresor.pdf')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Emergencies;
 use Carbon\Carbon;
+use App\Http\Requests\EmergenciesRequest;
 
 use Illuminate\Http\Request;
 
@@ -56,7 +57,7 @@ class EmergenciesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmergenciesRequest $request)
     {
         $emergencie = new Emergencies();
 

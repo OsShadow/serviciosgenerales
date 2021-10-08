@@ -79,15 +79,17 @@
                 @endif
 
                 @if (count($treports) > 0)
-                    <table class="table table-striped table-bordered table-hover " id="TableWasteReports">
+                    <table class="table table-hover " id="TableWasteReports" style="border: solid 1px black">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Fecha</th>
+                                            <th scope="col" class="text-center" style="width: 120px">Fecha</th>
                                             <th scope="col">Area</th>
                                             <th scope="col">Tipo</th>
                                             <th scope="col">Cantidad</th>
                                             <th scope="col">Usuario</th>
-                                            <th class="text-center" style="width: 250px" data-card-footer scope="col-xs-2">Opciones</th>
+                                            <th scope="col"  style="width: 210px">Código de usuario</th>
+
+                                            <th class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,13 +97,15 @@
                 
                                         @foreach ($treports as $treport)
                                             <tr>
-                                                <td>{{ $treport->date }}</td>
-                                                <td>{{ $treport->label }}</td>
-                                                <td>{{ $treport->type }}</td>
-                                                <td>{{ $treport->quantity }}</td>
-                                                <td>{{ $treport->user_report }}</td>
+                                                <td class="text-center text-secondary" >{{ $treport->date }}</td>
+                                                <td class="text-secondary">{{ $treport->label }}</td>
+                                                <td class="text-secondary">{{ $treport->type }}</td>
+                                                <td class="text-secondary">{{ $treport->quantity }}</td>
+                                                <td class="text-secondary">{{ $treport->name }}</td>
+                                                <td class="text-secondary text-center">{{ $treport->user_report }}</td>
+
                 
-                                                <td>
+                                                <td class="text-center">
                                                     <form action="{{ route('desechos.destroy', $treport->id) }}" method="POST">
                                                         @can('desechos.pdf')
                                                         <a href="{{ route('desechos.pdf', $treport->id) }}"><button type="button"

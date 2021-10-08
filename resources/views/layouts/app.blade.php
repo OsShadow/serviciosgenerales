@@ -1,4 +1,13 @@
-<?php use App\User; ?>
+<?php 
+use App\User; 
+use App\WaterReports; 
+
+use App\CompresorReports;
+use App\Emergencies;
+use App\TrashReports;
+use App\Vehicles;
+use App\VehiclesTravel;
+?>
 
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -187,11 +196,11 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src={{ asset('dist/img/user2-160x160.jpg') }} class="img-circle elevation-2"
+                            <img src={{ asset('dist/img/user.png') }}  class="img-circle elevation-2"
                                 alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" style="font-weight: bold; font-size: 18px;" class="d-block">
+                            <a href="{{ route('usuarios.show', Auth::user()->id) }}" style="font-weight: bold; font-size: 18px;" class="d-block">
                                 {{ Auth::user()->name }}
                             </a>
                             @guest
@@ -225,97 +234,37 @@
 
                             @can('usuarios.index')
 
-                                <li class="nav-item">
-                                    <a href="{{ url('usuarios') }}"
-                                        class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
-                                        <i class="nav-icon fas fa-users"></i>
-                                        <p>
-                                            Usuarios
-                                            <?php $users_count = User::all()->count(); ?>
-
-                                            <span class="right badge badge-light">{{ $users_count ?? '0' }}</span>
-                                        </p>
-                                    </a>
-                                </li>
+                            <li class="nav-item">
+                                <a href="{{ url('usuarios') }}"
+                                    class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Usuarios
+                                        <?php $users_count = User::all()->count(); ?>
+                                        <span class="right badge badge-light">{{ $users_count ?? '0' }}</span>
+                                    </p>
+                                </a>
+                            </li>
 
                             @endcan
 
-                            <!--
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon far fa-sticky-note"></i>
-                    <p>Notas<i class="fas fa-angle-left right"></i></p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ asset('notas/todas') }}"
-                            class="{{ Request::path() === 'notas/todas' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Todas</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ asset('notas/favoritas') }}"
-                            class="{{ Request::path() === 'notas/favoritas' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Favoritas</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ asset('notas/archivadas') }}"
-                            class="{{ Request::path() === 'notas/archivadas' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Archivadas</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        -->
-
-                            {{-- @can('desechos.create')
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
-                    <p>Crear reporte <i class="fas fa-angle-left right"></i></p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{url('reportes/compresor/create')}}"
-                            class="{{ Request::path() === 'reportes/compresor/create' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Compresor</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url('reportes/agua/create')}}"
-                            class="{{ Request::path() === 'reportes/agua/create' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Agua</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url('reportes/desechos/create')}}"
-                            class="{{ Request::path() === 'reportes/desechos/create' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Deshechos</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            @endcan --}}
-                                @canany(['compresor.index', 'agua.index', 'desechos.index'])
+                            @canany(['compresor.index', 'agua.index', 'desechos.index'])
                             <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
+                                <a href="#" 
+                                    class="{{ Request::path() === 'reportes/index' ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fas fa-file-alt"></i>
                                     <p>Reportes <i class="fas fa-angle-left right"></i></p>
                                 </a>
-                                <ul class="nav nav-tlarareeview">
+                                <ul class="nav nav-treeview">
                                     @can('compresor.index')
                                         <li class="nav-item">
                                             <a href="{{ url('reportes/compresor') }}"
                                                 class="{{ Request::path() === 'reportes/compresor' ? 'nav-link active' : 'nav-link' }}">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Compresor</p>
+                                                <p>Compresor
+                                                    <?php $creports_count = CompresorReports::all()->count(); ?>
+                                                    <span class="right badge badge-light">{{ $creports_count ?? '0' }}</span>
+                                                </p>
                                             </a>
                                         </li>
                                     @endcan
@@ -324,7 +273,10 @@
                                             <a href="{{ url('reportes/agua') }}"
                                                 class="{{ Request::path() === 'reportes/agua' ? 'nav-link active' : 'nav-link' }}">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Agua</p>
+                                                <p>Agua
+                                                    <?php $wreports_count = WaterReports::all()->count(); ?>
+                                                    <span class="right badge badge-light">{{ $wreports_count ?? '0' }}</span>
+                                                </p>
                                             </a>
                                         </li>
                                     @endcan
@@ -333,7 +285,10 @@
                                             <a href="{{ url('reportes/desechos') }}"
                                                 class="{{ Request::path() === 'reportes/desechos' ? 'nav-link active' : 'nav-link' }}">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Deshechos</p>
+                                                <p>Deshechos
+                                                    <?php $treports_count = TrashReports::all()->count(); ?>
+                                                    <span class="right badge badge-light">{{ $treports_count ?? '0' }}</span>
+                                                </p>
                                             </a>
                                         </li>
                                     @endcan
@@ -342,31 +297,35 @@
                             @endcanany
                             @canany(['vehiculos.indexuser','vehiculos.indexadmin'])
                            
-                                        <li class="nav-item has-treeview">
-                                            <a href="#"
-                                                class="{{ Request::path() === 'vehiculos/index' ? 'nav-link active' : 'nav-link' }}">
-                                                <i class="nav-icon fas fa-car"></i>
-                                                <p>Préstamo vehicular <i class="fas fa-angle-left right"></i></p>
+                            <li class="nav-item has-treeview">
+                                <a href="#"
+                                    class="{{ Request::path() === 'vehiculos/index' ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fas fa-car"></i>
+                                    <p>Préstamo vehicular <i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ url('vehiculos') }}"
+                                                class="{{ Request::path() === 'vehiculos' ? 'nav-link active' : 'nav-link' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>En proceso
+                                                    <?php $process_count = VehiclesTravel::where('finished','=','0')->count(); ?>
+                                                    <span class="right badge badge-danger">{{ $process_count ?? '0' }}</span>
+                                                </p>
                                             </a>
-                                            {{--  --}}
-                                            <ul class="nav nav-treeview">
-                                                    <li class="nav-item">
-                                                        <a href="{{ url('vehiculos') }}"
-                                                            class="{{ Request::path() === 'vehiculos' ? 'nav-link active' : 'nav-link' }}">
-                                                            <i class="far fa-circle nav-icon"></i>
-                                                            <p>En proceso</p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{{ url('vehiculos/finalizados') }}"
-                                                            class="{{ Request::path() === 'vehiculos/finalizados' ? 'nav-link active' : 'nav-link' }}">
-                                                            <i class="far fa-circle nav-icon"></i>
-                                                            <p>Finalizados</p>
-                                                        </a>
-                                                    </li>
-                                            </ul>
-                                            {{--  --}}
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('vehiculos/finalizados') }}"
+                                                class="{{ Request::path() === 'vehiculos/finalizados' ? 'nav-link active' : 'nav-link' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Finalizados
+                                                    <?php $ended_count = VehiclesTravel::where('finished','=','1')->count(); ?>
+                                                    <span class="right badge badge-light">{{ $ended_count ?? '0' }}</span>
+                                                </p>
+                                            </a>
+                                        </li>
+                                </ul>
+                            </li>
 
                                 @endcanany
                             <li class="nav-item has-treeview">
@@ -381,7 +340,9 @@
                                         <a href="{{ url('emergencias/create') }}"
                                             class="{{ Request::path() === 'emergencias/create' ? 'nav-link active' : 'nav-link' }}">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Crear reporte</p>
+                                            <p>Crear reporte
+                                                
+                                            </p>
                                         </a>
                                     </li>
                                     @can('usuarios.show')
@@ -389,7 +350,10 @@
                                             <a href="{{ url('emergencias') }}"
                                                 class="{{ Request::path() === 'emergencias/index' ? 'nav-link active' : 'nav-link' }}">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Ver reportes</p>
+                                                <p>Ver reportes
+                                                    <?php $treports_count = Emergencies::all()->count(); ?>
+                                                    <span class="right badge badge-danger">{{ $treports_count ?? '0' }}</span>
+                                                </p>
                                             </a>
                                         </li>
                                     @endcan
@@ -424,7 +388,7 @@
                 <!-- NO QUITAR -->
                 <strong>Servicios generales
                     <div class="float-right d-none d-sm-inline-block">
-                        <b>Version 1.0</b>
+                        <b>Version 1.1</b>
                     </div>
             </footer>
 

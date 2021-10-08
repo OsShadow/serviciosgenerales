@@ -83,13 +83,13 @@
             @if (count($ereports) > 0)
 
 
-                <table class="table table-striped table-hover " id="TableEmergensiesReports">
+                <table class="table table-hover " id="TableEmergensiesReports"  style="border: solid 1px black">
                     <thead class="thead-dark">
                         <tr>
                             {{-- <th scope="col">ID</th> --}}
-                            <th scope="col">Fecha</th>
+                            <th scope="col" class="text-center" style="width: 120px">Fecha</th>
                             <th scope="col">Encabezado</th>
-                            <th class="text-center" style="width: 250px" data-card-footer scope="col-xs-2">Opciones</th>
+                            <th class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,8 +97,8 @@
                         @foreach ($ereports as $ereport)
                             <tr>
                                 {{-- <th scope="row">{{ $ereport->id }}</th> --}}
-                                <td>{{ $ereport->date }}</td>
-                                <td>{{ $ereport->head }}</td>
+                                <td class="text-center text-secondary">{{ $ereport->date }}</td>
+                                <td class="text-secondary">{{ $ereport->head }}</td>
 
                                 <td>
                                     <form action="{{ route('emergencias.destroy', $ereport->id) }}" method="POST">

@@ -85,10 +85,10 @@
                 @if (!$finalizados)
                     @if (count($vehiclesunfinished) > 0)
 
-                        <table class="table table-striped table-bordered table-hover  " id="TableVeiculosIncompletosReports">
+                        <table class="table table-hover  " id="TableVeiculosIncompletosReports" style="border: solid 1px black">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Fecha Salida</th>
+                                    <th scope="col"  class="text-center" style="width: 120px">Fecha Salida</th>
                                     <th scope="col">Chofer</th>
                                     <th scope="col">Vehiculo</th>
                                     <th style="width: 200px" class="text-center" data-card-footer scope="col">Opciones</th>
@@ -101,9 +101,9 @@
 
                                         <tr>
                                             {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
-                                            <td>{{ $vehicle->date_start }}</td>
-                                            <td>{{ $vehicle->driver }}</td>
-                                            <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                            <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                            <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                            <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
                                             <td class="text-center">
                                                 <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
                                                     method="POST">
@@ -124,9 +124,9 @@
                                         @can('vehiculos.indexadmin')
                                             <tr>
                                                 {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
-                                                <td>{{ $vehicle->date_start }}</td>
-                                                <td>{{ $vehicle->driver }}</td>
-                                                <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                                <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                                <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                                <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
                                                 <td>
                                                     <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
                                                         method="POST">
@@ -172,10 +172,10 @@
 
                 @else 
                     @if (count($vehiclesfinished) > 0)
-                        <table class="table table-striped table-bordered table-hover  " id="TableVeiculosReports">
+                        <table class="table  table-hover  " id="TableVeiculosReports"  style="border: solid 1px black">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Fecha Salida</th>
+                                    <th scope="col" class="text-center" style="width: 120px">Fecha Salida</th>
                                     <th scope="col">Chofer</th>
                                     <th scope="col">Vehiculo</th>
 
@@ -188,10 +188,10 @@
                                 @foreach ($vehiclesfinished as $vehicle)
                                     @if (auth()->id() == $vehicle->id_user)
                                         <tr>
-                                            <td>{{ $vehicle->date_start }}</td>
-                                            <td>{{ $vehicle->driver }}</td>
-                                            <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
-                                            <td>{{ $vehicle->gas_recharge }}</td>
+                                            <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                            <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                            <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                            <td class="text-secondary">{{ $vehicle->gas_recharge }}</td>
 
                                             <td>
                                                 <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
@@ -226,10 +226,10 @@
                                         @can('vehiculos.indexadmin')
                                             <tr>
                                                 {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
-                                                <td>{{ $vehicle->date_start }}</td>
-                                                <td>{{ $vehicle->driver }}</td>
-                                                <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
-                                                <td>{{ $vehicle->gas_recharge }}</td>
+                                                <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                                <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                                <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                                <td class="text-secondary">{{ $vehicle->gas_recharge }}</td>
 
                                                 <td class="text-center">
                                                     <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
