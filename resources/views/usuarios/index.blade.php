@@ -43,7 +43,7 @@
                     <th data-card-title scope="col">Nombre</th>
                     <th scope="col">Email</th>
                     <th scope="col">Codigo</th>
-                    <th class="text-center" style="width: 150px" data-card-footer scope="col-xs-2">Opciones</th>
+                    <th class="text-center" style="width: 200px" data-card-footer scope="col-xs-2">Opciones</th>
                 </tr>
             </thead>
             <tbody>

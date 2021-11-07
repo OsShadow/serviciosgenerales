@@ -35,16 +35,16 @@ public function index(Request $request)
         ->paginate(30);
 
 
-return view('reportes.agua.index', ['wreports' => $wreports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
+        return view('reportes.agua.index', ['wreports' => $wreports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
 
     }else{
 
         // $DateIni = '2021-01-01';
         // $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
-$wreports = DB::table('water_reports')
+    $wreports = DB::table('water_reports')
     ->whereBetween('date',[$DateIni,  $DateEnd])
-        ->get();
+    ->paginate(30);
 
         // con filtro
 
