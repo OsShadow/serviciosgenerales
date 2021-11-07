@@ -30,24 +30,24 @@ class TrashController extends Controller
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
            
             $treports = DB::table('trash_reports')
-            ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
+            ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label', 'users.name')
             ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
-            ->get();
+            ->leftJoin('users', 'trash_reports.user_report', '=', 'users.id')
+            ->paginate(30);
             return view('reportes.desechos.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
            
 
-                }else{
-
-                    $seleccion = true;
-
-                    $treports = DB::table('trash_reports')
-                    ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label')
-                    ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
-                    ->whereBetween('trash_reports.date',[$DateIni, $DateEnd])
-                    ->get();
-                    return view('reportes.desechos.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
-                   
-                }
+        }else{
+            $seleccion = true;
+            $treports = DB::table('trash_reports')
+            ->select('trash_reports.id','trash_reports.date','trash_reports.id','trash_reports.type','trash_reports.user_report','trash_reports.quantity','areas.label', 'users.name')
+            ->leftJoin('areas', 'trash_reports.area_report', '=', 'areas.id')
+            ->leftJoin('users', 'trash_reports.user_report', '=', 'users.id')
+            ->whereBetween('trash_reports.date',[$DateIni, $DateEnd])
+            ->paginate(30);
+            return view('reportes.desechos.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
+           
+        }
 
         
     }

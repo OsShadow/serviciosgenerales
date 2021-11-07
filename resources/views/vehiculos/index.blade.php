@@ -1,24 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <div class="">
-
-        <h2> Reportes de préstamo vehicular - {{ $finalizados ? 'Finalizados' : 'En proceso' }}</h2>
-
-        {{-- Rangos fecha --}}
-
-        <div class="card">
-            <div class="card-body">
-
-
-                @can('vehiculos.create')
+    <div class="row  border-bottom bg-light dashboard-header " style="padding:0; margin-left: -7px !important; margin-bottom: 10px">
+        <div class="col-lg-6" style="margin-left:15px; padding:0;">
+            <h2> Reportes de préstamo vehicular - {{ $finalizados ? 'Finalizados' : 'En proceso' }}</h2>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="card-title">Filtrar por fecha</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6"> 
+                    <div  class="card-text">
+                        <form>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Inicio</div>
+                                        </div>
+                                        <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
+                                            id="DateInitial">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Fin</div>
+                                        </div>
+                                        <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
+                                            id="DateEnding">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
+                                        Actualizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    
+                    @can('vehiculos.create')
                     <a href="{{ route('vehiculos.create') }}"> <button type="button" class="btn btn-success float-right"
                             style="margin-bottom: 10px">Crear nuevo
                         </button> </a>
-                @endcan
-
-                @if ($finalizados)
+                    @endcan
+                    @if ($finalizados)
                     <a href="{{ url('vehiculos') }}"> <button type="button" style="margin-right: 5px"
                             class="btn btn-primary float-right" style="margin-bottom: 10px">Ver reportes en proceso
                         </button> </a>
@@ -27,38 +60,8 @@
                             class="btn btn-primary float-right" style="margin-bottom: 10px">Ver reportes finalizados
                         </button> </a>
                 @endif
-
-                <div class="card-title">Filtrar por fecha</div>
-
-                <div class="card-text">
-                    <form>
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Inicio</div>
-                                    </div>
-                                    <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
-                                        id="DateInitial">
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Fin</div>
-                                    </div>
-                                    <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
-                                        id="DateEnding">
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>
-                                    Actualizar</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
-
+            </div>
                 {{-- Si se realizo busqueda y esta en vista de finalizados --}}
                 @if (isset($seleccion))
                     <div class="row">
@@ -82,10 +85,10 @@
                 @if (!$finalizados)
                     @if (count($vehiclesunfinished) > 0)
 
-                        <table class="table table-striped table-hover ">
+                        <table class="table table-hover  " id="TableVeiculosIncompletosReports" style="border: solid 1px black">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Fecha Salida</th>
+                                    <th scope="col"  class="text-center" style="width: 120px">Fecha Salida</th>
                                     <th scope="col">Chofer</th>
                                     <th scope="col">Vehiculo</th>
                                     <th style="width: 200px" class="text-center" data-card-footer scope="col">Opciones</th>
@@ -98,9 +101,9 @@
 
                                         <tr>
                                             {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
-                                            <td>{{ $vehicle->date_start }}</td>
-                                            <td>{{ $vehicle->driver }}</td>
-                                            <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                            <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                            <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                            <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
                                             <td class="text-center">
                                                 <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
                                                     method="POST">
@@ -121,9 +124,9 @@
                                         @can('vehiculos.indexadmin')
                                             <tr>
                                                 {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
-                                                <td>{{ $vehicle->date_start }}</td>
-                                                <td>{{ $vehicle->driver }}</td>
-                                                <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                                <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                                <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                                <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
                                                 <td>
                                                     <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
                                                         method="POST">
@@ -148,16 +151,31 @@
 
                             </tbody>
                         </table>
-                        <br>
-                    @endif
-                @endif
+                        <div class="row d-sm-block">
+                            <div class="col-sm-12">
+                                {{ $vehiclesunfinished->links() }}
+            
+                            </div>
+            
+                        </div>
 
-                @if ($finalizados)
+                        <br>
+                    @else
+                        <div class="row border" style="margin: 5px; ">
+                            <div class="col-xs-12 text-center mx-auto" style="width: 400px; padding:15px;" >
+                                <h5 style="margin: 0" >No hay reportes para mostrar</h5>
+                                
+                            </div>
+                        </div>
+                    @endif
+                
+
+                @else 
                     @if (count($vehiclesfinished) > 0)
-                        <table class="table table-striped table-hover ">
+                        <table class="table  table-hover  " id="TableVeiculosReports"  style="border: solid 1px black">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Fecha Salida</th>
+                                    <th scope="col" class="text-center" style="width: 120px">Fecha Salida</th>
                                     <th scope="col">Chofer</th>
                                     <th scope="col">Vehiculo</th>
 
@@ -170,10 +188,10 @@
                                 @foreach ($vehiclesfinished as $vehicle)
                                     @if (auth()->id() == $vehicle->id_user)
                                         <tr>
-                                            <td>{{ $vehicle->date_start }}</td>
-                                            <td>{{ $vehicle->driver }}</td>
-                                            <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
-                                            <td>{{ $vehicle->gas_recharge }}</td>
+                                            <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                            <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                            <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                            <td class="text-secondary">{{ $vehicle->gas_recharge }}</td>
 
                                             <td>
                                                 <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
@@ -208,10 +226,10 @@
                                         @can('vehiculos.indexadmin')
                                             <tr>
                                                 {{-- <td scope="row">{{ $vehicle->id }}</td> --}}
-                                                <td>{{ $vehicle->date_start }}</td>
-                                                <td>{{ $vehicle->driver }}</td>
-                                                <td>{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
-                                                <td>{{ $vehicle->gas_recharge }}</td>
+                                                <td class="text-secondary text-center">{{ $vehicle->date_start }}</td>
+                                                <td class="text-secondary">{{ $vehicle->driver }}</td>
+                                                <td class="text-secondary">{{ $vehicle->code_car }} - {{ $vehicle->model }}</td>
+                                                <td class="text-secondary">{{ $vehicle->gas_recharge }}</td>
 
                                                 <td class="text-center">
                                                     <form action="{{ route('vehiculos.destroy', $vehicle->id) }}"
@@ -243,12 +261,22 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="row d-sm-block">
+                            <div class="col-sm-12">
+                                {{ $vehiclesfinished->links() }}
+            
+                            </div>
+            
+                        </div>
+                    @else
+                        <div class="row border" style="margin: 5px; ">
+                            <div class="col-xs-12 text-center mx-auto" style="width: 400px; padding:15px;" >
+                                <h5 style="margin: 0" >No hay reportes para mostrar</h5>
+                                
+                            </div>
+                        </div>
                     @endif
                 @endif
-            </div>
         </div>
     </div>
-
-
-
 @endsection

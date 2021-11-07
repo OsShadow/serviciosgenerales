@@ -32,7 +32,6 @@
         root.daterangepicker = factory(root.moment, root.jQuery);
     }
 }(this, function(moment, $) {
-    console.log( "Simoncho--" );
     var DateRangePicker = function(element, options, cb) {
 
         //default settings for options

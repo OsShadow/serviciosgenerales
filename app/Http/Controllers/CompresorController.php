@@ -8,6 +8,7 @@ use App\Http\Requests\CompresorUpdateRequest;
 use Carbon\Carbon;
 use App\CompresorReports;
 use App\User;
+use DB;
 
 class CompresorController extends Controller
 {
@@ -31,19 +32,24 @@ class CompresorController extends Controller
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
            
 
-                    $creports = CompresorReports::all();
+            $creports = DB::table('compresor_reports')
+            ->select('compresor_reports.id','compresor_reports.date','compresor_reports.date','compresor_reports.oil_level','compresor_reports.temperature','compresor_reports.observations','compresor_reports.user_report', 'users.name', 'users.code')
+            ->leftJoin('users', 'compresor_reports.user_report', '=', 'users.id')->paginate(30);
+            // $creports = CompresorReports::leftJoin('user', 'compresor_reports.user_report', '=', 'usuario.id')->paginate(30);
 
             return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
            
 
-                }else{
-
-                    $seleccion = true;
-
-                    $creports = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
-                    return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
-                   
-                }
+        }else{
+            $seleccion = true;
+            $creports = DB::table('compresor_reports')
+            ->select('compresor_reports.id','compresor_reports.date','compresor_reports.date','compresor_reports.oil_level','compresor_reports.temperature','compresor_reports.observations','compresor_reports.user_report', 'users.name', 'users.code')
+            ->leftJoin('users', 'compresor_reports.user_report', '=', 'users.id')
+            ->whereBetween('compresor_reports.date',[$DateIni, $DateEnd])->paginate(30);
+            // $creports = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+           
+        }
 
     }
 
@@ -164,7 +170,7 @@ class CompresorController extends Controller
         // $DateIni = $request->get('DateIni');
         // $DateEnd = $request->get('DateEnd');
     
-        $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(10);
+        $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
 
         $pdf = \PDF::loadView('/reportes/compresor/pdfgeneral', compact('compresor', 'DateIni'));
 

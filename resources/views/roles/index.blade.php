@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+  <div class="row  border-bottom bg-light dashboard-header " style="padding:0; margin-left: -7px !important; margin-bottom: 10px">
+    <div class="col-lg-6" style="margin-left:15px; padding:0;">
+        <h2>Roles </h2>
+    </div>
+  </div>
     
       <!-- /.row -->
-      <div class="row justify-content-center">
-        <div class="col-10 justify-content-center">
-            <h1 class="display-4">Roles</h1>
-          <div class="card">
+          <div class="card" style="padding: 5px">
             <div class="card-header">
               <h3 class="card-title"> Lista de roles del sistema</h3>
               <a href="roles/create"> <button type="button" class="btn btn-success float-right"> Agregar Rol </button> </a>
@@ -24,35 +27,35 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead>
+              <table class="table table-hover " id="TableRoles" style="border: solid 1px black">
+                <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        {{-- <th scope="col">ID</th> --}}
                         <th scope="col">Rol</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Opciones</th>
+                        <th class="text-center" style="width: 180px" data-card-footer scope="col-xs-2">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($roles as $rol)
                         <tr>
-                            <th scope="row">{{ $rol->id }}</th>
+                            {{-- <th scope="row">{{ $rol->id }}</th> --}}
                             <td>{{ $rol->name }}</td>
                             <td>{{ $rol->description }}</td>
                             <td>
                                 <form action="{{ route('roles.destroy', $rol->id) }}" method="POST">
                                     @can('roles.show')
-                                        <a href="{{ route('roles.show', $rol->id) }}"><button type="button"
-                                                class="btn btn-secondary">Ver</button></a>
+                                        <a href="{{ route('roles.show', $rol->id) }}" title="Ver"><button type="button"
+                                                class="btn btn-info"><i class="fas fa-eye"></i></button></a>
                                     @endcan
                                     @can('roles.edit')
-                                        <a href="{{ route('roles.edit', $rol->id) }}"><button type="button"
-                                                class="btn btn-primary">Editar</button></a>
+                                        <a href="{{ route('roles.edit', $rol->id) }}" title="Editar"><button type="button"
+                                                class="btn btn-primary"><i class="far fa-edit"></i></button></a>
                                     @endcan
                                     @can('roles.destroy')
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
+                                        <button type="submit" class="btn btn-danger"  title="Eliminar"
                                             onclick="return confirm('¿Seguro que desea Eliminar el rol?')"><i
                                                 class="far fa-trash-alt"></i></button></button>
                                     @endcan
@@ -67,6 +70,5 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-        </div>
-      </div>
+      
 @endsection
