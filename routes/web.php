@@ -111,6 +111,12 @@ Route::get('vehiculos/pdf/{id}','vehicleController@pdf')->name('vehiculos.pdf')-
 Route::get('vehiculos/finalizados','vehicleController@finalizados')->name('vehiculos.finalizado');
 });
 
+//TICKETS
+Route::middleware('auth')->group(function(){
+Route::get('tickets','TicketsController@index')->name('tickets.index');
+Route::post('tickets','TicketsController@store')->name('tickets.store')->middleware('permission:tickets.create');
+Route::get('tickets/create','TicketsController@create')->name('tickets.create');
+});
 
 Route::resource('emergencias','emergenciesController');
 Route::get('emergencias/pdf/{id}/','emergenciesController@pdf')->name('emergencias.pdf');
