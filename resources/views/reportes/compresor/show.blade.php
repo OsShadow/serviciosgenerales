@@ -15,7 +15,6 @@
                         <a href="{{url('reportes/compresor')}}" class="btn btn-secondary">Volver</a>
                         <a href="{{route('compresor.edit', $creport->id)}}" class="btn btn-primary">Editar</a>
                     </div>
-
                 </div>
 
             </div>
@@ -37,6 +36,7 @@
             </div>
             <div class="card-footer text-muted">
             <p class="text-left">Reporte de: {{$creport->date}}</p>
+            <p class="text-left">Nombre: {{$ureport->name}}</p>
             <p class="text-left">ID: {{$creport->id}}</p>
             </div>
           </div>

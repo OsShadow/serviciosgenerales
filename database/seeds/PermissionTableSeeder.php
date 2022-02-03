@@ -35,10 +35,16 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear Usuarios'
             ]);
         Permission::create([
+             'name' => 'usuarios.update',
+            'category' => 'Usuarios',
+              'display'=>'Actualizar Usuarios'
+              ]);
+        Permission::create([
             'name' => 'usuarios.destroy',
             'category' => 'Usuarios',
             'display'=>'Eliminar Usuarios'
             ]);
+            
         // Permisos sobre modulos de roles
         Permission::create([
             'name' => 'roles.index',
@@ -61,10 +67,16 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear Roles'
             ]);
         Permission::create([
+            'name' => 'roles.update',
+            'category' => 'Roles',
+            'display'=>'Actualizar Roles'
+            ]);
+        Permission::create([
             'name' => 'roles.destroy',
             'category' => 'Roles',
             'display'=>'Eliminar Roles'
             ]);
+
         // Permisos sobre modulos de Compresor
         Permission::create([
             'name' => 'compresor.index',
@@ -87,10 +99,26 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Compresor'
             ]);
         Permission::create([
+              'name' => 'compresor.update',
+               'category' => 'Compresor',
+              'display'=>'Actualizar reporte de Compresor'
+              ]);
+        Permission::create([
             'name' => 'compresor.destroy',
             'category' => 'Compresor',
             'display'=>'Eliminar reporte de Compresor'
             ]);
+        Permission::create([
+            'name' => 'compresor.pdf',
+            'category' => 'Compresor',
+            'display'=>'Crear pdf de reporte Compresor'
+            ]);
+         Permission::create([
+             'name' => 'compresor.pdfgeneral',
+            'category' => 'Compresor',
+            'display'=>'Crear pdf de reporte Compresor en rango de fechas '
+             ]);
+
         // Permisos sobre modulos de desechos
         Permission::create([
             'name' => 'desechos.index',
@@ -113,9 +141,24 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Desechos'
             ]);
         Permission::create([
+            'name' => 'desechos.update',
+            'category' => 'Desechos',
+            'display'=>'Actualizar reporte de Desechos'
+            ]);
+        Permission::create([
             'name' => 'desechos.destroy',
             'category' => 'Desechos',
             'display'=>'Eliminar reporte de Desechos'
+            ]);
+         Permission::create([
+            'name' => 'desechos.pdf',
+            'category' => 'Desechos',
+            'display'=>'Crear pdf de reporte Desechos'
+            ]);
+         Permission::create([
+            'name' => 'desechos.pdfgeneral',
+            'category' => 'Desechos',
+            'display'=>'Crear pdf de reporte Desechos en rango de fechas'
             ]);
         // Permisos sobre modulos de agua
         Permission::create([
@@ -139,10 +182,72 @@ class PermissionTableSeeder extends Seeder
             'display'=>'Crear reporte de Agua'
             ]);
         Permission::create([
+            'name' => 'agua.update',
+            'category' => 'Agua',
+            'display'=>'Actualizar reporte de Agua'
+            ]);
+        Permission::create([
             'name' => 'agua.destroy',
             'category' => 'Agua',
             'display'=>'Eliminar reporte de Agua'
             ]);
+        Permission::create([
+            'name' => 'agua.pdf',
+            'category' => 'Agua',   
+            'display'=>'Crear pdf de reporte Agua'
+            ]);
+
+        Permission::create([
+             'name' => 'agua.pdfgeneral',
+              'category' => 'Agua',
+             'display'=>'Crear pdf de reporte Agua en rango de fechas'
+              ]);
+
+        Permission::create([
+                'name' => 'vehiculos.indexuser',
+                'category' => 'Vehiculos',
+                'display'=>'Acceso a repote vehicular usuario común'
+                ]); 
+
+        Permission::create([
+                    'name' => 'vehiculos.indexadmin',
+                    'category' => 'Vehiculos',
+                    'display'=>'Acceso a repote vehicular administrador'
+                    ]); 
+
+        Permission::create([
+                'name' => 'vehiculos.create',
+                'category' => 'Vehiculos',
+                'display'=>'Crear reporte vehicular'
+        ]); 
+
+                Permission::create([
+                'name' => 'vehiculos.edit',
+                'category' => 'Vehiculos',
+                'display'=>'Editar reporte vehicular'
+        ]); 
+
+
+        Permission::create([
+            'name' => 'vehiculos.destroy',
+            'category' => 'Vehiculos',
+            'display'=>'Eliminar reporte vehicular'
+    ]); 
+                
+        Permission::create([
+             'name' => 'vehiculos.pdf',
+               'category' => 'Vehiculos',
+                'display'=>'Crear pdf de reporte vehicular'
+        ]); 
+         
+        Permission::create([
+            'name' => 'vehiculos.pdfgeneral',
+              'category' => 'Vehiculos',
+               'display'=>'Crear pdf de reporte vehicular con rango de fechas'
+       ]); 
+       
+       
+
         // Permisos sobre modulos de reportes
         // Permission::create(['name' => 'reportes.index']);
         // Permission::create(['name' => 'reportes.edit']);

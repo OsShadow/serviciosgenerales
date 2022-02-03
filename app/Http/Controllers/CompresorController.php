@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CompresorStoreRequest;
+use App\Http\Requests\CompresorUpdateRequest;
 use Carbon\Carbon;
 use App\CompresorReports;
+use App\User;
+use DB;
 
 class CompresorController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +21,35 @@ class CompresorController extends Controller
      */
     public function index(Request $request)
     {
-        $creports = CompresorReports::all();
-        return view('reportes.compresor.index', ['creports' => $creports]);
+       
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
+
+
+        if($DateIni == '' || $DateEnd == ''){
+
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+           
+
+            $creports = DB::table('compresor_reports')
+            ->select('compresor_reports.id','compresor_reports.date','compresor_reports.date','compresor_reports.oil_level','compresor_reports.temperature','compresor_reports.observations','compresor_reports.user_report', 'users.name', 'users.code')
+            ->leftJoin('users', 'compresor_reports.user_report', '=', 'users.id')->paginate(30);
+            // $creports = CompresorReports::leftJoin('user', 'compresor_reports.user_report', '=', 'usuario.id')->paginate(30);
+
+            return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd ]);
+           
+
+        }else{
+            $seleccion = true;
+            $creports = DB::table('compresor_reports')
+            ->select('compresor_reports.id','compresor_reports.date','compresor_reports.date','compresor_reports.oil_level','compresor_reports.temperature','compresor_reports.observations','compresor_reports.user_report', 'users.name', 'users.code')
+            ->leftJoin('users', 'compresor_reports.user_report', '=', 'users.id')
+            ->whereBetween('compresor_reports.date',[$DateIni, $DateEnd])->paginate(30);
+            // $creports = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            return view('reportes.compresor.index', ['creports' => $creports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion ]);
+           
+        }
 
     }
 
@@ -38,7 +71,7 @@ class CompresorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompresorStoreRequest $request)
     {
 
         $compresor = new CompresorReports();
@@ -64,7 +97,9 @@ class CompresorController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.compresor.show',[   'creport'=> CompresorReports::findOrFail($id)]);
+        $compresor = CompresorReports::findOrFail($id);
+        $user = User::findOrFail($compresor->user_report);
+        return view('reportes.compresor.show',[  'creport'=> $compresor , 'ureport'=> $user ]);
     }
 
     /**
@@ -85,7 +120,8 @@ class CompresorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    
+    public function update(CompresorUpdateRequest $request, $id)
     {
 
         $compresor = CompresorReports::findOrFail($id);
@@ -96,7 +132,7 @@ class CompresorController extends Controller
 
         $compresor->update();
 
-        return redirect('/reportes/compresor');
+        return redirect('reportes/compresor');
     }
 
     /**
@@ -108,9 +144,40 @@ class CompresorController extends Controller
     public function destroy($id)
     {
         $creport = CompresorReports::findOrFail($id);
-
         $creport->delete();
-
         return redirect('/reportes/compresor');
     }
+
+    /**
+     * Generacion de PDF
+     */
+
+    public function pdf($id){
+    
+        $compresor = CompresorReports::findOrFail($id);
+        $user = User::findOrFail($compresor->user_report);
+        $pdf = \PDF::loadView('/reportes/compresor/pdf', compact('compresor','user'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('compresorReport');
+    }
+
+    /**
+     * Generacion de PDF por rango de fecha
+     */
+
+    public function pdfgeneral($DateIni, $DateEnd){
+
+        // $DateIni = $request->get('DateIni');
+        // $DateEnd = $request->get('DateEnd');
+    
+        $compresor = CompresorReports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+
+        $pdf = \PDF::loadView('/reportes/compresor/pdfgeneral', compact('compresor', 'DateIni'));
+
+        // $pdf->setPaper('letter', 'landscape');
+
+        return $pdf->stream('compresorReport');
+
+    }
+
 }

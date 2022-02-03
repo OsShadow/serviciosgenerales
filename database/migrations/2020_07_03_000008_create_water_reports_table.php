@@ -24,20 +24,29 @@ class CreateWaterReportsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->date('date');
-            $table->time('start_hour');
-            $table->time('final_hour');
-            $table->decimal('initial_read');
-            $table->decimal('final_read');
+            $table->time('hour');
+            $table->decimal('read');
             $table->decimal('cloration');
-            $table->decimal('consumption');
-            $table->decimal('consumption_total');
-            $table->longText('Observations');
-            $table->unsignedBigInteger('user_report');
+            $table->longText('Observations')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_report')
+
+        });
+
+        Schema::create('water_reports_general', function (Blueprint $table) {
+            
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_date_start');
+            $table->unsignedBigInteger('id_date_end');
+
+            $table->foreign('id_date_start')
             ->references('id')
-            ->on('users')
+            ->on('water_reports')
+            ->onDelete('cascade');
+
+            $table->foreign('id_date_end')
+            ->references('id')
+            ->on('water_reports')
             ->onDelete('cascade');
 
         });
@@ -48,6 +57,7 @@ class CreateWaterReportsTable extends Migration
      *
      * @return void
      */
+
      public function down()
      {
        Schema::dropIfExists('water_reports');

@@ -2,49 +2,54 @@
 
 @section('content')
 
-<div class="row">
-
-<div class="col-sm-6 mx-auto">
-
-<div class="card text-center">
-<div class="card-header">
-<div class="row">
-    <h5 class="col-sm-6 text-left">Codigo usuario: {{$wreport->user_report}}</h5>
-    <div class="col-sm-6 text-right">
-        <a href="{{url('reportes/agua')}}" class="btn btn-secondary">Volver</a>
-        <a href="{{route('agua.edit', $wreport->id)}}" class="btn btn-primary">Editar</a>
-    </div>
-</div>
-</div>
 <div class="card-body">
-<div class="row">
-    <div class="col-sm-6">
-        <p class="font-weight-bold">Lectura inicial: </p>
-    <p>{{$wreport->initial_read}}</p></div>
-    <div class="col-sm-6">
-        <p class="font-weight-bold">Lectura final: </p>
-        <p>{{$wreport->final_read}}</p></div>
-    <div class="col-sm-6">
-            <p class="font-weight-bold">Cloración: </p>
-        <p>{{$wreport->cloration}}</p></div>
-    <div class="col-sm-6">
-        <p class="font-weight-bold">Consumo: </p>
-    <p>{{$wreport->consumption}}</p></div>
-    <div class="col-sm-6">
-        <p class="font-weight-bold">Consumo total: </p>
-        <p>{{$wreport->consumption_total}}</p></div>
-</div>
-<div class="mx-auto">
-<p class="font-weight-bold text-left">Observaciones: </p>
-<p class="card-text  text-left">{{$wreport->Observations}}</p>
-</div>
-</div>
-<div class="card-footer text-muted">
-<p class="text-left">Reporte de: {{$wreport->date}} </p>
-</div>
-</div>
 
-</div>
-</div>
+    <div style="margin-bottom: 10px">
+        @can('agua.pdf')
+    <a href="{{ route('agua.pdf', $id) }}"><button type="button"
+        class="btn btn-warning"><i class="fas fa-print"></i> Imprimir reporte</button></a>
+        @endcan
+    </div>
+              
+    <table class="table table-striped table-bordered table-hover ">
+      <thead class="thead-dark">
+          <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Hora</th>
+              <th scope="col">Lectura</th>
+              <th scope="col">Cloracion</th>
+              <th scope="col">Opciones</th>
+          </tr>
+      </thead>
+      <tbody>
+
+         @foreach ($wreports as $wreport)
+    
+              <tr scope="row">
+                  <td>{{ $wreport->id }}</td>
+                  <td>{{ $wreport->date }}</td>
+                  <td>{{ $wreport->hour }}</td>
+                  <td>{{ $wreport->read }}</td>
+                  <td>{{ $wreport->cloration }}</td>
+                  <td>
+                    
+                      <form action="{{ route('agua.destroy', $wreport->id) }}" method="POST">
+                          <a href="{{ route('agua.showreport', $wreport->id) }}"><button type="button"
+                                  class="btn btn-info"><i class="far fa-eye" style="color: white"
+                                      alt="Submit"></i></button></a>
+                          <a href="{{ route('agua.edit', $wreport->id) }}"><button type="button"
+                                        class="btn btn-primary"><i class="far fa-edit" style="color: white"
+                                            alt="Submit"></i></button></a>
+                      </form>
+                  </td>
+              </tr>
+           @endforeach
+      </tbody>
+  </table>
+  <br>
+  <h4 class="text-right">Consumo total: {{ $consumption }} m³</h3>
+
+  </div>
 
 @endsection

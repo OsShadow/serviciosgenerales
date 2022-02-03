@@ -32,7 +32,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        
         $permisos = Permission::orderBy('name','asc')->get();
         return view('roles.create',compact('permisos'));
     }
@@ -60,7 +60,7 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-        $rol = Role::findOrFail($id)->with('permissions')->get();
+        $rol = Role::findOrFail($id);
         return view('roles.show',compact('rol'));
     }
 
@@ -73,9 +73,10 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
-        $rol = Role::findOrFail($id)->with('permissions')->get();
+        // $rol = Role::findOrFail($id)->with('permissions')->first();
+        $rol = Role::where('id', $id)->first();
         $permisos = Permission::orderBy('name','asc')->get();
-        return view('roles.edit',compact('rol','permisos'));
+        return view('roles.edit',compact('id','rol','permisos'));
     }
 
     /**
@@ -90,7 +91,8 @@ class RoleController extends Controller
         //
         $rol = Role::findOrFail($id);
         $rol->update(request()->all());
-        $rol->SyncPermissions(request('permissions'));
+        // $rol->SyncPermissions(request('permissions'));
+        $rol->SyncPermissions(request()->get('permisos'));
         return redirect()->route('roles.index')->withSuccess('Rol Modificado correctamente');
     }
 

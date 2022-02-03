@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Emergencies;
 use Carbon\Carbon;
+use App\Http\Requests\EmergenciesRequest;
 
 use Illuminate\Http\Request;
 
@@ -13,10 +14,29 @@ class EmergenciesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {       
-        $ereports = Emergencies::all();
-        return view('emergencias.index', ['ereports' => $ereports]);    
+
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
+
+        if($DateIni == '' || $DateEnd == ''){
+
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+           
+            $ereports = Emergencies::paginate(30);
+            return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);     
+
+        }else{
+            $seleccion = true;
+            $ereports = Emergencies::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            return view('emergencias.index', ['ereports' => $ereports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'seleccion' => $seleccion  ]);
+           
+        }
+
+
+
     }
 
     /**
@@ -37,12 +57,13 @@ class EmergenciesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmergenciesRequest $request)
     {
         $emergencie = new Emergencies();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
         $emergencie->date = $request->date;
+        $emergencie->head = $request->head;
         $emergencie->description = $request->description;
         $emergencie->observations = $request->observations;
         $emergencie->user_report = auth()->id();
@@ -50,7 +71,7 @@ class EmergenciesController extends Controller
 
         $emergencie->save();
 
-        return redirect('emergencias/create');
+        return redirect('emergencias');
     }
 
     /**
@@ -87,6 +108,7 @@ class EmergenciesController extends Controller
         $emergencie = Emergencies::findOrFail($id);
 
         $emergencie->date = $request->date;
+        $emergencie->head = $request->head;
         $emergencie->observations = $request->observations;
         $emergencie->description = $request->description;
         $emergencie->save();
@@ -108,4 +130,27 @@ class EmergenciesController extends Controller
 
         return redirect('emergencias');
     }
+
+    /**
+     * PDF 
+     */
+
+    public function pdf($id){
+    
+        $emergency = Emergencies::findOrFail($id);
+        $pdf = \PDF::loadView('/emergencias/pdf', compact('emergency'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('emergenciereport');
+
+    }
+
+    public function pdfgeneral($DateIni, $DateEnd){
+    
+        $emergency = Emergencies::all()->whereBetween('date',[$DateIni, $DateEnd]);
+
+        $pdf = \PDF::loadView('/emergencias/pdfgeneral', compact('emergency'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('emergenciereport');
+    }
+
 }

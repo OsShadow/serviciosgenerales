@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserFormRequest;
+use App\Http\Requests\UserPasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -22,10 +23,10 @@ class UserController extends Controller
     {
         if($request){
             $query = trim($request->get('search'));
-            $users = User::where('name','LIKE','%'.$query.'%')->orderBy('id','asc')->paginate(5);
+            $users = User::where('name','LIKE','%'.$query.'%')->orWhere('email','LIKE','%'.$query.'%')->orderBy('id','asc')->paginate(30);
             return view('usuarios.index',['users'=> $users, 'search' => $query]);
         }else{
-            $users = User::all();
+            $users = User::paginate(20);
             return view('usuarios/index', ['users' => $users]);
         }
     }
@@ -85,7 +86,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::orderBy('name','asc')->get('name');
-        return view('usuarios.edit',compact('user','roles'));
+        $user_rol = $user->getRoleNames();
+        return view('usuarios.edit',compact('user','roles','user_rol'));
     }
 
     /**
@@ -103,6 +105,23 @@ class UserController extends Controller
         $usuario->update();
         $usuario->SyncRoles(request('roles'));
         return redirect('/usuarios'); 
+    }
+
+     /**
+     * Change password the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changepass(UserPasswordRequest $request, $id)
+    {
+
+        $usuario = User::findOrFail($id);
+        $usuario->password =  Hash::make(request('password'));
+        $usuario->update();
+        return redirect('/usuarios'); 
+
     }
 
     /**
