@@ -361,6 +361,25 @@ use App\VehiclesTravel;
                                 </ul>
                             </li>
 
+                    <!---TICKETS NAV START---->
+                    <li class="nav-item has-treeview">
+                        <a href="#"
+                        class="{{ Request::path() === 'tickets' ? 'nav-link active' : 'nav-link' }}">
+                            <i class="nav-icon fas fa-pencil-alt"></i>
+                            <p>Tickets <i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <!----STARTS NAV SELECTS---->
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ url('tickets') }}"
+                                   class="{{ Request::path() === 'tickets/index' ? 'nav-link active' : 'nav-link' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Reportes Tickets</p>
+                                </a>
+                            </li>
+                        </ul>
+                    <!---TICKETS NAV FINISH--->
+
                         </ul>
 
                     </nav>
