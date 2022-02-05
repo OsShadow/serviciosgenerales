@@ -21,7 +21,7 @@ class TicketsController extends Controller
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
             $treports = DB::table('ticket_reports')
-            ->select('ticket_reports.id', 'ticket_reports.date', 'ticket_reports.date', 'ticket_reports.ticket_report', 'ticket_reports.observations','users.name','users.code');
+            ->select('ticket_reports.id', 'ticket_reports.date', 'ticket_reports.date', 'ticket_reports.ticket_report','users.name','users.code');
 
             return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
         }else{
@@ -52,6 +52,8 @@ class TicketsController extends Controller
 
         $treports->date = $date;
         $treports->ticket_report = $request->ticket_report;
+        $treports->employer = $request->employer;
+        $treports->date_finish = $request->date_finish;
         $treports->user_report = auth()->id();
 
         $treports->save();

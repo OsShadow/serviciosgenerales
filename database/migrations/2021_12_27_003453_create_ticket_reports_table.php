@@ -18,6 +18,8 @@ class CreateTicketReportsTable extends Migration
             $table->unsignedBigInteger('user_report');
             $table->date('date')->nullable();
             $table->longText('ticket_report')->nullable();
+            $table->text('employer');
+            $table->date('date_finish');
             $table->timestamps();
 
             $table->foreign('user_report')
