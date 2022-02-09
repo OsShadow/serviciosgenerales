@@ -8,7 +8,7 @@
                     <div class="card-header">Creación Tickets</div>
                         <div class="card-body">
                             
-                        <form method="POST" action="{{ url('tickets') }}">
+                        <form method="POST" action="{{ url('tickets') }}" enctype="multipart/form-data">
                             @csrf
                             
                         <div class="form-row">
@@ -21,14 +21,14 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="example-date-input">Fecha de expiración</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" id="date_finish" name="date_finish">
                                 </div>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <div class="form-group col-md-9">
                                     <label>Asignar a:</label>
-                                    <input type="text" class="form-control" placeholder="Nombre completo del empleado">
+                                    <input type="text" class="form-control" placeholder="Nombre completo del empleado" id="employer" name="employer">
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
@@ -40,7 +40,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label>Evidencia</label>
-                                    <input type="file">
+                                    <input type="file" id="file" name="file" accept="image/*">
                                 </div>
                             </div>
 
