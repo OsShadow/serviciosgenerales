@@ -46,6 +46,9 @@ class TicketsController extends Controller
 
     public function store(TicketRequest $request){
         
+        $request->validate([
+            'file' => 'required|image|max:2048'
+        ]);
         $treports = new ticket_reports();
         
         $date = Carbon::parse($request->date)->format('Y-m-d');
