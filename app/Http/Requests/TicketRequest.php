@@ -24,8 +24,10 @@ class TicketRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|max:255'
-            
+            'date' => 'required|max:255',
+            'date_finish' => 'required',
+            'ticket_report' => 'required',
+            'employer' => 'required'
         ];
     }
 }

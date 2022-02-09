@@ -16,8 +16,8 @@ class CreateTicketReportsTable extends Migration
         Schema::create('ticket_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_report');
-            $table->date('date')->nullable();
-            $table->longText('ticket_report')->nullable();
+            $table->date('date');
+            $table->longText('ticket_report');
             $table->text('employer');
             $table->date('date_finish');
             $table->timestamps();
