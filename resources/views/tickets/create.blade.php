@@ -8,7 +8,7 @@
                     <div class="card-header">Creación Tickets</div>
                         <div class="card-body">
                             
-                        <form method="POST" action="{{ url('tickets') }}">
+                        <form method="POST" action="{{ url('tickets') }}" enctype="multipart/form-data">
                             @csrf
                             
                         <div class="form-row">
@@ -40,7 +40,7 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label>Evidencia</label>
-                                    <input type="file">
+                                    <input type="file" id="file" name="file" accept="image/*">
                                 </div>
                             </div>
 

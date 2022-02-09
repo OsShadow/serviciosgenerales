@@ -25,6 +25,7 @@ class TicketRequest extends FormRequest
     {
         return [
             'date' => 'required|max:255'
+            
         ];
     }
 }

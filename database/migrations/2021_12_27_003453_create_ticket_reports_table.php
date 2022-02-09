@@ -21,12 +21,16 @@ class CreateTicketReportsTable extends Migration
             $table->text('employer');
             $table->date('date_finish');
             $table->timestamps();
+            //$table->binary('file');
 
             $table->foreign('user_report')
             ->references('id')
             ->on('users')
             ->onDelete('restrict');
         });
+        DB::statement("ALTER TABLE ticket_reports ADD file MEDIUMBLOB");
+        
+        
     }
     /**
      * references: id es el campo de la tabla que hace referencia 

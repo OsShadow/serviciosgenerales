@@ -54,6 +54,7 @@ class TicketsController extends Controller
         $treports->ticket_report = $request->ticket_report;
         $treports->employer = $request->employer;
         $treports->date_finish = $request->date_finish;
+        $treports->file = $request->file;
         $treports->user_report = auth()->id();
 
         $treports->save();
