@@ -25,23 +25,27 @@
             </div>
 </div>
 @endif
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Creación Tickets</div>
-                        <div class="card-body">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Creación Tickets</div>
+
+                    <div class="card-body">
                             
-                        <form method="POST" action="{{ url('tickets') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('tickets') }}" enctype="multipart/form-data"
+                        >
                             @csrf
-                            
+
                         <div class="form-row">
+                            
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="example-date-input">Fecha de generación</label>
                                     <input type="date" class="form-control" value="{{ $date }}" name="date" id="date">
                                 </div>
                             </div>
+
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="example-date-input">Fecha de expiración</label>
@@ -55,20 +59,18 @@
                                     <input type="text" class="form-control" placeholder="Nombre completo del empleado" id="employer" name="employer">
                                 </div>
                             </div>
+
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label for="TicketReporte">Reporte</label>
                                     <textarea class="form-control" rows="3" 
                                     placeholder="Describa su reporte" id="reporte_ticket" name="ticket_report"></textarea>
                                 </div>
+                            </div>
+
                             <div class="form-group col-md-4">
-                                <div class="form-group">
-                                    <label>Evidencia</label>
-                                    <input type="file" id="file" name="file" accept="image/*">
-                                    @error('file')
-                                    <small class="text-danger">{{$message}}</small>
-                                    @enderror
-                                </div>
+                                    <label>Evidencias</label>
+                                    <input type="file" name="file[]" id="file" multiple class="form-control">
                             </div>
 
                                 <div class="form-group col-md-6">
@@ -76,10 +78,12 @@
                                     {{ __('Crear Reporte') }}
                                     </button>
                                 </div>
-                            </div>
+
                         </div>
                         </form>
+
                     </div>
+
                 </div>
             </div>
         </div>
