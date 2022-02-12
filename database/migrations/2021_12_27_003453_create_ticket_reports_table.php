@@ -13,6 +13,7 @@ class CreateTicketReportsTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('ticket_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_report');
@@ -21,16 +22,12 @@ class CreateTicketReportsTable extends Migration
             $table->text('employer');
             $table->date('date_finish');
             $table->timestamps();
-            //$table->binary('file');
 
             $table->foreign('user_report')
             ->references('id')
             ->on('users')
             ->onDelete('restrict');
         });
-        DB::statement("ALTER TABLE ticket_reports ADD file MEDIUMBLOB");
-        
-        
     }
     /**
      * references: id es el campo de la tabla que hace referencia 
@@ -48,5 +45,6 @@ class CreateTicketReportsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('ticket_reports');
+        
     }
 }

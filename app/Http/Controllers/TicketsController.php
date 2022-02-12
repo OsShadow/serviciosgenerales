@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\TicketRequest;
 use App\ticket_reports;
+use App\TicketImages;
 use App\User;
 use Carbon\Carbon;
 use DB;
@@ -45,10 +46,8 @@ class TicketsController extends Controller
     }
 
     public function store(TicketRequest $request){
-        
-        $request->validate([
-            'file' => 'required|image|max:2048'
-        ]);
+//dd($request->file('file'));
+//return;
         $treports = new ticket_reports();
         
         $date = Carbon::parse($request->date)->format('Y-m-d');
@@ -57,12 +56,45 @@ class TicketsController extends Controller
         $treports->ticket_report = $request->ticket_report;
         $treports->employer = $request->employer;
         $treports->date_finish = $request->date_finish;
-        $treports->file = $request->file;
         $treports->user_report = auth()->id();
 
         $treports->save();
 
+        //Id de reporte del ticket para hacer referencia a las imagenes a referenciar
+        $treports->id;
+        $files = $request->file('file');
+
+        function upload_global($file, $folder){ 
+
+            $file_type = $file->getClientOriginalExtension(); 
+            $folder = $folder; 
+            $destinationPath = public_path() . '/uploads/'.$folder; 
+            //$destinationPathThumb = public_path() . '/public/uploads/'.$folder.'thumb'; 
+            $filename = uniqid().'_'.time() . '.' . $file->getClientOriginalExtension();
+            //$url = '/public/uploads/'.$folder.'/'.$filename; 
+            //dd('sientro');
+            //return;
+            //if(!mkdir($destinationPath, 0777, true)) {
+            //    return 'No Image';
+            //}
+    
+            if ($file->move($destinationPath.'/' , $filename)) { 
+                return $filename; 
+            } 
+        }
+
+        foreach($files as $file){
+            
+            $ticket_image = new TicketImages();
+        //Esta imagen hace referencia al id del ticket report    
+            $ticket_image->ticket_id = $treports->id;
+            $ticket_image->file = upload_global($file,$treports->id);
+
+            $ticket_image->save();
+        }
+
         return redirect('tickets');
+        
 
     }
 

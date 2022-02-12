@@ -30,6 +30,8 @@ use App\VehiclesTravel;
     <script src="{{ asset('plugins/bootstrap-table-cards/tableToCards.js') }}"></script>
     <script src="{{ asset('plugins/popper/umd/popper.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script>
+    </script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Script de Google charts -->
@@ -43,6 +45,8 @@ use App\VehiclesTravel;
     <!-- Styles -->
     <link href="{{ asset('dist/css/adminlte.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    @yield('css')
 
 
 
