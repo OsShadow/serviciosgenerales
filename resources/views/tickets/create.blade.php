@@ -59,7 +59,7 @@
                                     <select type="form-select" class="form-control" id="status" name="status">
                                     <option value="" selected disable>--- Escoja el estatus del Ticket</option>
                                     @foreach ($status as $stat)
-                                    <option value="{{ $stat['id'] }}">{{ $stat['status'] }}</option>
+                                    <option value="{{ $stat -> id }}">{{ $stat->status }}</option>
                                     @endforeach
                                     </select>
                                 </div>

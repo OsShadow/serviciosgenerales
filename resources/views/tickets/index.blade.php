@@ -64,8 +64,8 @@
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Creación</th>
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Expiración</th>
                         <th scope="col" class="text-center" style="width: 150px">Asignado a</th>
-                        <th scope="col" class="text-center">Reporte</th>
-                        <th scope="col" class="text-center">Estado de Ticket</th>
+                        <th scope="col" class="text-center">Descripción del Reporte</th>
+                        <th scope="col" class="text-center"> Estado de Ticket</th>
                         <th scope="col" class="text-center" style="width: 110px">Código de Ticket</th>
                         <th scope="col" class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
                     </tr>
@@ -79,7 +79,7 @@
                    <td class="text-center text-secondary">{{ $treport->date_finish }}</td>
                    <td class="text-center text-secondary">{{ $treport->employer }}</td>
                    <td class="text-center text-secondary">{{ $treport->ticket_report }}</td>
-                   <td class="text-center text-secondary">{{ $treport->status }}</td>
+                   <td class="text-center text-secondary">{{ $treport->ticketStatus->status }}</td>
                    <td class="text-center text-secondary">{{ $treport->id }}</td>
                    <td>
                        <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button>

@@ -13,30 +13,27 @@ class CreateTicketReportsTable extends Migration
      */
     public function up()
     {
-        
         Schema::create('ticket_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_report');
+            $table->unsignedBigInteger('id_status');
             $table->date('date');
             $table->longText('ticket_report');
             $table->text('employer');
             $table->date('date_finish');
             $table->timestamps();
 
+            $table->foreign('id_status')
+            ->references('id')
+            ->on('ticket_statuses')
+            ->onDelete('restrict');
+
             $table->foreign('user_report')
             ->references('id')
             ->on('users')
             ->onDelete('restrict');
-
         });
     }
-    /**
-     * references: id es el campo de la tabla que hace referencia 
-     * on users es la tabla
-     * onDelete es la acción que realiza el acto relacionado, restrict es que restringe la acción, 
-     * no borra el usuario que ya este vinculado al id, para que no afecte a las bases de datos relacionadas
-     * porque ya estaba una inserción vinculada del id de referencia
-     */
 
     /**
      * Reverse the migrations.
@@ -46,6 +43,5 @@ class CreateTicketReportsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('ticket_reports');
-        
     }
 }

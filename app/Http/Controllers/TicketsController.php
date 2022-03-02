@@ -21,10 +21,7 @@ class TicketsController extends Controller
 
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
-
-            //$treports = DB::table('ticket_reports')
-            //->select('ticket_reports.id', 'ticket_reports.user_report','ticket_reports.date', 'ticket_reports.date', 'ticket_reports.ticket_report','ticket_reports.employer','ticket_reports.date_finish','users.name','users.code')
-            //->leftJoin('users', 'ticket_reports');
+            
             $treports = ticket_reports::paginate(30);
             return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
         }else{
@@ -60,8 +57,7 @@ class TicketsController extends Controller
         $treports->ticket_report = $request->ticket_report;
         $treports->employer = $request->employer;
         $treports->date_finish = $request->date_finish;
-        //$stat->status_id = $treports->id;
-        //$stats->status = $request->status;
+        $treports->id_status = $request->status;
         $treports->user_report = auth()->id();
         
         //$status->save();
