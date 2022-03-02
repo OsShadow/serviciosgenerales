@@ -54,6 +54,18 @@
                             </div>
 
                             <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label>Estatus del Ticket</label>
+                                    <select type="form-select" class="form-control" id="status" name="status">
+                                    <option value="" selected disable>--- Escoja el estatus del Ticket</option>
+                                    @foreach ($status as $stat)
+                                    <option value="{{ $stat['id'] }}">{{ $stat['status'] }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">
                                 <div class="form-group col-md-9">
                                     <label>Asignar a:</label>
                                     <input type="text" class="form-control" placeholder="Nombre completo del empleado" id="employer" name="employer">
