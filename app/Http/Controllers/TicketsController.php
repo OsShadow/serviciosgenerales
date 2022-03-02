@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TicketRequest;
 use App\ticket_reports;
 use App\TicketImages;
+use App\TicketStatus;
 use App\User;
 use Carbon\Carbon;
 use DB;
@@ -21,9 +22,10 @@ class TicketsController extends Controller
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
 
-            $treports = DB::table('ticket_reports')
-            ->select('ticket_reports.id', 'ticket_reports.date', 'ticket_reports.date', 'ticket_reports.ticket_report','users.name','users.code');
-
+            //$treports = DB::table('ticket_reports')
+            //->select('ticket_reports.id', 'ticket_reports.user_report','ticket_reports.date', 'ticket_reports.date', 'ticket_reports.ticket_report','ticket_reports.employer','ticket_reports.date_finish','users.name','users.code')
+            //->leftJoin('users', 'ticket_reports');
+            $treports = ticket_reports::paginate(30);
             return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
         }else{
             $selection = true;
@@ -42,23 +44,29 @@ class TicketsController extends Controller
      */
     public function create(Request $request){
         $date = Carbon::parse(Carbon::now())->format('Y-m-d');
-        return view('tickets.create',['date'=>$date]);
+        $status = TicketStatus::orderBy('status','asc')->get();
+        return view('tickets.create',['date'=>$date,'status'=>$status]);
     }
 
     public function store(TicketRequest $request){
 //dd($request->file('file'));
 //return;
         $treports = new ticket_reports();
-        
+        $status = new TicketStatus();
+
         $date = Carbon::parse($request->date)->format('Y-m-d');
 
         $treports->date = $date;
         $treports->ticket_report = $request->ticket_report;
         $treports->employer = $request->employer;
         $treports->date_finish = $request->date_finish;
+        //$stat->status_id = $treports->id;
+        //$stats->status = $request->status;
         $treports->user_report = auth()->id();
-
+        
+        //$status->save();
         $treports->save();
+
 
         //Id de reporte del ticket para hacer referencia a las imagenes a referenciar
         $treports->id;

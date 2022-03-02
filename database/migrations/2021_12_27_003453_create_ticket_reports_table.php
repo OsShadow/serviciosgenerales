@@ -27,6 +27,7 @@ class CreateTicketReportsTable extends Migration
             ->references('id')
             ->on('users')
             ->onDelete('restrict');
+
         });
     }
     /**
