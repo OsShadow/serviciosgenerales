@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function(){
 Route::get('tickets','TicketsController@index')->name('tickets.index');
 Route::post('tickets','TicketsController@store')->name('tickets.store')->middleware('permission:tickets.create');
 Route::get('tickets/create','TicketsController@create')->name('tickets.create');
+Route::delete('tickets/{id}','TicketsController@destroy')->name('tickets.destroy');
 });
 
 Route::resource('emergencias','emergenciesController');

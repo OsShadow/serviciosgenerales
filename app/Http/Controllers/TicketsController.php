@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TicketRequest;
 use App\ticket_reports;
 use App\TicketImages;
-use App\TicketStatus;
 use App\User;
 use Carbon\Carbon;
 use DB;
@@ -41,26 +40,27 @@ class TicketsController extends Controller
      */
     public function create(Request $request){
         $date = Carbon::parse(Carbon::now())->format('Y-m-d');
-        $status = TicketStatus::orderBy('status','asc')->get();
-        return view('tickets.create',['date'=>$date,'status'=>$status]);
+        return view('tickets.create',['date'=>$date]);
     }
 
     public function store(TicketRequest $request){
 //dd($request->file('file'));
 //return;
         $treports = new ticket_reports();
-        $status = new TicketStatus();
+        
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
 
         $treports->date = $date;
         $treports->ticket_report = $request->ticket_report;
         $treports->employer = $request->employer;
+        $treports->type = $request->type;
         $treports->date_finish = $request->date_finish;
-        $treports->id_status = $request->status;
+        $treports->hour_finish = $request->hour_finish;
+        
         $treports->user_report = auth()->id();
         
-        //$status->save();
+        
         $treports->save();
 
 
@@ -103,7 +103,11 @@ class TicketsController extends Controller
     }
 
     public function destroy($id){
+        $treports = ticket_reports::findOrFail($id);
 
+        $treports->delete();
+
+        return redirect('tickets');
     }
 
 }
