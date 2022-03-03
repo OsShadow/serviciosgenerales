@@ -22,7 +22,7 @@ class CreateTicketImagesTable extends Migration
             $table->foreign('ticket_id')
             ->references('id')
             ->on('ticket_reports')
-            ->onDelete('restrict');
+            ->onDelete('cascade');
         });
     }
 

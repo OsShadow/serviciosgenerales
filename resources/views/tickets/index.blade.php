@@ -63,6 +63,7 @@
                     <tr>
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Creación</th>
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Expiración</th>
+                        <th scope="col" class="text-center" style="width: 120px">Hora de Expiración</th>
                         <th scope="col" class="text-center" style="width: 150px">Asignado a</th>
                         <th scope="col" class="text-center">Descripción del Reporte</th>
                         <th scope="col" class="text-center"> Estado de Ticket</th>
@@ -77,18 +78,23 @@
                    {{-- <th scope="row">{{ $treport->id }}</th> --}}
                    <td class="text-center text-secondary">{{ $treport->date }}</td>
                    <td class="text-center text-secondary">{{ $treport->date_finish }}</td>
+                   <td class="text-center text-secondary">{{ $treport->hour_finish }}</td>
                    <td class="text-center text-secondary">{{ $treport->employer }}</td>
                    <td class="text-center text-secondary">{{ $treport->ticket_report }}</td>
-                   <td class="text-center text-secondary">{{ $treport->ticketStatus->status }}</td>
+                   <td class="text-center text-secondary">{{ $treport->type }}</td>
                    <td class="text-center text-secondary">{{ $treport->id }}</td>
                    <td>
-                       <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button>
-                       <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button>
-                       <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button>
-                       <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
-                                                class="far fa-trash-alt"></i></button></button>
-                   </td>
+                        <form action="{{ route('tickets.destroy', $treport->id) }}" method="POST">
+                           <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button>
+                           <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button>
+                           <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button>
+                           @csrf
+                           @method('DELETE')
+                           <button type="submit" class="btn btn-danger"
+                           onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
+                           class="far fa-trash-alt"></i></button></button>
+                        </form>
+                    </td>
                    </tr>
                    @endforeach
                 </tbody>

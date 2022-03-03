@@ -55,12 +55,19 @@
 
                             <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label>Estatus del Ticket</label>
-                                    <select type="form-select" class="form-control" id="status" name="status">
+                                    <label for="example-date-input">Hora de expiración</label>
+                                    <input type="time" class="form-control" id="hour_finish" name="hour_finish">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label for="type">Estatus del Ticket</label>
+                                    <select class="custom-select" id="type" name="type">
                                     <option value="" selected disable>--- Escoja el estatus del Ticket</option>
-                                    @foreach ($status as $stat)
-                                    <option value="{{ $stat -> id }}">{{ $stat->status }}</option>
-                                    @endforeach
+                                    <option value="Abierto">Abierto</option>
+                                    <option value="Ejecutando">Ejecutando</option>
+                                    <option value="Cerrado">Cerrado</option>
                                     </select>
                                 </div>
                             </div>
