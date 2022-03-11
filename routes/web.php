@@ -117,6 +117,11 @@ Route::get('tickets','TicketsController@index')->name('tickets.index');
 Route::post('tickets','TicketsController@store')->name('tickets.store')->middleware('permission:tickets.create');
 Route::get('tickets/create','TicketsController@create')->name('tickets.create');
 Route::delete('tickets/{id}','TicketsController@destroy')->name('tickets.destroy');
+Route::get('tickets/show/{id}','TicketsController@show')->name('tickets.show');
+Route::post('tickets/{id}','TicketsController@update')->name('tickets.update');
+Route::get('tickets/edit/{id}/','TicketsController@edit')->name('tickets.edit');
+Route::get('tickets/pdf/{id}','TicketsController@pdf')->name('tickets.pdf');
+Route::get('tickets/panel/{id}','TicketsController@panel')->name('tickets.panel');
 });
 
 Route::resource('emergencias','emergenciesController');

@@ -381,6 +381,14 @@ use App\VehiclesTravel;
                                 <p>Reportes Tickets</p>
                                 </a>
                             </li>
+        
+                            <li class="nav-item">
+                                    <a href="{{ url('tickets/panel') }}"
+                                            class="{{ Request::path() === 'tickets/panel' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Panel Estadístico</p>
+                                    </a>
+                            </li>
                         </ul>
                     <!---TICKETS NAV FINISH--->
 

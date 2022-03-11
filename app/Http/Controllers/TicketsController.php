@@ -2,7 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\TicketRequest;
+use App\Http\Requests\TicketStoreRequest;
+use App\Http\Requests\TicketUpdateRequest;
 use App\ticket_reports;
 use App\TicketImages;
 use App\User;
@@ -43,12 +44,11 @@ class TicketsController extends Controller
         return view('tickets.create',['date'=>$date]);
     }
 
-    public function store(TicketRequest $request){
+    public function store(TicketStoreRequest $request){
 //dd($request->file('file'));
 //return;
         $treports = new ticket_reports();
         
-
         $date = Carbon::parse($request->date)->format('Y-m-d');
 
         $treports->date = $date;
@@ -59,10 +59,8 @@ class TicketsController extends Controller
         $treports->hour_finish = $request->hour_finish;
         
         $treports->user_report = auth()->id();
-        
-        
+              
         $treports->save();
-
 
         //Id de reporte del ticket para hacer referencia a las imagenes a referenciar
         $treports->id;
@@ -73,14 +71,9 @@ class TicketsController extends Controller
             $file_type = $file->getClientOriginalExtension(); 
             $folder = $folder; 
             $destinationPath = public_path() . '/uploads/'.$folder; 
-            //$destinationPathThumb = public_path() . '/public/uploads/'.$folder.'thumb'; 
+            
             $filename = uniqid().'_'.time() . '.' . $file->getClientOriginalExtension();
-            //$url = '/public/uploads/'.$folder.'/'.$filename; 
-            //dd('sientro');
-            //return;
-            //if(!mkdir($destinationPath, 0777, true)) {
-            //    return 'No Image';
-            //}
+            
     
             if ($file->move($destinationPath.'/' , $filename)) { 
                 return $filename; 
@@ -99,7 +92,31 @@ class TicketsController extends Controller
 
         return redirect('tickets');
         
+    }
 
+    public function update(TicketUpdateRequest $request, $id){
+
+        $treports = ticket_reports::findOrFail($id);
+
+        $treports->ticket_report = $request->ticket_report;
+        $treports->employer = $request->employer;
+        $treports->type = $request->type;
+        $treports->date_finish = $request->date_finish;
+        $treports->hour_finish = $request->hour_finish;
+        
+        $treports->save();
+
+        return redirect('tickets');
+    }
+
+    public function edit($id)
+    {
+        return view('tickets.edit',['treports'=> ticket_reports::findOrFail($id)]);   
+    }
+
+    public function show($id)
+    {
+        return view('tickets.show',['treports'=> ticket_reports::findOrFail($id)]);
     }
 
     public function destroy($id){
@@ -108,6 +125,18 @@ class TicketsController extends Controller
         $treports->delete();
 
         return redirect('tickets');
+    }
+
+    public function pdf($id){
+    
+        $treport = ticket_reports::findOrFail($id);
+        $pdf = \PDF::loadView('/tickets/pdf', compact('treport'));
+        // $pdf->setPaper('letter', 'landscape');
+        return $pdf->stream('ticketreport');
+    }
+
+    public function panel($id){
+        return view('tickets.panel',['treports'=> ticket_reports::findOrFail($id)]);
     }
 
 }

@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <label for="type">Estatus del Ticket</label>
                                     <select class="custom-select" id="type" name="type">
-                                    <option value="" selected disable>--- Escoja el estatus del Ticket</option>
+                                    <option value="" selected disable>Elija el estatus del Ticket</option>
                                     <option value="Abierto">Abierto</option>
                                     <option value="Ejecutando">Ejecutando</option>
                                     <option value="Cerrado">Cerrado</option>
