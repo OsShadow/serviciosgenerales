@@ -121,7 +121,8 @@ Route::get('tickets/show/{id}','TicketsController@show')->name('tickets.show');
 Route::post('tickets/{id}','TicketsController@update')->name('tickets.update');
 Route::get('tickets/edit/{id}/','TicketsController@edit')->name('tickets.edit');
 Route::get('tickets/pdf/{id}','TicketsController@pdf')->name('tickets.pdf');
-Route::get('tickets/panel/{id}','TicketsController@panel')->name('tickets.panel');
+Route::get('tickets/panel','TicketsController@panel')->name('tickets.panel');
+Route::get('tickets/pdfgeneral/{fechainicio}/{fechafin}','TicketsController@pdfgeneral')->name('tickets.pdfgeneral');
 });
 
 Route::resource('emergencias','emergenciesController');

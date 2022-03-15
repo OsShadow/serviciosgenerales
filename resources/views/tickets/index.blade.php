@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>Actualizar</button>
+                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>  Filtrar</button>
                                 </div>
                             </div>
                         </form>
@@ -59,12 +59,23 @@
                                         
                 </div>
             </div>
-            @if (isset($seleccion))
-                <div class="row">
+            @if (isset($selection))
+                <div class="row col-sm-12">
                     <div class="col-md-6">
                         Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
                         <span style="font-weight: bold">{{ $DateEnd }}</span>
                     </div>
+
+                    @if (count($treports) > 0)
+
+                        @can('compresor.pdfgeneral')
+                            <div class="col-md-6 text-right">
+                                <a href="{{ route('tickets.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
+                                    <i class="fas fa-print"></i> Exportar selección</a>
+                            </div>
+                        @endcan
+                    @endif
+                    
                 </div>
             @endif
             <table class="table table-hover" style="border: solid 1px black">

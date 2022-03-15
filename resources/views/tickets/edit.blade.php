@@ -82,6 +82,23 @@
 
                             <div>
                                 <label>Evidencias</label>
+                                <div class="card-body">
+                                    <div class="row">
+                                        @foreach($timages as $timage)
+                                            <div class="col-sm-2">
+                                                <a href={{asset('/uploads/'.$timage->ticket_id.'/'.$timage->file)}} target="_blank" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
+            
+                                                  <img src={{asset('/uploads/'.$timage->ticket_id.'/'.$timage->file)}} class="img-fluid mb-2" alt="white sample"/>
+                                                </a>
+                                            </div>
+                                        
+                                            <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('¿Seguro que desea Eliminar la imágen?')"><i
+                                            class="far fa-trash-alt"></i></button></button>
+                                        @endforeach
+                                        <input type="file" name="file[]" id="file" multiple class="form-control">
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-group col-md-6">

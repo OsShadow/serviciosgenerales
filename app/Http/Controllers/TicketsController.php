@@ -14,21 +14,22 @@ class TicketsController extends Controller
 {
     public function index(Request $request)
     {
+
         $DateIni = $request->get('DateIni');
         $DateEnd = $request->get('DateEnd');
 
-    if($DateIni == '' || $DateEnd == ''){
+        if($DateIni == '' || $DateEnd == ''){
 
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
             
             $treports = ticket_reports::paginate(30);
             return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
+
         }else{
             $selection = true;
-            $treports = DB::table('ticket_reports')
-            ->select('ticket_reports.id', 'ticket_reports.date', 'ticket_reports.date');
-            return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'selection' => $selection]);
+            $treports = ticket_reports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'selection' => $selection  ]);
 
         }
         
@@ -106,17 +107,22 @@ class TicketsController extends Controller
         
         $treports->save();
 
+        $treports->id;
+        $files = $request->file('file');
+
         return redirect('tickets');
     }
 
     public function edit($id)
     {
-        return view('tickets.edit',['treports'=> ticket_reports::findOrFail($id)]);   
+        return view('tickets.edit',['treports'=> ticket_reports::findOrFail($id),
+        'timages'=>TicketImages::where('ticket_id',$id)->get()]);   
     }
 
     public function show($id)
     {
-        return view('tickets.show',['treports'=> ticket_reports::findOrFail($id)]);
+        return view('tickets.show',['treports'=> ticket_reports::findOrFail($id),
+        'timages'=>TicketImages::where('ticket_id',$id)->get()]);
     }
 
     public function destroy($id){
@@ -131,12 +137,19 @@ class TicketsController extends Controller
     
         $treport = ticket_reports::findOrFail($id);
         $pdf = \PDF::loadView('/tickets/pdf', compact('treport'));
-        // $pdf->setPaper('letter', 'landscape');
         return $pdf->stream('ticketreport');
     }
 
-    public function panel($id){
-        return view('tickets.panel',['treports'=> ticket_reports::findOrFail($id)]);
+    public function pdfgeneral($DateIni, $DateEnd){
+    
+        $treports = ticket_reports::all()->whereBetween('date',[$DateIni, $DateEnd]);
+
+        $pdf = \PDF::loadView('/tickets/pdfgeneral', compact('treports'));
+        return $pdf->stream('ticketreport');
+    }
+
+    public function panel(){
+        return view('tickets.panel');
     }
 
 }
