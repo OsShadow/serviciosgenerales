@@ -70,7 +70,8 @@ use App\VehiclesTravel;
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css')}}">
 
 
 
@@ -381,6 +382,14 @@ use App\VehiclesTravel;
                                 <p>Reportes Tickets</p>
                                 </a>
                             </li>
+        
+                            <li class="nav-item">
+                                    <a href="{{ url('tickets/panel') }}"
+                                            class="{{ Request::path() === 'tickets/panel' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Panel Estadístico</p>
+                                    </a>
+                            </li>
                         </ul>
                     <!---TICKETS NAV FINISH--->
 
@@ -424,6 +433,8 @@ use App\VehiclesTravel;
     </div>
 
     {{-- scrips--------------------------- --}}
+    <!-- Ekko Lightbox -->
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->

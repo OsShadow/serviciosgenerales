@@ -29,7 +29,8 @@
                                     <div class="input-group-prepend">
                                             <div class="input-group-text">Inicio</div>
                                         </div>
-                                      <input type="date" class="form-control">
+                                      <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
+                                            id="DateInitial">
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -37,12 +38,13 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Fin</div>
                                         </div>
-                                        <input type="date" class="form-control">
+                                        <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
+                                            id="DateEnding">
                                        <!---INPUT DATE END---->
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>Actualizar</button>
+                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>  Filtrar</button>
                                 </div>
                             </div>
                         </form>
@@ -57,17 +59,35 @@
                                         
                 </div>
             </div>
+            @if (isset($selection))
+                <div class="row col-sm-12">
+                    <div class="col-md-6">
+                        Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
+                        <span style="font-weight: bold">{{ $DateEnd }}</span>
+                    </div>
 
+                    @if (count($treports) > 0)
+
+                        @can('compresor.pdfgeneral')
+                            <div class="col-md-6 text-right">
+                                <a href="{{ route('tickets.pdfgeneral', [$DateIni, $DateEnd]) }}" class="btn btn-warning mb-2">
+                                    <i class="fas fa-print"></i> Exportar selección</a>
+                            </div>
+                        @endcan
+                    @endif
+                    
+                </div>
+            @endif
             <table class="table table-hover" style="border: solid 1px black">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Creación</th>
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Expiración</th>
-                        <th scope="col" class="text-center" style="width: 120px">Hora de Expiración</th>
+                        <th scope="col" class="text-center" style="width: 70px">Hora de Expiración</th>
                         <th scope="col" class="text-center" style="width: 150px">Asignado a</th>
-                        <th scope="col" class="text-center">Descripción del Reporte</th>
+                        <th scope="col" class="text-center" style="width: 200px">Descripción del Reporte</th>
                         <th scope="col" class="text-center"> Estado de Ticket</th>
-                        <th scope="col" class="text-center" style="width: 110px">Código de Ticket</th>
+                        <th scope="col" class="text-center" style="width: 70px">ID</th>
                         <th scope="col" class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
                     </tr>
                 </thead>
@@ -85,9 +105,16 @@
                    <td class="text-center text-secondary">{{ $treport->id }}</td>
                    <td>
                         <form action="{{ route('tickets.destroy', $treport->id) }}" method="POST">
-                           <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button>
-                           <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button>
-                           <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button>
+                            
+                            <a href="{{ route('tickets.pdf', $treport->id) }}">
+                           <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
+
+                           <a href="{{ route('tickets.show', $treport->id) }}">
+                           <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button></a>
+
+                           <a href="{{ route('tickets.edit', $treport->id) }}">
+                           <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
+
                            @csrf
                            @method('DELETE')
                            <button type="submit" class="btn btn-danger"
