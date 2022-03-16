@@ -80,8 +80,7 @@ class TicketsController extends Controller
                 return $filename; 
             } 
         }
-
-        foreach($files as $file){
+        foreach((array)$files as $file){
             
             $ticket_image = new TicketImages();
         //Esta imagen hace referencia al id del ticket report    
@@ -149,7 +148,10 @@ class TicketsController extends Controller
     }
 
     public function panel(){
-        return view('tickets.panel');
+        $ttreports = DB::table('ticket_reports')
+        ->orderBy('date', 'asc')
+        ->get();
+        return view('tickets.panel',compact('ttreports'));
     }
 
 }
