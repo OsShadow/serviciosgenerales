@@ -7,6 +7,7 @@ use App\Emergencies;
 use App\TrashReports;
 use App\Vehicles;
 use App\VehiclesTravel;
+use App\ticket_reports;
 ?>
 
 <!doctype html>
@@ -379,10 +380,14 @@ use App\VehiclesTravel;
                                 <a href="{{ url('tickets') }}"
                                    class="{{ Request::path() === 'tickets/index' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Reportes Tickets</p>
+                                <p>Reportes Tickets
+                                    <?php $treports_count = ticket_reports::all()->count(); ?>
+                                                    <span class="right badge badge-danger">{{ $treports_count ?? '0' }}</span>
+                                </p>
                                 </a>
                             </li>
-        
+    
+                            @can('tickets.show')
                             <li class="nav-item">
                                     <a href="{{ url('tickets/panel') }}"
                                             class="{{ Request::path() === 'tickets/panel' ? 'nav-link active' : 'nav-link' }}">
@@ -390,6 +395,7 @@ use App\VehiclesTravel;
                                             <p>Panel Estadístico</p>
                                     </a>
                             </li>
+                            @endcan
                         </ul>
                     <!---TICKETS NAV FINISH--->
 

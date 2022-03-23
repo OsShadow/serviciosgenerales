@@ -11,54 +11,39 @@
     <div class="col-sm-12 col-md-10 col-lg-6 ">
         <div class="card">
             <div class="card-body" style="overflow: auto;">
-                <div class="mx-auto" id="ticket_chart" style="width: 100%; height: 300px"></div>
+                <div class="mx-auto" id="columnchart_material" style="width: 100%; height: 300px"></div>
             </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
 
-<script type="application/javascript">
-        
-    google.charts.load('current', {callback: function () {
-        drawChart();
-        $(window).resize(drawChart);
-    },'packages':['corechart', 'line']});
-    
-    google.charts.setOnLoadCallback(drawChart); 
-    function drawChart() {
+      function drawChart() {
 
-        // DATOS GRAFICA TICKETS
+          var ttrep = @json($ttreports);
+          var array = crep.map(({date, created_at, updated_at, })=>({date, created_at, updated_at, Abierto, Cerrado}));
+        var datattrep = google.visualization.arrayToDataTable([
+          ['Mes', 'Abiertos', 'Cerrados', 'En Ejecución'],
+          ['{date}', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
 
-        var ttrep = @json($ttreports);
-        
-            var array1 = ttrep.map(({date, hour_finish, Abierto, Cerrado}) => ([date, Abierto, Cerrado, Number(hour_finish)]));
-            var data_ticket = new google.visualization.DataTable();
-            data_ticket.addColumn('string','Fecha');
-            data_ticket.addColumn('string', 'Abierto');
-            data_ticket.addColumn('string', 'Cerrado');
-            data_ticket.addRows(array1);
-            var options_ticket = {
-                chart: {
-                    title: 'TICKETS',
-                //subtitle: 'Resumen Trimestral'
-                },
-                width: '100%',
-                height: 300,
-                legend: { position: 'none' },
-                hAxis: {
-                    title: 'Fecha'
-                },
-                vAxis: {
-                    title: 'Hora'
-                },
-                series: {
-                    1: {curveType: 'function'}
-                }
-            };
-        var ticket_chart = new  google.charts.Line(document.getElementById('ticket_chart'));
-        ticket_chart.draw(data_ticket, google.charts.Line.convertOptions(options_ticket));
-    }
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
 
-</script>
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
 @endsection
