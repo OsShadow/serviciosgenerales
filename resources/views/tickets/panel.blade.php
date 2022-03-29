@@ -27,7 +27,7 @@
           var ttrep = @json($ttreports);
           var array = crep.map(({date, created_at, updated_at, })=>({date, created_at, updated_at, Abierto, Cerrado}));
         var datattrep = google.visualization.arrayToDataTable([
-          ['Mes', 'Abiertos', 'Cerrados', 'En Ejecución'],
+          ['Mes', 'Abierto', 'Cerrados', 'En Ejecución'],
           ['{date}', 1000, 400, 200],
           ['2015', 1170, 460, 250],
           ['2016', 660, 1120, 300],
