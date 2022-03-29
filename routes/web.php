@@ -111,6 +111,19 @@ Route::get('vehiculos/pdf/{id}','vehicleController@pdf')->name('vehiculos.pdf')-
 Route::get('vehiculos/finalizados','vehicleController@finalizados')->name('vehiculos.finalizado');
 });
 
+//TICKETS
+Route::middleware('auth')->group(function(){
+Route::get('tickets','TicketsController@index')->name('tickets.index');
+Route::post('tickets','TicketsController@store')->name('tickets.store')->middleware('permission:tickets.create');
+Route::get('tickets/create','TicketsController@create')->name('tickets.create');
+Route::delete('tickets/{id}','TicketsController@destroy')->name('tickets.destroy');
+Route::get('tickets/show/{id}','TicketsController@show')->name('tickets.show');
+Route::post('tickets/{id}','TicketsController@update')->name('tickets.update');
+Route::get('tickets/edit/{id}/','TicketsController@edit')->name('tickets.edit');
+Route::get('tickets/pdf/{id}','TicketsController@pdf')->name('tickets.pdf');
+Route::get('tickets/pdfgeneral/{fechainicio}/{fechafin}','TicketsController@pdfgeneral')->name('tickets.pdfgeneral');
+Route::get('tickets/panel','TicketsController@panel')->name('tickets.panel');
+});
 
 Route::resource('emergencias','emergenciesController');
 Route::get('emergencias/pdf/{id}/','emergenciesController@pdf')->name('emergencias.pdf');

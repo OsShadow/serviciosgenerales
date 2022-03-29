@@ -7,6 +7,7 @@ use App\Emergencies;
 use App\TrashReports;
 use App\Vehicles;
 use App\VehiclesTravel;
+use App\ticket_reports;
 ?>
 
 <!doctype html>
@@ -30,6 +31,8 @@ use App\VehiclesTravel;
     <script src="{{ asset('plugins/bootstrap-table-cards/tableToCards.js') }}"></script>
     <script src="{{ asset('plugins/popper/umd/popper.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script>
+    </script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Script de Google charts -->
@@ -43,6 +46,8 @@ use App\VehiclesTravel;
     <!-- Styles -->
     <link href="{{ asset('dist/css/adminlte.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    @yield('css')
 
 
 
@@ -66,7 +71,8 @@ use App\VehiclesTravel;
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css')}}">
 
 
 
@@ -361,6 +367,38 @@ use App\VehiclesTravel;
                                 </ul>
                             </li>
 
+                    <!---TICKETS NAV START---->
+                    <li class="nav-item has-treeview">
+                        <a href="#"
+                        class="{{ Request::path() === 'tickets' ? 'nav-link active' : 'nav-link' }}">
+                            <i class="nav-icon fas fa-pencil-alt"></i>
+                            <p>Tickets <i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <!----STARTS NAV SELECTS---->
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ url('tickets') }}"
+                                   class="{{ Request::path() === 'tickets/index' ? 'nav-link active' : 'nav-link' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Reportes Tickets
+                                    <?php $treports_count = ticket_reports::all()->count(); ?>
+                                                    <span class="right badge badge-danger">{{ $treports_count ?? '0' }}</span>
+                                </p>
+                                </a>
+                            </li>
+    
+                            @can('tickets.show')
+                            <li class="nav-item">
+                                    <a href="{{ url('tickets/panel') }}"
+                                            class="{{ Request::path() === 'tickets/panel' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Panel Estadístico</p>
+                                    </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    <!---TICKETS NAV FINISH--->
+
                         </ul>
 
                     </nav>
@@ -401,6 +439,8 @@ use App\VehiclesTravel;
     </div>
 
     {{-- scrips--------------------------- --}}
+    <!-- Ekko Lightbox -->
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->

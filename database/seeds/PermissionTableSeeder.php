@@ -246,6 +246,36 @@ class PermissionTableSeeder extends Seeder
                'display'=>'Crear pdf de reporte vehicular con rango de fechas'
        ]); 
        
+       //Permisos Tickets
+       Permission::create([
+            'name' => 'tickets.create',
+            'category' => 'Tickets',
+            'display'=>'Crear Ticket'
+        ]); 
+                
+        Permission::create([
+             'name' => 'tickets.index',
+               'category' => 'Tickets',
+                'display'=>'Ingresar a listado Tickets'
+        ]); 
+         
+        Permission::create([
+            'name' => 'tickets.show',
+              'category' => 'Tickets',
+               'display'=>'Visualizar un ticket'
+        ]);
+       
+       Permission::create([
+        'name' => 'tickets.edit',
+          'category' => 'Tickets',
+           'display'=>'Editar un Ticket'
+        ]); 
+        Permission::create([
+            'name' => 'tickets.delete',
+              'category' => 'Tickets',
+               'display'=>'Borrar un Ticket'
+        ]); 
+
        
 
         // Permisos sobre modulos de reportes
