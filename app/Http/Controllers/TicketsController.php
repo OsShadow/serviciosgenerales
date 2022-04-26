@@ -6,6 +6,7 @@ use App\Http\Requests\TicketStoreRequest;
 use App\Http\Requests\TicketUpdateRequest;
 use App\ticket_reports;
 use App\TicketImages;
+use App\PanelData;
 use App\User;
 use Carbon\Carbon;
 use DB;
@@ -148,10 +149,29 @@ class TicketsController extends Controller
     }
 
     public function panel(){
-        $ttreports = DB::table('ticket_reports')
-        ->orderBy('date', 'asc')
+        
+//SELECT date , COUNT(type) as Open FROM ticket_reports WHERE type = 'Abierto' GROUP BY date;
+//SELECT DATE(updated_at) as date, COUNT(type) as Close FROM ticket_reports WHERE type = 'Cerrado' GROUP BY DATE(updated_at);
+
+        $tickets_open = DB::table('ticket_reports')
+        // ->selectRaw('date')
+        ->selectRaw('COUNT(type) AS Open')
+        // ->where('type', '=', 'Abierto')
+        ->whereType('Abierto')
+        // ->exists()
+        ->groupBy('date')
         ->get();
-        return view('tickets.panel',compact('ttreports'));
+        return view('tickets.panel',['tickets_open' =>$tickets_open]);
+
+        $tickets_close = DB::table('ticket_reports')
+        // ->select(DB::raw('count(type) as Close'))
+        ->selectRaw('DATE(updated_at) AS date')
+        // ->where('type', '=', 'Cerrado')
+        ->whereType('Cerrado')
+        ->exists()
+        ->groupBy('DATE(updated_at)')
+        ->get();
+        return view('tickets.panel',['tickets_close' =>$tickets_close]);
     }
 
 }
