@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -24,7 +24,6 @@
 
       function drawChart() {
 
-    
         var datattrep = google.visualization.arrayToDataTable([
           ['Mes', 'Abierto', 'Cerrados', 'En Ejecución'],
           ['{date}', 1000, 400, 200],

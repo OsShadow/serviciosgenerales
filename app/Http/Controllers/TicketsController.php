@@ -161,17 +161,17 @@ class TicketsController extends Controller
         // ->exists()
         ->groupBy('date')
         ->get();
-        return view('tickets.panel',['tickets_open' =>$tickets_open]);
 
         $tickets_close = DB::table('ticket_reports')
         // ->select(DB::raw('count(type) as Close'))
-        ->selectRaw('DATE(updated_at) AS date')
+        ->selectRaw('updated_at AS date')
         // ->where('type', '=', 'Cerrado')
         ->whereType('Cerrado')
-        ->exists()
-        ->groupBy('DATE(updated_at)')
+        //->exists()
+        ->groupBy('updated_at')
         ->get();
-        return view('tickets.panel',['tickets_close' =>$tickets_close]);
+        return view('tickets.panel',['tickets_open' =>$tickets_open,'tickets_close' =>$tickets_close]);
+
     }
 
 }
