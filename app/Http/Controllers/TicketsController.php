@@ -154,23 +154,25 @@ class TicketsController extends Controller
 //SELECT DATE(updated_at) as date, COUNT(type) as Close FROM ticket_reports WHERE type = 'Cerrado' GROUP BY DATE(updated_at);
 
         $tickets_open = DB::table('ticket_reports')
-        // ->selectRaw('date')
+        ->selectRaw('date')
         ->selectRaw('COUNT(type) AS Open')
-        // ->where('type', '=', 'Abierto')
         ->whereType('Abierto')
-        // ->exists()
         ->groupBy('date')
         ->get();
 
         $tickets_close = DB::table('ticket_reports')
-        // ->select(DB::raw('count(type) as Close'))
-        ->selectRaw('updated_at AS date')
-        // ->where('type', '=', 'Cerrado')
+        ->selectRaw('DATE(updated_at) AS date')
+        ->selectRaw('COUNT(type) AS Close')
         ->whereType('Cerrado')
-        //->exists()
         ->groupBy('updated_at')
         ->get();
+        //dd($tickets_close, $tickets_open);
         return view('tickets.panel',['tickets_open' =>$tickets_open,'tickets_close' =>$tickets_close]);
+
+        $tickets_oc = DB::table('ticket_reports')
+        ;
+
+        
 
     }
 
