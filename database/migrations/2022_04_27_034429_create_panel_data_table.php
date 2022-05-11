@@ -15,16 +15,11 @@ class CreatePanelDataTable extends Migration
     {
         Schema::create('panel_data', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('ticket_oc');
             $table->date('date');
-            $table->decimal('open');
-            $table->decimal('close');
+            $table->string('open');
+            $table->string('close');
             $table->timestamps();
 
-            $table->foreign('ticket_oc')
-            ->references('id')
-            ->on('ticket_reports')
-            ->onDelete('cascade');
         });
     }
 

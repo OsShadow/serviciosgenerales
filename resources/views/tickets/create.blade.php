@@ -67,6 +67,7 @@
                                     <option value="" selected disable>Elija el estatus del Ticket</option>
                                     <option value="Abierto">Abierto</option>
                                     <option value="Ejecutando">Ejecutando</option>
+                                    <option value="Cerrado">Cerrado</option>
                                     </select>
                                 </div>
                             </div>

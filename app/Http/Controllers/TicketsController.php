@@ -167,11 +167,15 @@ class TicketsController extends Controller
         ->groupBy('updated_at')
         ->get();
         //dd($tickets_close, $tickets_open);
-        return view('tickets.panel',['tickets_open' =>$tickets_open,'tickets_close' =>$tickets_close]);
 
-        $tickets_oc = DB::table('ticket_reports')
-        ;
+        $panel_data = new PanelData();
 
+        $paneldata[0]->date = $tickets_open->date;
+        $paneldata[0]->open = $tickets_open->type;
+        $paneldata[0]->date = $tickets_close->date;
+        $paneldata[0]->close = $tickets_close->type;
+
+        $paneldata->save(); 
         
 
     }
