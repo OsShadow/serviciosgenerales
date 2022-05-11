@@ -167,7 +167,7 @@ class TicketsController extends Controller
         ->groupBy('updated_at')
         ->get();
         //dd($tickets_close, $tickets_open);
-
+//Proximos cambios: Auxilio
         $panel_data = new PanelData();
 
         $paneldata[0]->date = $tickets_open->date;
