@@ -168,7 +168,7 @@ class TicketsController extends Controller
         ->get();
         //dd($tickets_close, $tickets_open);
 //Proximos cambios: Auxilio
-        $panel_data = new PanelData();
+        $paneldata = new PanelData();
 
         $paneldata[0]->date = $tickets_open->date;
         $paneldata[0]->open = $tickets_open->type;
