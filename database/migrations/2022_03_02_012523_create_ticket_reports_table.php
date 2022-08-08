@@ -20,6 +20,7 @@ class CreateTicketReportsTable extends Migration
             $table->date('date');
             $table->longText('ticket_report');
             $table->text('employer');
+            $table->date('closed_at');
             $table->date('date_finish');
             $table->time('hour_finish');
             $table->timestamps();
