@@ -169,7 +169,7 @@ class TicketsController extends Controller
         
         // $tickets_close = DB::table('ticket_reports')
         // ->selectRaw('DATE(updated_at) AS date')
-         $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 10 DAY) AND CURDATE()");
+        $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 10 DAY) AND CURDATE()");
 
         // $tickets_open = DB::select('SELECT DATE_SUB(CURDATE(), INTERVAL 10 DAY)');
         // ['Fecha', 'Abierto', 'Cerrado'],
