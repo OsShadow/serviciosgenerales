@@ -20,32 +20,37 @@
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawStuff);
 
+      
       var f_ticket = @json($fresh_tickets);
       //SI JALA, TIENE QUE HABER TICKETS ABIERTOS Y QUE SEAN NO MÁS DE 10 DÍAS DE ANTIGUEDAD
       //console.log(f_ticket)
 
       // Primero crea una variable que sea igual a un array que va a ser tu resultado final y le vas a ir metiendo datos conforme avances
       var array_final = [];
-      
         var contador_abiertos = 0;
         var contador_cerrados = 0;
 
-        var arreglo_interno1 = f_ticket.date[0];
-        var arreglo_interno2 = contador_abiertos;
-        var arreglo_interno3 = contador_cerrados;
+        var arreglo_interno1 = [f_ticket[0].date, contador_abiertos, contador_cerrados];
 
-      console.log(arreglo_interno1[0])
-              
-        for (let ticket of tickets_open) {
-
-          // ahi crea un nuevo arreglo asi ['',0,0] que vas a tenenr en una variable como auiliar
-          let inside_array = array_final[arreglo_interno[0,1,2]];
-
-          if(f_ticket.type == 'Abierto'){
-            console.log("Adios")
-            let insert = tickets.push('Abierto???');
+        var found_open = arreglo_interno1.find(element => element == contador_abiertos);
+        //console.log(found_open);
+        var sum_open = 0;
+         // console.log(sum);
+          if(f_ticket[0].type == 'Abierto'){
+            found_open += 1;
+            //break;
+            console.log(found_open);
           }
-        }
+        
+        var found_close = arreglo_interno1.find(element => element == contador_cerrados);
+        //console.log(found_close);
+        var sum_close = 0;
+         // console.log(sum);
+          if(f_ticket[0].type == 'Cerrado'){
+            found_close += 1;
+            //break;
+            console.log(found_close);
+          }
 
       function drawStuff() {
         var data = new google.visualization.arrayToDataTable([
