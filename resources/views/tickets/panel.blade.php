@@ -6,83 +6,87 @@
     </div>
 </div>
 
-<div>
-    <div class="col-sm-12 col-md-10 col-lg-6 ">
+<div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-12 ">
         <div class="card">
             <div class="card-body" style="overflow: auto;">
                 <div class="mx-auto" id="Tickets" style="width: 100%; height: 300px"></div>
             </div>
         </div>
     </div>
-  </div>
+</div>
   
   <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawStuff);
-
       
-      var f_ticket = @json($fresh_tickets);
-      //SI JALA, TIENE QUE HABER TICKETS ABIERTOS Y QUE SEAN NO MÁS DE 10 DÍAS DE ANTIGUEDAD
-      //console.log(f_ticket)
-
-      // Primero crea una variable que sea igual a un array que va a ser tu resultado final y le vas a ir metiendo datos conforme avances
-      var array_final = [];
-        var contador_abiertos = 0;
-        var contador_cerrados = 0;
-
-        var arreglo_interno1 = [f_ticket[0].date, contador_abiertos, contador_cerrados];
-
-        var found_open = arreglo_interno1.find(element => element == contador_abiertos);
-        //console.log(found_open);
-        var sum_open = 0;
-         // console.log(sum);
-          if(f_ticket[0].type == 'Abierto'){
-            found_open += 1;
-            //break;
-            console.log(found_open);
-          }
-        
-        var found_close = arreglo_interno1.find(element => element == contador_cerrados);
-        //console.log(found_close);
-        var sum_close = 0;
-         // console.log(sum);
-          if(f_ticket[0].type == 'Cerrado'){
-            found_close += 1;
-            //break;
-            console.log(found_close);
-          }
+      // RECORDATORIO, NO TE ESCAMES
+      // Para mostrar las fechas debes cambiar el update_at de algún ticket
+      // que sea en el rango en los diez días posteriores al día de hoy
+      // por la validación que pusiste en el controlador.
+      // FÍJATE en toda la consola, ha de estar escondido porai
 
       function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-          ['Fecha', 'Abierto', 'Cerrado'],
-          ['21/10/2021', 8, 23],
-          ['22/10/2021', 24, 4],
-          ['23/10/2021', 15, 14],
-          ['24/10/2021', 12, 9],
-          ['25/10/2021', 17, 13]
-        ]);
+
+        var f_ticket = @json($fresh_tickets);
+        var array_final=[];
+
+        for(let pasada_general of f_ticket){
+
+          var arreglo_interno1 = ['', 0, 0];
+          
+          switch (pasada_general.type) {
+            case 'Abierto':
+              arreglo_interno1[0] = pasada_general.updated_at.slice(0,11);
+              arreglo_interno1[1] = 1;
+              break;
+              
+              case 'Cerrado':
+                arreglo_interno1[0] = pasada_general.updated_at.slice(0,11);
+                arreglo_interno1[2] = 1;
+                break;
+                default:
+                  console.log('Nothing here')
+                }
+                array_final.push(arreglo_interno1);
+              }
+
+              let resp = [];
+              array_final.forEach(el=>{
+                let index = resp.findIndex(date=> date[0] == el[0]);
+                if(index>=0){
+                  resp[index] = [el[0], resp[index][1]+el[1], resp[index][2]+el[2]];
+                }else{
+                  resp.push(el);
+                }
+              });     
+              resp.unshift(['Fecha', 'Abierto', 'Cerrado'])
+              console.log(resp)
+
+
+       var data = new google.visualization.arrayToDataTable(resp);
 
         var options = {
-          width: 800,
+         width: 800,
           chart: {
-            title: 'Gráfica de Tickets',
+          title: 'Gráfica de Tickets',
             subtitle: 'Abiertos: Azul | Cerrados: Rojo'
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           series: {
-            0: { axis: 'Abiertos' }, // Bind series 0 to an axis named 'Abiertos'.
+           0: { axis: 'Abiertos' }, // Bind series 0 to an axis named 'Abiertos'.
             1: { axis: 'Cerrados' } // Bind series 1 to an axis named 'Cerrados'.
           },
           axes: {
-            x: {
-              distance: {label: 'parsecs'}, // Bottom x-axis.
-              brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
-            }
-          }
+           x: {
+             distance: {label: 'parsecs'}, // Bottom x-axis.
+             brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
+           }
+         }
         };
 
       var chart = new google.charts.Bar(document.getElementById('Tickets'));
       chart.draw(data, options);
-    };
+              }
     </script>
 @endsection
