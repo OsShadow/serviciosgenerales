@@ -6,7 +6,64 @@
     </div>
 </div>
 
-<div class="row">
+
+
+<!----Start---->
+    <div class="card" style="padding: 5px">
+        <div class="card-body" style="padding: 5px !important">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="card-title">Filtrar por fecha</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+                    <div class="card-text">
+
+                        <form>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                    <!---INPUT DATE INI---->    
+                                    <div class="input-group-prepend">
+                                            <div class="input-group-text">Inicio</div>
+                                        </div>
+                                      <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
+                                            id="DateInitial">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Fin</div>
+                                        </div>
+                                        <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
+                                            id="DateEnding">
+                                       <!---INPUT DATE END---->
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-sync"></i>  Filtrar</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+
+                    @if (isset($selection))
+                <div class="row col-sm-12">
+                    <div class="col-md-6">
+                        Resultados de tu búsqueda entre rangos <span style="font-weight: bold">{{ $DateIni }}</span> y
+                        <span style="font-weight: bold">{{ $DateEnd }}</span>
+                    </div>
+                    
+                </div>
+                      @endif
+
+            </div>
+            <div class="row">
     <div class="col-sm-12 col-md-10 col-lg-12 ">
         <div class="card">
             <div class="card-body" style="overflow: auto;">
@@ -15,7 +72,7 @@
         </div>
     </div>
 </div>
-  
+
   <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawStuff);

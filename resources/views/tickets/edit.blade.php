@@ -60,7 +60,9 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="type">Cambio de Estatus a:</label>
+                            <label class="text-white bg-red">SI NO SE ELIGE EL ESTADO DEL TICKET QUEDARÁ AUTOMÁTICAMENTE POR DEFECTO COMO ABIERTO</label>
+                                <label for="type">Estado actual de Ticket:</label>
+                                <label for="type" class="text-white bg-green">{{ $treports->type }}</label>
                                 <select class="custom-select" id="type" name="type">
                                   <option {{ $treports->id == "Abierto" ? "selected" : "" }} value="Abierto">Abierto</option>
                                   <option {{ $treports->id == "Ejecutando" ? "selected" : "" }}value="Ejecutando">Ejecutando</option>

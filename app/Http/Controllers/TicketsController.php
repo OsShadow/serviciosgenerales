@@ -24,12 +24,12 @@ class TicketsController extends Controller
             $DateIni = '2021-01-01';
             $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
             
-            $treports = ticket_reports::paginate(30);
+            $treports = ticket_reports::latest()->paginate(30);
             return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
 
         }else{
             $selection = true;
-            $treports = ticket_reports::whereBetween('date',[$DateIni, $DateEnd])->paginate(30);
+            $treports = ticket_reports::whereBetween('date',[$DateIni, $DateEnd])->latest()->paginate(30);
             return view('tickets.index', ['treports' => $treports, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'selection' => $selection  ]);
 
         }
@@ -154,32 +154,30 @@ class TicketsController extends Controller
         return $pdf->stream('ticketreport');
     }
 
-    public function panel(){
-        
-//SELECT date , COUNT(type) as Open FROM ticket_reports WHERE type = 'Abierto' GROUP BY date;
-//SELECT DATE(updated_at) as date, COUNT(type) as Close FROM ticket_reports WHERE type = 'Cerrado' GROUP BY DATE(updated_at);
+    public function panel(Request $request){
 
-        //Que las fechas se muestren los datos no mayor a cinco días
-        //Se necesita extraer la fecha para la condicional
-        //Hacer consulta SQL para sacar los tickets de cada fecha
-        //Agruparlos para la vista
-        //Agruparlos correctamente bueno mostrarlos pues
-        // $tickets_open = DB::table('ticket_reports')
-        // ->whereBetween('date',[ 'DATEADD(day, -7, NOW())', ' NOW()'])
-        
-        // $tickets_close = DB::table('ticket_reports')
-        // ->selectRaw('DATE(updated_at) AS date')
-        $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 15 DAY) AND CURDATE()");
+        $DateIni = $request->get('DateIni');
+        $DateEnd = $request->get('DateEnd');
+//El if sí funciona
+        if($DateIni == '' || $DateEnd == ''){
 
-        // $tickets_open = DB::select('SELECT DATE_SUB(CURDATE(), INTERVAL 10 DAY)');
-        // ['Fecha', 'Abierto', 'Cerrado'],
-        
-        
+            $DateIni = '2021-01-01';
+            $DateEnd = Carbon::parse(Carbon::now())->timezone('America/Mexico_City')->format('Y-m-d');
+            
+            $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 15 DAY) AND CURDATE()");
+            return view('tickets.panel', ['fresh_tickets' => $fresh_tickets, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd]);
 
-        return view('tickets.panel', ['fresh_tickets' => $fresh_tickets ]);
+        }else{
+            $selection = true;
+            $fresh_tickets = ticket_reports::whereBetween('updated_at',[$DateIni, $DateEnd]);
+            return view('tickets.panel', ['fresh_tickets' => $fresh_tickets, 'DateIni' => $DateIni, 'DateEnd' => $DateEnd, 'selection' => $selection  ]);
 
-//Proximos cambios: Auxilio
-        
+        }
+
+//Original
+        //$fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 15 DAY) AND CURDATE()");
+
+        //return view('tickets.panel', ['fresh_tickets' => $fresh_tickets ]);        
 
     }
 
