@@ -29,7 +29,7 @@
                                     <div class="input-group-prepend">
                                             <div class="input-group-text">Inicio</div>
                                         </div>
-                                      <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
+                                    <input type="date" name="DateIni" value="{{ $DateIni }}" class="form-control"
                                             id="DateInitial">
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                         </div>
                                         <input type="date" name="DateEnd" value="{{ $DateEnd }}" class="form-control"
                                             id="DateEnding">
-                                       <!---INPUT DATE END---->
+                                    <!---INPUT DATE END---->
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -49,7 +49,7 @@
                             </div>
                         </form>
 
-                       
+                    
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-2">
@@ -95,36 +95,36 @@
 
                 <tbody>
                     @foreach ($treports as $treport)
-                   <tr>
-                   {{-- <th scope="row">{{ $treport->id }}</th> --}}
-                   <td class="text-center text-secondary">{{ $treport->date }}</td>
-                   <td class="text-center text-secondary">{{ $treport->date_finish }}</td>
-                   <td class="text-center text-secondary">{{ $treport->hour_finish }}</td>
-                   <td class="text-center text-secondary">{{ $treport->employer }}</td>
-                   <td class="text-center text-secondary">{{ $treport->ticket_report }}</td>
-                   <td class="text-center text-secondary">{{ $treport->type }}</td>
-                   <td class="text-center text-secondary">{{ $treport->id }}</td>
-                   <td>
+                    <tr>
+                    {{-- <th scope="row">{{ $treport->id }}</th> --}}
+                    <td class="text-center text-secondary">{{ $treport->date }}</td>
+                    <td class="text-center text-secondary">{{ $treport->date_finish }}</td>
+                    <td class="text-center text-secondary">{{ $treport->hour_finish }}</td>
+                    <td class="text-center text-secondary">{{ $treport->employer }}</td>
+                    <td class="text-center text-secondary">{{ $treport->ticket_report }}</td>
+                    <td class="text-center text-secondary">{{ $treport->type }}</td>
+                    <td class="text-center text-secondary">{{ $treport->id }}</td>
+                    <td>
                         <form action="{{ route('tickets.destroy', $treport->id) }}" method="POST">
                             
                             <a href="{{ route('tickets.pdf', $treport->id) }}">
-                           <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
+                            <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
 
-                           <a href="{{ route('tickets.show', $treport->id) }}">
-                           <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button></a>
+                            <a href="{{ route('tickets.show', $treport->id) }}">
+                            <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button></a>
 
-                           <a href="{{ route('tickets.edit', $treport->id) }}">
-                           <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
+                            <a href="{{ route('tickets.edit', $treport->id) }}">
+                            <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
 
-                           @csrf
-                           @method('DELETE')
-                           <button type="submit" class="btn btn-danger"
-                           onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
-                           class="far fa-trash-alt"></i></button></button>
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
+                            class="far fa-trash-alt"></i></button>
                         </form>
                     </td>
-                   </tr>
-                   @endforeach
+                </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
