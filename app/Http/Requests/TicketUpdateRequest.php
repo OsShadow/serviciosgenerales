@@ -26,7 +26,6 @@ class TicketUpdateRequest extends FormRequest
         return [
             'date_finish' => 'required',
             'ticket_report' => 'required',
-            'employer' => 'required'
         ];
     }
 }

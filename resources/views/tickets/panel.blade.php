@@ -12,11 +12,7 @@
     <div class="card" style="padding: 5px">
         <div class="card-body" style="padding: 5px !important">
 
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="card-title">Filtrar por fecha</div>
-                </div>
-            </div>
+            
 
             <div class="row">
                 <div class="col-sm-12 col-md-10">

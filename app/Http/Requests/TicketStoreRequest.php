@@ -28,8 +28,9 @@ class TicketStoreRequest extends FormRequest
             'date_finish' => 'required',
             'hour_finish' => 'required',
             'type' => 'required',
+            'priority' => 'required',
             'ticket_report' => 'required',
-            'employer' => 'required'
+            'user_code' => 'required',
         ];
     }
 }

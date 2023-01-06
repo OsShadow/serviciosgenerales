@@ -85,11 +85,13 @@
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Creación</th>
                         <th scope="col" class="text-center" style="width: 120px">Fecha de Expiración</th>
                         <th scope="col" class="text-center" style="width: 70px">Hora de Expiración</th>
-                        <th scope="col" class="text-center" style="width: 150px">Asignado a</th>
+                        <th scope="col" class="text-center" style="width: 150px">Código de empleado asignado</th>
                         <th scope="col" class="text-center" style="width: 200px">Descripción del Reporte</th>
                         <th scope="col" class="text-center"> Estado de Ticket</th>
-                        <th scope="col" class="text-center" style="width: 70px">ID</th>
+                        <th scope="col" class="text-center" style="width: 70px">Folder</th>
+                        <th scope="col" class="text-center"> Código de creador del Ticket</th>
                         <th scope="col" class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
+
                     </tr>
                 </thead>
 
@@ -97,33 +99,35 @@
                     @foreach ($treports as $treport)
                     <tr>
                     {{-- <th scope="row">{{ $treport->id }}</th> --}}
-                    <td class="text-center text-secondary">{{ $treport->date }}</td>
-                    <td class="text-center text-secondary">{{ $treport->date_finish }}</td>
-                    <td class="text-center text-secondary">{{ $treport->hour_finish }}</td>
-                    <td class="text-center text-secondary">{{ $treport->employer }}</td>
-                    <td class="text-center text-secondary">{{ $treport->ticket_report }}</td>
-                    <td class="text-center text-secondary">{{ $treport->type }}</td>
-                    <td class="text-center text-secondary">{{ $treport->id }}</td>
-                    <td>
-                        <form action="{{ route('tickets.destroy', $treport->id) }}" method="POST">
+                        <td class="text-center text-secondary">{{ $treport->date }}</td>
+                        <td class="text-center text-secondary">{{ $treport->date_finish }}</td>
+                        <td class="text-center text-secondary">{{ $treport->hour_finish }}</td>
+                        <td class="text-center text-secondary">{{ $treport->user_code }}</td>
+                        <td class="text-center text-secondary">{{ $treport->ticket_report }}</td>
+                        <td class="text-center text-secondary">{{ $treport->type }}</td>
+                        <td class="text-center text-secondary">{{ $treport->id }}</td>
+                        <td class="text-center text-secondary">{{ $treport->user_report }}</td>
+
+                        <td>
+                            <form action="{{ route('tickets.destroy', $treport->id) }}" method="POST">
                             
-                            <a href="{{ route('tickets.pdf', $treport->id) }}">
-                            <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
+                                <a href="{{ route('tickets.pdf', $treport->id) }}">
+                                <button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
 
-                            <a href="{{ route('tickets.show', $treport->id) }}">
-                            <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button></a>
+                                <a href="{{ route('tickets.show', $treport->id) }}">
+                                <button type="button" class="btn btn-info"><i style="color: white" class=" far fa-eye" alt="submit"></i></button></a>
 
-                            <a href="{{ route('tickets.edit', $treport->id) }}">
-                            <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
+                                <a href="{{ route('tickets.edit', $treport->id) }}">
+                                <button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
 
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger"
-                            onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
-                            class="far fa-trash-alt"></i></button>
-                        </form>
-                    </td>
-                </tr>
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('¿Seguro que desea Eliminar el reporte?')"><i
+                                class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

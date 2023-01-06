@@ -50,20 +50,22 @@
                         @csrf
 
                         <div class="form-row">
+
                             <div class="form-group col-md-4">
-                                <label for="area">Fecha de expiración</label>
+                                <label for="area">Fecha de expiración actual: </label>
                                 <input type="date" class="form-control" value="{{ $treports->date_finish }}" name="date_finish" id="date_finish">
                             </div>
+
                             <div class="form-group col-md-4">
-                                <label for="area">Hora de expiración</label>
+                                <label for="area">Hora de expiración actual: </label>
                                 <input type="time" class="form-control" value="{{ $treports->hour_finish }}" name="hour_finish" id="hour_finish">
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label class="text-white bg-red">SI NO SE ELIGE EL ESTADO DEL TICKET QUEDARÁ AUTOMÁTICAMENTE POR DEFECTO COMO ABIERTO</label>
-                                <label for="type">Estado actual de Ticket:</label>
+                                <label for="type">Estado actual de Ticket: </label>
                                 <label for="type" class="text-white bg-green">{{ $treports->type }}</label>
-                                <select class="custom-select" id="type" name="type">
+                                <select class="custom-select" id="type" name="type" placeholder="Asignación de Ticket">
+                                    <option selected disabled value="">{{ $treports->type }}</option>
                                     <option {{ $treports->id == "Abierto" ? "selected" : "" }} value="Abierto">Abierto</option>
                                     <option {{ $treports->id == "Ejecutando" ? "selected" : "" }}value="Ejecutando">Ejecutando</option>
                                     <option {{ $treports->id == "Cerrado" ? "selected" : "" }} value="Cerrado">Cerrado</option>
@@ -71,17 +73,31 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label>Asignar a</label>
-                                <textarea class="form-control" id="employer" name="employer" rows="3">{{ $treports->employer }}</textarea>
+                                <label for="priority">Prioridad actual de Ticket: </label>
+                                <label for="priority" class="text-white bg-green">{{ $treports->priority }}</label>
+                                <select class="custom-select" id="priority" name="priority" placeholder="Asignación de Ticket">
+                                    <option selected disabled value="">{{ $treports->priority }}</option>
+                                    <option {{ $treports->id == "Alta" ? "selected" : "" }} value="Alta">Alta</option>
+                                    <option {{ $treports->id == "Media" ? "selected" : "" }}value="Media">Media</option>
+                                    <option {{ $treports->id == "Baja" ? "selected" : "" }} value="Baja">Baja</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group col-md-4">
+                                    <label for="user_code">Empleado a realizar la tarea actual: </label>
+                                    <label for="priority" class="text-white bg-green">{{ $treports->user_code }}</label>
+                                    <select class="custom-select" id="user_code" name="user_code">
+                                    <option selected disabled value="">{{ $treports->user_code}}</option>
+                                    @foreach ($user_code as $user_code)
+                                    <option value="{{ $user_code->code }}">{{ $user_code->code }}</option>
+                                    @endforeach
+                                    </select>
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label>Reporte</label>
+                                <label for="ticket_report">Reporte</label>
                                 <textarea class="form-control" id="ticket_report" name="ticket_report" rows="3">{{ $treports->ticket_report }}</textarea>
                             </div>
-
-
-
 
                         </div>
 
@@ -108,7 +124,7 @@
                                 <form method="POST" action="{{route('tickets.deleteimage', [$treports->id, $timage->id]) }}" enctype="multipart/form-data">
                                     @csrf
                                     @method('patch')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que desea eliminar el reporte?')"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que desea eliminar la imagen de evidencia?')"><i class="far fa-trash-alt"></i></button>
                                 </form>
                                 @endforeach
                                 <form method="POST" action="{{route('tickets.addimage', $treports->id) }}" enctype="multipart/form-data">

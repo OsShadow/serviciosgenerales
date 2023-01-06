@@ -33,14 +33,13 @@
 
                     <div class="card-body">
                             
-                        <form method="POST" action="{{ url('tickets') }}" enctype="multipart/form-data"
-                        >
+                        <form method="POST" action="{{ url('tickets') }}" enctype="multipart/form-data">
                             @csrf
 
-                        <div class="form-row">
+                            <div class="form-row">
                             
-                            <div class="form-group col-md-4">
-                                <div class="form-group">
+                                <div class="form-group col-md-4">
+                                    <div class="form-group">
                                     <label for="example-date-input">Fecha de generación</label>
                                     <input type="date" class="form-control" value="{{ $date }}" name="date" id="date">
                                 </div>
@@ -73,10 +72,32 @@
                             </div>
 
                             <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label for="priority">Prioridad del Ticket</label>
+                                    <select class="custom-select" id="priority" name="priority">
+                                    <option value="" selected disable>Elija la prioridad del Ticket</option>
+                                    <option value="Alta">Alta</option>
+                                    <option value="Media">Media</option>
+                                    <option value="Baja">Baja</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group col-md-4">
                                 <div class="form-group col-md-9">
                                     <label>Asignar a:</label>
                                     <input type="text" class="form-control" placeholder="Nombre completo del empleado" id="employer" name="employer">
                                 </div>
+                            </div> -->
+
+                            <div class="form-group col-md-4">
+                                    <label for="user_code">Empleado a realizar la tarea</label>
+                                    <select class="custom-select" id="user_code" name="user_code">
+                                    <option selected disabled value="">Elige el código del empleado</option>
+                                    @foreach ($user_code as $user_code)
+                                    <option value="{{ $user_code->code }}">{{ $user_code->code }}</option>
+                                    @endforeach
+                                    </select>
                             </div>
 
                             <div class="form-group col-md-4">
@@ -86,10 +107,12 @@
                                     placeholder="Describa su reporte" id="reporte_ticket" name="ticket_report"></textarea>
                                 </div>
                             </div>
-
-                            <div class="form-group col-md-4">
-                                    <label>Evidencias</label>
-                                    <input type="file" name="file[]" id="file" multiple class="form-control">
+                            
+                            <div>
+                                <div class="form-group col-md-4">
+                                        <label>Evidencias</label>
+                                        <input type="file" name="file[]" id="file" multiple class="form-control">
+                                </div>
                             </div>
 
                                 <div class="form-group col-md-6">
@@ -98,7 +121,7 @@
                                     </button>
                                 </div>
 
-                        </div>
+                            </div>
                         </form>
 
                     </div>

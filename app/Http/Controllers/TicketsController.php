@@ -44,8 +44,9 @@ class TicketsController extends Controller
      */
     public function create(Request $request)
     {
+        $user_code = User::all();
         $date = Carbon::parse(Carbon::now())->format('Y-m-d');
-        return view('tickets.create', ['date' => $date]);
+        return view('tickets.create', ['date' => $date, 'user_code' => $user_code]);
     }
 
     public function store(TicketStoreRequest $request)
@@ -57,8 +58,9 @@ class TicketsController extends Controller
 
         $treports->date = $date;
         $treports->ticket_report = $request->ticket_report;
-        $treports->employer = $request->employer;
         $treports->type = $request->type;
+        $treports->user_code = $request->user_code;
+        $treports->priority = $request->priority;
         $treports->date_finish = $request->date_finish;
         $treports->hour_finish = $request->hour_finish;
 
@@ -103,12 +105,20 @@ class TicketsController extends Controller
 
         $treports = ticket_reports::findOrFail($id);
 
+        if ($request->has('type')) {
+            $treports->type = $request->type;
+        }
+        if ($request->has('priority')) {
+            $treports->priority = $request->priority;
+        }
+        if ($request->has('user_code')) {
+            $treports->user_code = $request->user_code;
+        }
+
         $treports->ticket_report = $request->ticket_report;
-        $treports->employer = $request->employer;
-        $treports->type = $request->type;
         $treports->date_finish = $request->date_finish;
         $treports->hour_finish = $request->hour_finish;
-
+        
         if ($request->type == "Cerrado") {
             $treports->closed_at = date("Y-m-d");
         }
@@ -122,9 +132,10 @@ class TicketsController extends Controller
         // dd($hasFiles);
 
     
-
+        $user_code = User::all();
         return view('tickets.edit', [
             'treports' => ticket_reports::findOrFail($id),
+            'user_code' => $user_code,
             'timages' => TicketImages::where('ticket_id', $id)->get()
         ]);
     }
@@ -196,9 +207,11 @@ class TicketsController extends Controller
 
     public function edit($id)
     {
+        $user_code = User::all();
         return view('tickets.edit', [
-            'treports' => ticket_reports::findOrFail($id),
-            'timages' => TicketImages::where('ticket_id', $id)->get()
+        'treports' => ticket_reports::findOrFail($id),
+        'user_code' => $user_code,
+        'timages' => TicketImages::where('ticket_id', $id)->get(),
         ]);
     }
 
@@ -257,8 +270,9 @@ class TicketsController extends Controller
         // }
 
         //Original
-        $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 15 DAY) AND CURDATE()");
+        $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(NOW(), INTERVAL 15 DAY) AND NOW()");
 
+        // dd($fresh_tickets);
         return view('tickets.panel', ['fresh_tickets' => $fresh_tickets ]);        
 
     }
